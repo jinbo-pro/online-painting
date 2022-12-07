@@ -1,0 +1,64 @@
+// 基础样式集
+
+// 最小像素
+$min: 8;
+// 最大像素
+$max: 32;
+// 单位
+$unit: 0px;
+// 步进值
+$step: 2;
+
+$i: $min;
+
+// 循环生成常用class
+@while $i <=$max {
+  // 字体
+  .f#{$i} {
+    font-size: $i + $unit;
+  }
+
+  // margin
+  .margin-#{$i} {
+    margin: $i + $unit;
+  }
+
+  .mt-#{$i} {
+    margin-top: $i + $unit;
+  }
+
+  .mb-#{$i} {
+    margin-bottom: $i + $unit;
+  }
+
+  .ml-#{$i} {
+    margin-left: $i + $unit;
+  }
+
+  .mr-#{$i} {
+    margin-right: $i + $unit;
+  }
+
+  // padding
+  .padding-#{$i} {
+    padding: $i + $unit;
+  }
+
+  .pt-#{$i} {
+    padding-top: $i + $unit;
+  }
+
+  .pb-#{$i} {
+    padding-bottom: $i + $unit;
+  }
+
+  .pl-#{$i} {
+    padding-left: $i + $unit;
+  }
+
+  .pr-#{$i} {
+    padding-right: $i + $unit;
+  }
+
+  $i: $i + $step;
+}

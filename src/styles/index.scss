@@ -1,0 +1,24 @@
+@import './baseClass.scss';
+@import './css3-flex.scss';
+
+body {
+  height: 100%;
+  font-size: 14px;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-family: Helvetica Neue, Helvetica, PingFang SC, Hiragino Sans GB, Microsoft YaHei, Arial, sans-serif;
+  background-color: #e9f0ff;
+}
+
+.card {
+  box-sizing: border-box;
+  background-color: #fff;
+  box-shadow: 0 3px 7px 0 #e2e2e2;
+}
+
+.container {
+  width: 83%;
+  margin: 16px auto;
+  background-color: #fff;
+}
