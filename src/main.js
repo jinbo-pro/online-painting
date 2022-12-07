@@ -4,10 +4,12 @@ import './elementui/index'
 import './styles/index.scss'
 import 'normalize.css/normalize.css'
 import router from './router/index'
+import { i18n } from './i18n'
 
 Vue.config.productionTip = false
 
 new Vue({
+  i18n,
   router,
   render: (h) => h(App)
 }).$mount('#app')

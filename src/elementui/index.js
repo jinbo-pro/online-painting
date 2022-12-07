@@ -30,12 +30,18 @@ import {
   Icon,
   Row,
   Card,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
   Container,
   Breadcrumb,
   BreadcrumbItem
 } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+Vue.use(Dropdown)
+Vue.use(DropdownMenu)
+Vue.use(DropdownItem)
 Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Backtop)
