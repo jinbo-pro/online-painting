@@ -19,7 +19,7 @@ $i: $min;
   }
 
   // margin
-  .margin-#{$i} {
+  .mg-#{$i} {
     margin: $i + $unit;
   }
 
@@ -40,7 +40,7 @@ $i: $min;
   }
 
   // padding
-  .padding-#{$i} {
+  .pd-#{$i} {
     padding: $i + $unit;
   }
 

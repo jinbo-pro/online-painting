@@ -4,7 +4,7 @@
       <el-col :span="4" class="jac">
         <el-avatar :src="LogoImg"></el-avatar>
       </el-col>
-      <el-col :span="16">
+      <el-col :span="14">
         <div class="jsb ac">
           <div
             v-for="(item, index) in navList"
@@ -19,8 +19,9 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="4">
+      <el-col :span="6">
         <div class="jac">
+          <SelectLang />
           <div class="notice_icon mr-14">
             <i class="el-icon-message-solid"></i>
           </div>
@@ -32,8 +33,12 @@
 </template>
 
 <script>
+import SelectLang from '@/components/SelectLang.vue'
 export default {
   name: 'NavBar',
+  components: {
+    SelectLang
+  },
   data() {
     return {
       LogoImg: require('@/assets/logo.png'),
