@@ -1,10 +1,10 @@
 <template>
   <div class="nav_max">
     <el-row class="jsb ac">
-      <el-col :span="4" class="jac">
+      <el-col :xs="0" :span="4" class="jac">
         <el-avatar :src="LogoImg"></el-avatar>
       </el-col>
-      <el-col :span="14">
+      <el-col :xs="20" :span="14">
         <div class="jsb ac">
           <div
             v-for="(item, index) in navList"
@@ -14,18 +14,18 @@
           >
             {{ $t('navBar.' + item.title) }}
           </div>
-          <div class="draw_box">
+          <div class="hidden-xs-only draw_box">
             <el-button type="primary" @click="linkDraw">{{ $t('navBar.Draw') }}</el-button>
           </div>
         </div>
       </el-col>
-      <el-col :span="6">
+      <el-col :xs="4" :span="6">
         <div class="jac">
           <SelectLang />
-          <div class="notice_icon mr-14">
+          <div class="hidden-xs-only notice_icon mr-14">
             <i class="el-icon-message-solid"></i>
           </div>
-          <el-avatar :src="LogoImg"></el-avatar>
+          <el-avatar class="hidden-xs-only" :src="LogoImg"></el-avatar>
         </div>
       </el-col>
     </el-row>

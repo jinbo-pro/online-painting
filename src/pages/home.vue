@@ -1,12 +1,12 @@
 <template>
   <div>
-    <el-row class="drawing_container jsb ac">
-      <el-col :span="4">
+    <el-row class="drawing_container">
+      <el-col :xs="0" :span="4" class="jsb ac">
         <div class="left_nav_max container fdc jsb">
           <el-tabs tab-position="right" class="nav_content">
             <el-tab-pane v-for="(item, index) in leftNavList" :key="index" :label="item.title"> </el-tab-pane>
           </el-tabs>
-          <div class="pb-16 fdc jsb ac">
+          <div class="foot_btn pb-16 fdc jsb ac">
             <div class="mb-16">
               <el-button type="primary">Sign Out</el-button>
             </div>
@@ -14,7 +14,7 @@
           </div>
         </div>
       </el-col>
-      <el-col :span="20">
+      <el-col :xs="24" :span="20">
         <div class="right_drawing_max container pd-24">
           <div class="title">Create something new</div>
           <div class="create_btn">
@@ -26,7 +26,11 @@
           <div class="title">My drawings</div>
           <div class="drawing_content">
             <div v-for="(item, index) in drawingList" :key="index" class="drawing_item_box" @click="linkInfo(item)">
-              <el-image class="cover" src="/bg.jpg" lazy></el-image>
+              <el-image
+                class="cover"
+                :src="`http://www.ruanyifeng.com/images_pub/pub_${index + 1}.jpg`"
+                lazy
+              ></el-image>
               <p>Tanta petere igitur, ne sineres memini fieri etiam aliquam</p>
             </div>
           </div>
@@ -73,6 +77,9 @@ export default {
       width: 100%;
     }
   }
+  .foot_btn {
+    height: 100px;
+  }
 }
 .right_drawing_max {
   overflow-y: scroll;
@@ -104,6 +111,7 @@ export default {
 .drawing_item_box {
   .cover {
     max-width: 100%;
+    max-height: 130px;
   }
 }
 </style>

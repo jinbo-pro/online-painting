@@ -7,6 +7,7 @@ import './router/permission'
 import { i18n } from './i18n'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import 'element-ui/lib/theme-chalk/display.css'
 
 Vue.config.productionTip = false
 Vue.use(Element, {

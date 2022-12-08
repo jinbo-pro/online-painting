@@ -13,7 +13,9 @@
             <div class="title">Title</div>
             <div class="time">02/12/2022</div>
           </div>
-          <div>发送</div>
+          <div class="send">
+            <i class="el-icon-s-promotion"></i>
+          </div>
         </div>
         <p>
           Tollere odium autem in nostra potestate sint.ab omnibus et contra naturam transferre innobis.Sed interim toto
@@ -46,7 +48,12 @@
       </transition>
       <div class="img_list_max" ref="imgListDom">
         <div v-for="(item, index) in drawingList" :key="index" class="img_item_box">
-          <el-image fit="cover" class="drawing_list_cover" :src="item"></el-image>
+          <el-image
+            fit="cover"
+            class="drawing_list_cover"
+            :src="`http://www.ruanyifeng.com/images_pub/pub_${index + 1}.jpg`"
+          >
+          </el-image>
         </div>
       </div>
     </div>
@@ -109,6 +116,10 @@ export default {
   .img_box {
     border: 1px solid #e1e1e1;
     height: 100%;
+  }
+  .send {
+    cursor: pointer;
+    font-size: 32px;
   }
 }
 .right_message_box {
