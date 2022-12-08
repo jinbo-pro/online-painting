@@ -6,8 +6,16 @@ Vue.use(Router)
 export const constantRoutes = [
   {
     path: '/',
-    component: () => import('@/pages/home.vue'),
-    meta: { title: '首页' }
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'main' },
+    redirect: '/home',
+    children: [
+      {
+        path: '/home',
+        component: () => import('@/pages/home.vue'),
+        meta: { title: '首页' }
+      }
+    ]
   },
   {
     path: '/login',

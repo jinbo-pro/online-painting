@@ -1,4 +1,12 @@
 export default {
+  navBar: {
+    Gallery: 'Gallery',
+    Connect: 'Connect',
+    Play: 'Play',
+    Greet: 'Greet',
+    Learn: 'Learn',
+    Draw: 'Draw'
+  },
   app: {
     text: 'text',
     userName: 'user name'

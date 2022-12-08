@@ -1,4 +1,12 @@
 export default {
+  navBar: {
+    Gallery: '画廊',
+    Connect: '连接',
+    Play: '游戏',
+    Greet: '欢迎',
+    Learn: '学习',
+    Draw: '绘画'
+  },
   app: {
     text: '文本',
     userName: '用户名'
