@@ -4,6 +4,7 @@ import './elementui/index'
 import './styles/index.scss'
 import 'normalize.css/normalize.css'
 import router from './router/index'
+import './router/permission'
 import { i18n } from './i18n'
 
 Vue.config.productionTip = false

@@ -10,8 +10,13 @@ export const constantRoutes = [
     meta: { title: '首页' }
   },
   {
+    path: '/login',
+    component: () => import('@/pages/sys/login.vue'),
+    meta: { title: '登录' }
+  },
+  {
     path: '*',
-    redirect: '/home'
+    component: () => import('@/pages/sys/error-page/404.vue')
   }
 ]
 
