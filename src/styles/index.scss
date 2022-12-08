@@ -16,7 +16,7 @@ body {
 }
 
 .container {
-  width: 83%;
-  margin: 16px auto;
+  box-sizing: border-box;
+  height: calc(100vh - 62px);
   background-color: #fff;
 }

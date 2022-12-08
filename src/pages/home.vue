@@ -2,7 +2,7 @@
   <div>
     <el-row class="drawing_container jsb ac">
       <el-col :span="4">
-        <div class="left_nav_max fdc jsb">
+        <div class="left_nav_max container fdc jsb">
           <el-tabs tab-position="right" class="nav_content">
             <el-tab-pane v-for="(item, index) in leftNavList" :key="index" :label="item.title"> </el-tab-pane>
           </el-tabs>
@@ -15,7 +15,7 @@
         </div>
       </el-col>
       <el-col :span="20">
-        <div class="right_drawing_max pd-24">
+        <div class="right_drawing_max container pd-24">
           <div class="title">Create something new</div>
           <div class="create_btn">
             <div class="btn_box jac">
@@ -25,8 +25,8 @@
           </div>
           <div class="title">My drawings</div>
           <div class="drawing_content">
-            <div v-for="(item, index) in drawingList" :key="index" class="drawing_item_box">
-              <el-image class="cover" :src="item.cover" lazy></el-image>
+            <div v-for="(item, index) in drawingList" :key="index" class="drawing_item_box" @click="linkInfo(item)">
+              <el-image class="cover" src="/bg.jpg" lazy></el-image>
               <p>Tanta petere igitur, ne sineres memini fieri etiam aliquam</p>
             </div>
           </div>
@@ -48,17 +48,21 @@ export default {
     }
   },
   created() {
-    this.drawingList = Array(15).fill({ cover: require('@/assets/bg.jpg') })
+    this.drawingList = Array(15).fill(1)
   },
-  methods: {}
+  methods: {
+    linkInfo(item) {
+      this.$router.push({
+        path: '/drawingInfo',
+        query: { id: item }
+      })
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-$h: calc(100vh - 62px);
-
 .left_nav_max {
-  min-height: $h;
   box-sizing: border-box;
   border-right: 2px solid #f1f1f1;
   div {
@@ -71,7 +75,6 @@ $h: calc(100vh - 62px);
   }
 }
 .right_drawing_max {
-  height: $h;
   overflow-y: scroll;
   box-sizing: border-box;
   .title {

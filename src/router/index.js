@@ -13,7 +13,12 @@ export const constantRoutes = [
       {
         path: '/home',
         component: () => import('@/pages/home.vue'),
-        meta: { title: '首页' }
+        meta: { title: '我的主页' }
+      },
+      {
+        path: '/drawingInfo',
+        component: () => import('@/pages/drawingInfo.vue'),
+        meta: { title: '画作详情' }
       }
     ]
   },
