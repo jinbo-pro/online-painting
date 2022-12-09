@@ -19,6 +19,11 @@ export const constantRoutes = [
         path: '/drawingInfo',
         component: () => import('@/pages/drawingInfo.vue'),
         meta: { title: '画作详情' }
+      },
+      {
+        path: '/selectDrawMode',
+        component: () => import('@/pages/selectDrawMode.vue'),
+        meta: { title: '选择作画模式' }
       }
     ]
   },

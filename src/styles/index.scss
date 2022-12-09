@@ -16,7 +16,13 @@ body {
 }
 
 .container {
+  padding: 20px 24px;
   box-sizing: border-box;
   height: calc(100vh - 62px);
   background-color: #fff;
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 24px 0;
+  }
 }

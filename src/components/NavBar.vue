@@ -60,7 +60,7 @@ export default {
       console.log(item.url, '-->>> url')
     },
     linkDraw() {
-      console.log(678, '-->>> 678')
+      this.$router.push('/selectDrawMode')
     }
   }
 }

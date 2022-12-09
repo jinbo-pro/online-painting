@@ -17,7 +17,7 @@
       <el-col :xs="24" :span="20">
         <div class="right_drawing_max container pd-24">
           <div class="title">Create something new</div>
-          <div class="create_btn">
+          <div class="create_btn" @click="linkDraw">
             <div class="btn_box jac">
               <i class="el-icon-circle-plus"></i>
             </div>
@@ -60,6 +60,9 @@ export default {
         path: '/drawingInfo',
         query: { id: item }
       })
+    },
+    linkDraw() {
+      this.$router.push('/selectDrawMode')
     }
   }
 }
@@ -84,11 +87,6 @@ export default {
 .right_drawing_max {
   overflow-y: scroll;
   box-sizing: border-box;
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    padding: 24px 0;
-  }
   .foot_msg {
     font-size: 16px;
   }

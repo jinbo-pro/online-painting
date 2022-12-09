@@ -1,6 +1,6 @@
 <template>
-  <div class="container info_max">
-    <div class="back_box">
+  <div class="container">
+    <div class="pb-24">
       <PageNavigator />
     </div>
     <el-row class="about_box">
@@ -104,12 +104,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.back_box {
-  padding-bottom: 24px;
-}
-.info_max {
-  padding: 20px 24px;
-}
 .about_box {
   height: 80%;
   max-height: 300px;
