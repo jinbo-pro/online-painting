@@ -29,7 +29,7 @@
           </div>
         </div>
         <div class="foot_btn jac">
-          <el-button type="primary">Let's draw!</el-button>
+          <el-button type="primary" @click="linkDraw">Let's draw!</el-button>
         </div>
       </el-col>
     </el-row>
@@ -71,7 +71,17 @@ export default {
     }
   },
   created() {},
-  methods: {}
+  methods: {
+    linkDraw() {
+      let path = '/drawSubject'
+      if (this.activeMode == 2) {
+        path = '/connectTeam'
+      }
+      this.$router.push({
+        path
+      })
+    }
+  }
 }
 </script>
 

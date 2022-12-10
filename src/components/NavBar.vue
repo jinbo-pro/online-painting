@@ -71,6 +71,10 @@ export default {
   padding: 6px;
   box-sizing: border-box;
   background-color: #ced8e0;
+  position: sticky;
+  top: 0;
+  left: 0;
+  z-index: 100;
 }
 .nav_item_box {
   height: 40px;

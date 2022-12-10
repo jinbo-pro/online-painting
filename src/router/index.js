@@ -8,22 +8,32 @@ export const constantRoutes = [
     path: '/',
     component: () => import('@/pages/main-layout.vue'),
     meta: { title: 'main' },
-    redirect: '/home',
+    redirect: '/myHome',
     children: [
       {
-        path: '/home',
+        path: '/myHome',
         component: () => import('@/pages/home.vue'),
         meta: { title: '我的主页' }
       },
       {
         path: '/drawingInfo',
-        component: () => import('@/pages/drawingInfo.vue'),
+        component: () => import('@/pages/myHome/drawingInfo.vue'),
         meta: { title: '画作详情' }
       },
       {
         path: '/selectDrawMode',
-        component: () => import('@/pages/selectDrawMode.vue'),
+        component: () => import('@/pages/myHome/selectDrawMode.vue'),
         meta: { title: '选择作画模式' }
+      },
+      {
+        path: '/drawSubject',
+        component: () => import('@/pages/myHome/personalDraw/drawSubject.vue'),
+        meta: { title: '个人作画题目' }
+      },
+      {
+        path: '/connectTeam',
+        component: () => import('@/pages/myHome/teamDraw/connectTeam.vue'),
+        meta: { title: '匹配团队' }
       }
     ]
   },

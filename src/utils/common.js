@@ -29,3 +29,31 @@ export function pageLoading(options) {
   options = Object.assign({}, defaultOption, options)
   return Loading.service(options)
 }
+/**定时器控制 */
+export class SetTimr {
+  constructor(count) {
+    this.count = count
+    this.timr = null
+  }
+  start(callBack) {
+    if (this.timr) {
+      this.clearTimr()
+    }
+    this.timr = setInterval(() => {
+      if (typeof callBack == 'function') {
+        callBack(this.count)
+      }
+      this.count--
+      if (this.count <= 0) {
+        this.clearTimr()
+        return
+      }
+    }, 1000)
+  }
+  clearTimr() {
+    if (this.timr) {
+      clearInterval(this.timr)
+      this.timr = null
+    }
+  }
+}

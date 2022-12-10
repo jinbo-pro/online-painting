@@ -70,6 +70,7 @@ export default {
 
 <style lang="scss" scoped>
 .left_nav_max {
+  padding: 0;
   box-sizing: border-box;
   border-right: 2px solid #f1f1f1;
   div {
