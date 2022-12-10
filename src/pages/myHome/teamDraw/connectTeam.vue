@@ -15,12 +15,7 @@
     </div>
     <el-row class="jac">
       <el-col :xs="24" :span="16" class="connect_max" ref="connectMax">
-        <div
-          v-for="(item, index) in userList"
-          :key="index"
-          class="item_box"
-          :style="{ top: item.position.top + 'px', left: item.position.left + 'px' }"
-        >
+        <div v-for="(item, index) in userList" :key="index" class="item_box" :style="item.position">
           <div class="fdc jac">
             <el-avatar :size="50" :src="item.head" class="user_head_img"></el-avatar>
             <el-checkbox v-model="item.ready"></el-checkbox>
@@ -65,7 +60,7 @@ export default {
       let list = []
       for (let c = 0; c < col; c++) {
         for (let r = 0; r < row; r++) {
-          list.push({ top: r * 92, left: c * 70 })
+          list.push({ top: r * 92 + 'px', left: c * 70 + 'px' })
         }
       }
       const getRandom = () => {

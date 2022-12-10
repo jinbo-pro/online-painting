@@ -18,7 +18,7 @@
       <el-col :span="16" class="box fdc jsb ac">
         <div class="title top jac">Do you want to draw for</div>
         <div class="right_type fw jac">
-          <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fw jac">
+          <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fdc jac">
             <div class="item_type">
               <label class="select_label fdc jac">
                 <el-radio v-model="activeType" :label="item.value" class="radio"></el-radio>
