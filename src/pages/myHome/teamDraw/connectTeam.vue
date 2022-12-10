@@ -36,6 +36,7 @@
 
 <script>
 import PageNavigator from '@/components/PageNavigator.vue'
+import { createPoint } from '@/utils/common'
 export default {
   components: {
     PageNavigator
@@ -55,26 +56,14 @@ export default {
       const dom = this.$refs.connectMax
       const w = dom.$el.clientWidth
       const h = dom.$el.clientHeight
-      const col = ~~(w / 70)
-      const row = ~~(h / 92)
-      let list = []
-      for (let c = 0; c < col; c++) {
-        for (let r = 0; r < row; r++) {
-          list.push({ top: r * 92 + 'px', left: c * 70 + 'px' })
-        }
-      }
-      const getRandom = () => {
-        const index = ~~(list.length * Math.random())
-        return list.splice(index, 1)[0]
-      }
-
-      for (let i = 0; i < 5; i++) {
-        this.userList.push({
+      const pointList = createPoint(w, h, 5, 92)
+      this.userList = pointList.map((e, i) => {
+        return {
           ready: false,
-          position: getRandom(),
+          position: { top: e.y + 'px', left: e.x + 'px' },
           head: `http://www.ruanyifeng.com/images_pub/pub_${i + 1}.jpg`
-        })
-      }
+        }
+      })
     },
     linkDraw() {
       console.log(678, '-->>> 开始作画')
