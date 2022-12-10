@@ -5,7 +5,7 @@
     </div>
     <el-row class="about_box">
       <el-col :span="13" class="img_box jac">
-        <el-image fit="cover" class="info_cover" src="/bg.jpg" :preview-src-list="['/bg.jpg']"></el-image>
+        <el-image fit="cover" class="info_cover" :src="currentCover" :preview-src-list="['/bg.jpg']"></el-image>
       </el-col>
       <el-col :span="11" class="right_message_box">
         <div class="jsb ac">
@@ -46,14 +46,14 @@
           <i class="el-icon-arrow-right"></i>
         </button>
       </transition>
-      <div class="img_list_max" ref="imgListDom">
-        <div v-for="(item, index) in drawingList" :key="index" class="img_item_box">
-          <el-image
-            fit="cover"
-            class="drawing_list_cover"
-            :src="`http://www.ruanyifeng.com/images_pub/pub_${index + 1}.jpg`"
-          >
-          </el-image>
+      <div class="img_list_max mt-24" ref="imgListDom">
+        <div
+          v-for="(item, index) in drawingList"
+          :key="index"
+          @click="selectCover(index)"
+          :class="['img_item_box', { active: activeIndex == index }]"
+        >
+          <el-image fit="cover" class="drawing_list_cover" :src="item"> </el-image>
         </div>
       </div>
     </div>
@@ -75,13 +75,23 @@ export default {
       drawingList: []
     }
   },
+  computed: {
+    currentCover() {
+      return this.drawingList[this.activeIndex]
+    }
+  },
   created() {
-    this.drawingList = Array(8).fill('/bg.jpg')
+    for (let i = 0; i < 8; i++) {
+      this.drawingList.push(`http://www.ruanyifeng.com/images_pub/pub_${i + 1}.jpg`)
+    }
     this.throttledArrowClick = throttle(300, true, (index) => {
       this.setActiveItem(index)
     })
   },
   methods: {
+    selectCover(index) {
+      this.activeIndex = index
+    },
     setActiveItem(index) {
       let length = this.drawingList.length
       let oldIndex = this.activeIndex
@@ -105,8 +115,7 @@ export default {
 
 <style lang="scss" scoped>
 .about_box {
-  height: 80%;
-  max-height: 300px;
+  height: 70%;
   .img_box {
     border: 1px solid #e1e1e1;
     height: 100%;
@@ -148,8 +157,12 @@ export default {
     background-color: transparent;
   }
   .img_item_box {
-    margin: 8px;
+    padding: 8px;
     display: inline-block;
+    border: 1px solid transparent;
+  }
+  .active {
+    border: 1px solid #e1e1e1;
   }
   .btn {
     position: absolute;
