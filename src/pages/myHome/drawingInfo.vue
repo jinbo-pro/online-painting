@@ -4,7 +4,7 @@
       <PageNavigator />
     </div>
     <el-row class="about_box">
-      <el-col :span="13" class="img_box jac">
+      <el-col :span="13" class="img_box box_bod jac">
         <el-image fit="cover" class="info_cover" :src="currentCover" :preview-src-list="['/bg.jpg']"></el-image>
       </el-col>
       <el-col :span="11" class="right_message_box">
@@ -51,7 +51,7 @@
           v-for="(item, index) in drawingList"
           :key="index"
           @click="selectCover(index)"
-          :class="['img_item_box', { active: activeIndex == index }]"
+          :class="['img_item_box', { box_bod: activeIndex == index }]"
         >
           <el-image fit="cover" class="drawing_list_cover" :src="item"> </el-image>
         </div>
@@ -117,7 +117,6 @@ export default {
 .about_box {
   height: 70%;
   .img_box {
-    border: 1px solid #e1e1e1;
     height: 100%;
   }
   .send {
@@ -160,9 +159,6 @@ export default {
     padding: 8px;
     display: inline-block;
     border: 1px solid transparent;
-  }
-  .active {
-    border: 1px solid #e1e1e1;
   }
   .btn {
     position: absolute;

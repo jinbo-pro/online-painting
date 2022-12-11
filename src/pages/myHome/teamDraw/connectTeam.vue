@@ -14,7 +14,7 @@
       <el-button class="btn" type="text">l don"t like this topic, refresh</el-button>
     </div>
     <el-row class="jac">
-      <el-col :xs="24" :span="16" class="connect_max" ref="connectMax">
+      <el-col :xs="24" :span="16" class="connect_max box_bod" ref="connectMax">
         <div v-for="(item, index) in userList" :key="index" class="item_box" :style="item.position">
           <div class="fdc jac">
             <el-avatar :size="50" :src="item.head" class="user_head_img"></el-avatar>
@@ -88,7 +88,6 @@ export default {
 .connect_max {
   height: 30vh;
   position: relative;
-  border: 1px solid #e1e1e1;
   .item_box {
     padding: 10px;
     position: absolute;

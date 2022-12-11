@@ -44,7 +44,7 @@ export default {
       LogoImg: require('@/assets/logo.png'),
       activeIndex: 0,
       navList: [
-        { title: 'Gallery', url: '/Gallery', disabled: false },
+        { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
         { title: 'Connect', url: '/Connect', disabled: false },
         { title: 'Play', url: '/Play', disabled: false },
         { title: 'Greet', url: '/Greet', disabled: false },
@@ -58,6 +58,9 @@ export default {
       if (item.disabled) return
       this.activeIndex = index
       console.log(item.url, '-->>> url')
+      if (this.$route.path != item.url) {
+        this.$router.replace(item.url)
+      }
     },
     linkDraw() {
       this.$router.push('/selectDrawMode')

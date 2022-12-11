@@ -19,7 +19,7 @@
         <div class="title top jac">Do you want to draw for</div>
         <div class="right_type fw jac">
           <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fdc jac">
-            <div class="item_type">
+            <div class="item_type box_bod">
               <label class="select_label fdc jac">
                 <el-radio v-model="activeType" :label="item.value" class="radio"></el-radio>
                 <img :src="item.icon" alt="" />
@@ -130,10 +130,8 @@ export default {
     width: 300px;
     position: relative;
     height: 18vh;
-    box-sizing: border-box;
     padding: 16px;
     margin: 16px;
-    border: 1px solid #e1e1e1;
   }
 }
 </style>
