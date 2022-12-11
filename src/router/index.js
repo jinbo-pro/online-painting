@@ -39,6 +39,11 @@ export const constantRoutes = [
         path: '/businessGalleryHome',
         component: () => import('@/pages/gallery/businessGalleryHome.vue'),
         meta: { title: '公司画廊首页' }
+      },
+      {
+        path: '/busDrawingInfo',
+        component: () => import('@/pages/gallery/busDrawingInfo.vue'),
+        meta: { title: '公司画廊详细' }
       }
     ]
   },

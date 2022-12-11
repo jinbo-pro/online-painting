@@ -25,14 +25,7 @@
           </div>
           <div class="title">My drawings</div>
           <div class="drawing_content">
-            <div v-for="(item, index) in drawingList" :key="index" class="drawing_item_box" @click="linkInfo(item)">
-              <el-image
-                class="cover"
-                :src="`http://www.ruanyifeng.com/images_pub/pub_${index + 1}.jpg`"
-                lazy
-              ></el-image>
-              <p>Tanta petere igitur, ne sineres memini fieri etiam aliquam</p>
-            </div>
+            <DrawingGroup :list="drawingList" @handle="linkInfo" />
           </div>
         </div>
       </el-col>
@@ -41,7 +34,12 @@
 </template>
 
 <script>
+import Mock from 'mockjs'
+import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 export default {
+  components: {
+    DrawingGroup
+  },
   data() {
     return {
       leftNavList: [
@@ -52,17 +50,25 @@ export default {
     }
   },
   created() {
-    this.drawingList = Array(15).fill(1)
+    const res = Mock.mock({
+      'data|3-10': [
+        {
+          title: '@title()',
+          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg'
+        }
+      ]
+    })
+    this.drawingList = res.data
   },
   methods: {
+    linkDraw() {
+      this.$router.push('/selectDrawMode')
+    },
     linkInfo(item) {
       this.$router.push({
         path: '/drawingInfo',
-        query: { id: item }
+        query: { id: item.id || 1 }
       })
-    },
-    linkDraw() {
-      this.$router.push('/selectDrawMode')
     }
   }
 }
@@ -100,17 +106,6 @@ export default {
     font-size: 26px;
     color: #999;
     border: 1px solid #f1f1f1;
-  }
-}
-.drawing_content {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
-.drawing_item_box {
-  .cover {
-    max-width: 100%;
-    max-height: 130px;
   }
 }
 </style>

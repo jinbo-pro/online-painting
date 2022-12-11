@@ -41,7 +41,9 @@
                     </el-col>
                   </el-row>
                   <div class="pr-24 jend ac">
-                    <img class="stars_icon" src="@/assets/icon/stars.png" />
+                    <div class="stars_icon">
+                      <i class="iconfont icon-aixin"></i>
+                    </div>
                     {{ item.stars | numberFormat }}
                   </div>
                 </div>
@@ -59,24 +61,22 @@
     </el-row>
     <div class="mb-16 mt-16">Popular</div>
     <div class="popular_max">
-      <div v-for="(item, index) in popularList" :key="index" class="fdc jac">
-        <el-image class="drawing_item_box" :src="item.cover" lazy></el-image>
-        <div class="mt-12">{{ item.text }}</div>
-      </div>
+      <DrawingGroup :list="popularList" @handle="linkInfo" />
     </div>
     <div class="mb-16 mt-16">Team Gallery</div>
     <div class="popular_max">
-      <div v-for="(item, index) in teamGalleryList" :key="index" class="fdc jac">
-        <el-image class="drawing_item_box" :src="item.cover" lazy></el-image>
-        <div class="mt-12">{{ item.text }}</div>
-      </div>
+      <DrawingGroup :list="teamGalleryList" @handle="linkInfo" />
     </div>
   </div>
 </template>
 
 <script>
 import Mock from 'mockjs'
+import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 export default {
+  components: {
+    DrawingGroup
+  },
   data() {
     return {
       bannerList: [],
@@ -102,15 +102,22 @@ export default {
     const res3 = Mock.mock({
       'data|3-10': [
         {
-          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg',
-          text: '@word()'
+          title: '@word()',
+          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg'
         }
       ]
     })
     this.popularList = res3.data
     this.teamGalleryList = res3.data
   },
-  methods: {}
+  methods: {
+    linkInfo(item) {
+      this.$router.push({
+        path: '/busDrawingInfo',
+        query: { id: item.id || 1 }
+      })
+    }
+  }
 }
 </script>
 
@@ -153,8 +160,10 @@ export default {
   }
 }
 .stars_icon {
-  width: 32px;
   margin-right: 8px;
+  .iconfont {
+    font-size: 32px;
+  }
 }
 .trending_max {
   padding-top: 0;
@@ -162,17 +171,6 @@ export default {
   overflow: hidden;
   .item_tre {
     margin-bottom: 8px;
-  }
-}
-.popular_max {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-}
-.drawing_item_box {
-  .cover {
-    max-width: 100%;
-    max-height: 130px;
   }
 }
 </style>

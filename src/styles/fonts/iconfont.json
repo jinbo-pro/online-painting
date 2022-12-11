@@ -1,0 +1,30 @@
+{
+  "id": "3820260",
+  "name": "B2B-draw",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "在线画板项目",
+  "glyphs": [
+    {
+      "icon_id": "8481279",
+      "name": "分享方式",
+      "font_class": "fenxiangfangshi",
+      "unicode": "ed2e",
+      "unicode_decimal": 60718
+    },
+    {
+      "icon_id": "11372639",
+      "name": "爱心",
+      "font_class": "aixin",
+      "unicode": "e8ab",
+      "unicode_decimal": 59563
+    },
+    {
+      "icon_id": "11372756",
+      "name": "爱心",
+      "font_class": "aixin1",
+      "unicode": "e8c3",
+      "unicode_decimal": 59587
+    }
+  ]
+}

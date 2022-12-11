@@ -9,6 +9,8 @@ import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css'
 import * as filters from './utils/filters'
+// iconfont 字体图标
+import './styles/fonts/iconfont.css'
 
 Vue.config.productionTip = false
 Vue.use(Element, {
