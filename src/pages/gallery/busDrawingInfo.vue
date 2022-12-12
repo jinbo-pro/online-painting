@@ -46,7 +46,7 @@
             </el-col>
             <el-col :span="12" class="right_content fdc jsb pl-24">
               <div class="ac">
-                <el-avatar :size="40" :src="item.userImg" class="item_head mr-16"></el-avatar>
+                <el-avatar :size="40" :src="item.cover" class="item_head mr-16"></el-avatar>
                 <span>{{ item.userName }}</span>
               </div>
               <p>{{ item.content }}</p>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import Mock from 'mockjs'
+import { listData } from '@/utils/mock'
 import PageNavigator from '@/components/PageNavigator.vue'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import PreviewDialog from './components/PreviewDialog.vue'
@@ -99,19 +99,7 @@ export default {
     }
   },
   created() {
-    const res = Mock.mock({
-      'data|3-10': [
-        {
-          title: '@word()',
-          userImg: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg',
-          userName: '@name()',
-          content: '@sentence()',
-          createTime: '@date(dd/MM/yyyy)',
-          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg'
-        }
-      ]
-    })
-    this.drawingList = res.data
+    this.drawingList = listData('3-10')
   },
   methods: {
     previewCover(item) {

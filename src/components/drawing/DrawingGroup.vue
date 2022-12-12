@@ -31,8 +31,17 @@ export default {
 
 <style lang="scss" scoped>
 .drawing_content {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  // 平板
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    display: grid;
+    grid-column-gap: 16px;
+    grid-template-columns: repeat(4, 200px);
+  }
+  // 电脑
+  @media only screen and (min-width: 1200px) and (max-width: 1919px) {
+    display: grid;
+    grid-column-gap: 16px;
+    grid-template-columns: repeat(6, 200px);
+  }
 }
 </style>

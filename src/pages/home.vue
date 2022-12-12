@@ -34,8 +34,8 @@
 </template>
 
 <script>
-import Mock from 'mockjs'
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
+import { listData } from '@/utils/mock'
 export default {
   components: {
     DrawingGroup
@@ -50,15 +50,7 @@ export default {
     }
   },
   created() {
-    const res = Mock.mock({
-      'data|3-10': [
-        {
-          title: '@title()',
-          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg'
-        }
-      ]
-    })
-    this.drawingList = res.data
+    this.drawingList = listData('3-10')
   },
   methods: {
     linkDraw() {

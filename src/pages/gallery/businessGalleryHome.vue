@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-    <div class="ac mb-24">
+    <div class="ac mb-24" @click="linkSearch">
       <span class="mr-24">Search</span>
-      <el-input placeholder="prompt, theme, keywords..." style="width: 40%"></el-input>
+      <el-input v-model="keyword" placeholder="prompt, theme, keywords..." style="width: 40%"></el-input>
     </div>
     <el-row>
       <el-col :span="18" class="banner_max box_bod">
@@ -55,7 +55,9 @@
       <el-col :span="6">
         <div class="trending_max box_bod ml-14 pd-24">
           <div class="title xs_title">Trending Prompts</div>
-          <div v-for="(item, index) in trendingList" :key="index" class="item_tre">{{ index + 1 }} . {{ item }}</div>
+          <div v-for="(item, index) in trendingList" :key="index" class="item_tre">
+            {{ index + 1 }} . {{ item.title }}
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -71,14 +73,15 @@
 </template>
 
 <script>
-import Mock from 'mockjs'
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
+import { listData } from '@/utils/mock'
 export default {
   components: {
     DrawingGroup
   },
   data() {
     return {
+      keyword: '',
       bannerList: [],
       trendingList: [],
       popularList: [],
@@ -86,31 +89,18 @@ export default {
     }
   },
   created() {
-    const res = Mock.mock({
-      'data|5': [
-        {
-          stars: '@integer(1, 9999)',
-          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg',
-          'userList|2-5': ['@name()'],
-          'tagList|3': [{ title: '@word()', bgc: '@color()' }]
-        }
-      ]
-    })
-    this.bannerList = res.data
-    const res2 = Mock.mock({ 'data|5-10': ['@word()'] })
-    this.trendingList = res2.data
-    const res3 = Mock.mock({
-      'data|3-10': [
-        {
-          title: '@word()',
-          cover: 'http://www.ruanyifeng.com/images_pub/pub_@integer(1, 10).jpg'
-        }
-      ]
-    })
-    this.popularList = res3.data
-    this.teamGalleryList = res3.data
+    this.bannerList = listData(5)
+    this.trendingList = listData('5-10')
+    this.popularList = listData('3-10')
+    this.teamGalleryList = listData('3-10')
   },
   methods: {
+    linkSearch() {
+      this.$router.push({
+        path: '/drawingSearch',
+        query: { keyword: this.keyword }
+      })
+    },
     linkInfo(item) {
       this.$router.push({
         path: '/busDrawingInfo',
