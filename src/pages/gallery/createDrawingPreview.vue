@@ -93,7 +93,7 @@ export default {
       navCheck: false,
       isCheckedAll: false,
       keyword: '',
-      activeName: 3,
+      activeName: 1,
       checkList: [],
       galleryList: [],
 
@@ -113,6 +113,7 @@ export default {
     nextIsDisabled() {
       if (this.activeName == 1) return !this.checkList.length
       if (this.activeName == 2) return !this.galleryName
+      return true
     },
     selectList() {
       return this.galleryList.filter((e) => this.checkList.includes(e.id))

@@ -35,6 +35,7 @@ export const constantRoutes = [
         component: () => import('@/pages/myHome/teamDraw/connectTeam.vue'),
         meta: { title: '匹配团队' }
       },
+      // 画廊
       {
         path: '/businessGalleryHome',
         component: () => import('@/pages/gallery/businessGalleryHome.vue'),
@@ -54,6 +55,12 @@ export const constantRoutes = [
         path: '/createDrawingPreview',
         component: () => import('@/pages/gallery/createDrawingPreview.vue'),
         meta: { title: '公司创建画廊' }
+      },
+      // 站内信
+      {
+        path: '/siteNoticeManage',
+        component: () => import('@/pages/myHome/siteNoticeManage.vue'),
+        meta: { title: '站内信管理' }
       }
     ]
   },

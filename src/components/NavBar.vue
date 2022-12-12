@@ -2,7 +2,9 @@
   <div class="nav_max">
     <el-row class="jsb ac">
       <el-col :xs="0" :span="4" class="jac">
-        <el-avatar :src="LogoImg"></el-avatar>
+        <router-link to="/">
+          <el-avatar :src="LogoImg"></el-avatar>
+        </router-link>
       </el-col>
       <el-col :xs="20" :span="14">
         <div class="jsb ac">
@@ -22,9 +24,23 @@
       <el-col :xs="4" :span="6">
         <div class="jac">
           <SelectLang />
-          <div class="hidden-xs-only notice_icon mr-14">
-            <i class="el-icon-message-solid"></i>
-          </div>
+          <el-popover placement="right" width="300" trigger="hover">
+            <div class="notice_max pd-24">
+              <div
+                v-for="(item, index) in noticeList"
+                :key="index"
+                class="notice_item_box mb-16"
+                @click="linkNoticeInfo(item.id)"
+              >
+                You received a message from @{{ item.userName }}
+              </div>
+            </div>
+            <div slot="reference">
+              <div class="hidden-xs-only notice_icon mr-14">
+                <i class="el-icon-message-solid"></i>
+              </div>
+            </div>
+          </el-popover>
           <el-avatar class="hidden-xs-only" :src="LogoImg"></el-avatar>
         </div>
       </el-col>
@@ -34,6 +50,7 @@
 
 <script>
 import SelectLang from '@/components/SelectLang.vue'
+import { listData } from '@/utils/mock'
 export default {
   name: 'NavBar',
   components: {
@@ -41,6 +58,7 @@ export default {
   },
   data() {
     return {
+      noticeList: [],
       LogoImg: require('@/assets/logo.png'),
       activeIndex: 0,
       navList: [
@@ -52,7 +70,9 @@ export default {
       ]
     }
   },
-  created() {},
+  created() {
+    this.noticeList = listData('10-20')
+  },
   methods: {
     handleSelect(item, index) {
       if (item.disabled) return
@@ -64,6 +84,15 @@ export default {
     },
     linkDraw() {
       this.$router.push('/selectDrawMode')
+    },
+    linkNoticeInfo(id) {
+      this.$router.push({
+        path: '/busDrawingInfo',
+        query: { id }
+      })
+    },
+    load() {
+      this.count++
     }
   }
 }
@@ -98,5 +127,17 @@ export default {
 .notice_icon {
   cursor: pointer;
   font-size: 26px;
+}
+.notice_max {
+  height: 230px;
+  overflow-y: scroll;
+  .notice_item_box {
+    cursor: pointer;
+    transition: 0.3s;
+    &:hover {
+      color: #409eff;
+      transition: 0.3s;
+    }
+  }
 }
 </style>
