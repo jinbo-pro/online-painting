@@ -103,6 +103,7 @@ export default {
           .then((res) => {
             loading.close()
             this.isSubmit = false
+            local.get('userName', this.loginForm.username)
             local.set('token', res.token)
             this.$router.push({ path: '/' })
           })

@@ -9,8 +9,10 @@ export function listData(count = '2-5') {
   const res = Mock.mock({
     [`data|${count}`]: [
       {
+        id: '@guid()',
         stars: '@integer(1, 9999)',
         title: '@word()',
+        checked: false,
         userName: '@name()',
         'userImg|+3': 1,
         content: '@sentence()',

@@ -8,7 +8,7 @@
       <el-col :span="18" class="banner_max box_bod">
         <el-carousel trigger="click" height="280px" :interval="8000" indicator-position="outside">
           <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-            <el-row>
+            <el-row @click.native="linkBannerInfo">
               <el-col :span="12" class="cover_max pd-12 jac">
                 <el-image class="info_cover" :src="item.cover"></el-image>
               </el-col>
@@ -101,11 +101,14 @@ export default {
         query: { keyword: this.keyword }
       })
     },
-    linkInfo(item) {
+    linkBannerInfo(item) {
       this.$router.push({
         path: '/busDrawingInfo',
         query: { id: item.id || 1 }
       })
+    },
+    linkInfo() {
+      console.log('预览?')
     }
   }
 }

@@ -6,6 +6,27 @@
   "description": "在线画板项目",
   "glyphs": [
     {
+      "icon_id": "4735727",
+      "name": "公告",
+      "font_class": "gonggao",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "5387948",
+      "name": "全屏_o",
+      "font_class": "quanping_o",
+      "unicode": "eb99",
+      "unicode_decimal": 60313
+    },
+    {
+      "icon_id": "7274101",
+      "name": "复制",
+      "font_class": "fuzhi",
+      "unicode": "e620",
+      "unicode_decimal": 58912
+    },
+    {
       "icon_id": "8481279",
       "name": "分享方式",
       "font_class": "fenxiangfangshi",

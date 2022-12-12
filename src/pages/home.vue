@@ -21,7 +21,8 @@
             <div class="btn_box jac">
               <i class="el-icon-circle-plus"></i>
             </div>
-            <p class="foot_msg jac">+ new canvas</p>
+            <p v-if="isManage" class="foot_msg jac">+ new company gallery</p>
+            <p v-else class="foot_msg jac">+ new canvas</p>
           </div>
           <div class="title">My drawings</div>
           <div class="drawing_content">
@@ -36,12 +37,14 @@
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 import { listData } from '@/utils/mock'
+import { local } from '@/utils/storage'
 export default {
   components: {
     DrawingGroup
   },
   data() {
     return {
+      isManage: false,
       leftNavList: [
         { id: 1, title: 'My Drawings', url: '' },
         { id: 2, title: 'My Account', url: '' }
@@ -51,10 +54,15 @@ export default {
   },
   created() {
     this.drawingList = listData('3-10')
+    this.isManage = local.get('userName') == 'admin'
   },
   methods: {
     linkDraw() {
-      this.$router.push('/selectDrawMode')
+      if (this.isManage) {
+        this.$router.push('/createDrawingPreview')
+      } else {
+        this.$router.push('/selectDrawMode')
+      }
     },
     linkInfo(item) {
       this.$router.push({

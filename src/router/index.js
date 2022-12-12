@@ -49,6 +49,11 @@ export const constantRoutes = [
         path: '/drawingSearch',
         component: () => import('@/pages/gallery/drawingSearch.vue'),
         meta: { title: '公司画廊搜索' }
+      },
+      {
+        path: '/createDrawingPreview',
+        component: () => import('@/pages/gallery/createDrawingPreview.vue'),
+        meta: { title: '公司创建画廊' }
       }
     ]
   },
