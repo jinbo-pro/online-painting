@@ -15,21 +15,23 @@
           </label>
         </div>
       </el-col>
-      <el-col :span="16" class="box fdc jsb ac">
-        <div class="title top jac">Do you want to draw for</div>
-        <div class="right_type fw jac">
-          <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fdc jac">
-            <div class="item_type box_bod">
-              <label class="select_label fdc jac">
-                <el-radio v-model="activeType" :label="item.value" class="radio"></el-radio>
-                <img :src="item.icon" alt="" />
-              </label>
+      <el-col :span="16" class="pl-24">
+        <div class="box fdc jsb ac">
+          <div class="title top jac">Do you want to draw for</div>
+          <div class="right_type fw jac">
+            <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fdc jac">
+              <div class="item_type box_bod">
+                <label class="select_label fdc jac">
+                  <el-radio v-model="activeType" :label="item.value" class="radio"></el-radio>
+                  <img :src="item.icon" alt="" />
+                </label>
+              </div>
+              <div>{{ item.title }}</div>
             </div>
-            <div>{{ item.title }}</div>
           </div>
-        </div>
-        <div class="foot_btn jac">
-          <el-button type="primary" @click="linkDraw">Let's draw!</el-button>
+          <div class="foot_btn jac">
+            <el-button type="primary" @click="linkDraw">Let's draw!</el-button>
+          </div>
         </div>
       </el-col>
     </el-row>
@@ -122,12 +124,16 @@ export default {
   box-sizing: border-box;
   padding: 16px 0;
 }
+
 .right_type {
   .item_type_box {
     width: 42%;
   }
+  & .item_type_box:nth-of-type(even) {
+    margin-left: 24px;
+  }
   .item_type {
-    width: 300px;
+    width: 100%;
     position: relative;
     height: 18vh;
     padding: 16px;

@@ -35,6 +35,11 @@ export const constantRoutes = [
         component: () => import('@/pages/myHome/teamDraw/connectTeam.vue'),
         meta: { title: '匹配团队' }
       },
+      {
+        path: '/shoppingMall',
+        component: () => import('@/pages/myHome/shoppingMall.vue'),
+        meta: { title: '我的商城' }
+      },
       // 画廊
       {
         path: '/businessGalleryHome',

@@ -5,7 +5,7 @@
     </div>
     <el-row class="about_box">
       <el-col :span="13" class="img_box box_bod jac pd-16">
-        <img class="info_cover" :src="currentCover" />
+        <img class="info_cover" :src="currentCover.cover" />
       </el-col>
       <el-col :span="11" class="right_message_box">
         <div class="jsb ac">
@@ -22,16 +22,19 @@
           desiderio supprimunt:si vis aliqua quae in manu tua tibi necesseconfundentur et quae,quod laudabile
           esset,nihil tamen possides.
         </p>
-        <el-button type="primary" icon="el-icon-present" class="order_swag">Order a Swag</el-button>
+        <el-button type="primary" icon="el-icon-present" class="order_swag" @click="linkShopping">
+          Order a Swag
+        </el-button>
       </el-col>
     </el-row>
-    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" />
+    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="cover" />
   </div>
 </template>
 
 <script>
 import PageNavigator from '@/components/PageNavigator.vue'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
+import { listData } from '@/utils/mock'
 export default {
   components: {
     PageNavigator,
@@ -49,11 +52,16 @@ export default {
     }
   },
   created() {
-    for (let i = 0; i < 8; i++) {
-      this.drawingList.push(`http://www.ruanyifeng.com/images_pub/pub_${i + 1}.jpg`)
-    }
+    this.drawingList = listData('3-10')
   },
-  methods: {}
+  methods: {
+    linkShopping(id) {
+      this.$router.push({
+        path: '/shoppingMall',
+        query: { id: this.currentCover.id }
+      })
+    }
+  }
 }
 </script>
 
