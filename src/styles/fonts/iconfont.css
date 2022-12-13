@@ -1,6 +1,6 @@
 @font-face {
   font-family: "iconfont"; /* Project id 3820260 */
-  src: url('iconfont.ttf?t=1670855615798') format('truetype');
+  src: url('iconfont.ttf?t=1670888759196') format('truetype');
 }
 
 .iconfont {
@@ -9,6 +9,14 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-yanjing-biyan:before {
+  content: "\e63a";
+}
+
+.icon-yanjing:before {
+  content: "\e8bf";
 }
 
 .icon-gonggao:before {

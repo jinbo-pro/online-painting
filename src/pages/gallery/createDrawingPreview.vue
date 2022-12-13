@@ -24,31 +24,31 @@
     <div v-else-if="activeName == 2">
       <el-row>
         <el-col :span="13">
-          <div class="title md_title">Gallery Name</div>
+          <div class="md_title">Gallery Name</div>
           <el-input v-model="galleryName" clearable style="width: 50%"> </el-input>
-          <div class="title md_title">Description</div>
+          <div class="md_title">Description</div>
           <el-input v-model="description" type="textarea"> </el-input>
         </el-col>
         <el-col :span="10" :offset="1">
-          <div class="title md_title">Who can view?</div>
+          <div class="md_title">Who can view?</div>
           <div v-for="(item, index) in galleryConfig" :key="index" class="jsb ac mb-24">
             <div>{{ item.label }}</div>
             <el-switch v-model="item.open"></el-switch>
           </div>
         </el-col>
       </el-row>
-      <div class="title md_title">{{ selectList.length }} Drawings selected</div>
+      <div class="md_title">{{ selectList.length }} Drawings selected</div>
     </div>
     <div v-else>
       <el-row>
         <el-col :span="13">
-          <div class="title md_title">Gallery Name</div>
+          <div class="md_title">Gallery Name</div>
           <p>{{ galleryName }}</p>
-          <div class="title md_title">Description</div>
+          <div class="md_title">Description</div>
           <p>{{ description }}</p>
         </el-col>
         <el-col :span="10" :offset="1">
-          <div class="title md_title">Drawings</div>
+          <div class="md_title">Drawings</div>
           <div class="drawing_list_max">
             <div v-for="(item, index) in selectList.slice(0, 3)" :key="index" class="draw_item_box">
               <img :src="item.cover" />
@@ -59,7 +59,7 @@
       </el-row>
       <div class="preview_message_max jac pb-24">
         <div class="inner_content">
-          <div class="title md_title">Who can view?</div>
+          <div class="md_title">Who can view?</div>
           <div v-for="(item, index) in galleryConfig" :key="index" class="jsb ac mb-24">
             <div>{{ item.label }}</div>
             <el-switch v-model="item.open"></el-switch>

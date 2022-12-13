@@ -17,3 +17,14 @@ export function copyText(text) {
   document.execCommand('Copy')
   document.body.removeChild(inputZ)
 }
+/**
+ * 生成全局唯一标识符 guid
+ * @param {boolean} line 是否带横线
+ * @param {string} head 自定义标识
+ * @returns
+ */
+export function guid(line = false, head = '') {
+  const _ = line ? '-' : ''
+  const S = () => (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1)
+  return `${head}${S()}${S()}${_}${S()}${_}${S()}${_}${S()}${_}${S()}${S()}${S()}`
+}

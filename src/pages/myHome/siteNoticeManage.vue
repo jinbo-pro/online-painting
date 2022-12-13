@@ -39,7 +39,7 @@ export default {
       console.log('read')
     },
     deleteNotice() {
-      onsole.log('deleteNotice')
+      console.log('deleteNotice')
     }
   }
 }

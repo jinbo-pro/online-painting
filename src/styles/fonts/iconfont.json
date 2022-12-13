@@ -6,6 +6,20 @@
   "description": "在线画板项目",
   "glyphs": [
     {
+      "icon_id": "10715460",
+      "name": "眼睛-闭眼",
+      "font_class": "yanjing-biyan",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "11372728",
+      "name": "眼睛",
+      "font_class": "yanjing",
+      "unicode": "e8bf",
+      "unicode_decimal": 59583
+    },
+    {
       "icon_id": "4735727",
       "name": "公告",
       "font_class": "gonggao",

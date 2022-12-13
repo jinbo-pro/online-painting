@@ -1,0 +1,143 @@
+<template>
+  <div class="container jac">
+    <div class="fdc jac">
+      <div v-if="active == 1" class="fdc jac">
+        <el-avatar :src="LogoImg"></el-avatar>
+        <div class="title mb-30">You've received an invitation to join VIVA AT WORK.</div>
+        <p class="mb-30">lnvitation code:</p>
+        <div class="box_bod pd-16">
+          {{ invitationCode }}
+        </div>
+        <div class="pd-30">
+          <el-button @click="nextHandle">Next</el-button>
+        </div>
+      </div>
+
+      <div v-if="active == 2" class="fdc jac">
+        <div class="jac">
+          <el-upload
+            action="https://jsonplaceholder.typicode.com/posts/"
+            :show-file-list="false"
+            :on-success="handleAvatarSuccess"
+          >
+            <el-avatar :src="imageUrl"></el-avatar>
+          </el-upload>
+        </div>
+        <div class="md_title">Set a new password</div>
+        <PasswordInput :text.sync="password" />
+        <div class="md_title">confirm the password</div>
+        <PasswordInput :text.sync="confirmPassword" />
+        <div class="pd-30">
+          <el-button @click="nextHandle">Next</el-button>
+        </div>
+      </div>
+
+      <div v-if="active == 3" class="user_info_max">
+        <div class="jac">
+          <el-avatar :src="imageUrl"></el-avatar>
+        </div>
+        <div class="fw jsb">
+          <div v-for="(item, index) in userInfo" :key="index" class="fdc jac">
+            <div class="md_title">{{ item.label }}</div>
+            <el-input v-model="item.value" type="text"></el-input>
+          </div>
+        </div>
+        <div class="pd-30 jac">
+          <el-button type="primary" @click="nextHandle">Complete</el-button>
+        </div>
+      </div>
+
+      <div v-if="active == 4">
+        <div class="title jac mb-30">
+          Please check your inbox and confirm the verification email.
+        </div>
+        <div class="pd-30 jac mt-30">
+          <el-button type="primary" @click="signIn">Sign in</el-button>
+        </div>
+      </div>
+
+      <div class="step_tips f12">Step {{ active }}</div>
+      <div class="step_max box_bod">
+        <div class="step_inner" :style="{ width: stepWidth }"></div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import { guid } from '@/utils/jcore'
+import PasswordInput from '@/components/PasswordInput.vue'
+export default {
+  components: {
+    PasswordInput
+  },
+  data() {
+    return {
+      active: 1,
+      imageUrl: '',
+      invitationCode: guid(),
+      LogoImg: require('@/assets/logo.png'),
+
+      password: '',
+      confirmPassword: '',
+
+      userInfo: [
+        { label: 'First Name', key: 'firstName', value: '' },
+        { label: 'Last Name', key: 'lastName', value: '' },
+        { label: 'Department', key: 'department', value: '' },
+        { label: 'Team', key: 'Team', value: '' }
+      ]
+    }
+  },
+  computed: {
+    stepWidth() {
+      return 50 * this.active + 'px'
+    }
+  },
+  created() {},
+  methods: {
+    nextHandle() {
+      if (this.active == 4) return
+      this.active++
+    },
+    handleAvatarSuccess(file) {
+      console.log(file, '-->>> 678')
+    },
+    signIn() {
+      this.$router.replace('/login')
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+.step_tips {
+  width: 200px;
+  text-align: left;
+  margin-bottom: 4px;
+}
+.step_max {
+  width: 200px;
+  height: 20px;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  .step_inner {
+    height: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.3s;
+    background-color: #409eff;
+  }
+}
+.head_img_box {
+  .el-icon-user-solid {
+    font-size: 36px;
+    color: #999;
+  }
+}
+.user_info_max {
+  width: 430px;
+}
+</style>

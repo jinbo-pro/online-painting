@@ -70,6 +70,11 @@ export const constantRoutes = [
     meta: { title: '登录' }
   },
   {
+    path: '/firstLogin',
+    component: () => import('@/pages/sys/firstLogin.vue'),
+    meta: { title: '首次登录' }
+  },
+  {
     path: '*',
     component: () => import('@/pages/sys/error-page/404.vue')
   }
