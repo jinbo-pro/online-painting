@@ -4,13 +4,18 @@
       <div class="mb-24">
         <el-row>
           <el-col :span="12" class="ac">
-            <span class="mr-24">Search</span>
-            <el-input v-model="searchKeyWord" placeholder="prompt, theme, keywords..." style="width: 80%" clearable>
+            <span class="mr-24">{{ $t('drawingSearch.Search') }}</span>
+            <el-input v-model="searchKeyWord" placeholder="prompt, theme, keywords..." style="width: 78%" clearable>
             </el-input>
           </el-col>
           <el-col :span="12" class="jend">
             <el-select v-model="searchType" clearable>
-              <el-option v-for="(item, index) in searchTypeList" :key="index" :label="item.label" :value="item.value">
+              <el-option
+                v-for="(item, index) in searchTypeList"
+                :key="index"
+                :label="$t(`drawingSearch.searchSelect.${item.label}`)"
+                :value="item.value"
+              >
               </el-option>
             </el-select>
           </el-col>
@@ -41,11 +46,10 @@ export default {
     return {
       searchType: '',
       searchTypeList: [
-        { label: 'Order by Time', value: 1 },
-        { label: 'Department', value: 2 },
-        { label: 'Team', value: 3 },
-        { label: 'Prompt', value: 4 },
-        { label: 'Time', value: 5 }
+        { label: 'Department', value: 1 },
+        { label: 'Team', value: 2 },
+        { label: 'Prompt', value: 3 },
+        { label: 'Time', value: 4 }
       ],
       serachList: [],
       showPreview: false,

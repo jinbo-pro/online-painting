@@ -1,50 +1,54 @@
 <template>
   <div class="container">
-    <div class="title">Create a company gallery</div>
+    <div class="title">{{ $t(`createDrawingPreview['Create a company gallery']`) }}</div>
     <div class="jsb ac">
       <el-tabs :value="activeName + ''" :before-leave="() => navCheck" @tab-click="navCheck = false">
-        <el-tab-pane label="1.Select drawings" name="1"></el-tab-pane>
-        <el-tab-pane label="2.Set up the gallery" name="2"></el-tab-pane>
-        <el-tab-pane label="3.complete" name="3"></el-tab-pane>
+        <el-tab-pane :label="'1.' + $t(`createDrawingPreview['Select drawings']`)" name="1"></el-tab-pane>
+        <el-tab-pane :label="'2.' + $t(`createDrawingPreview['Set up the gallery']`)" name="2"></el-tab-pane>
+        <el-tab-pane :label="'3.' + $t(`createDrawingPreview['complete']`)" name="3"></el-tab-pane>
       </el-tabs>
-      <el-button type="primary" @click="nextHandle" :disabled="nextIsDisabled">Next</el-button>
+      <el-button type="primary" @click="nextHandle" :disabled="nextIsDisabled">
+        {{ $t('app.Next') }}
+      </el-button>
     </div>
     <div v-if="activeName == 1">
       <div class="ac mb-24">
-        <span class="mr-24">Search</span>
+        <span class="mr-24">{{ $t('app.Search') }}</span>
         <el-input v-model="keyword" clearable placeholder="prompt, theme, keywords..." style="width: 40%"> </el-input>
-        <div class="ml-24">10 results</div>
+        <div class="ml-24">10 {{ $t(`createDrawingPreview['results']`) }}</div>
       </div>
       <div class="jsb ac mt-16 mb-16">
-        <div>{{ checkList.length }} selected</div>
-        <el-checkbox v-model="isCheckedAll" @change="searchSelectAll">select all</el-checkbox>
+        <div>{{ checkList.length }} {{ $t(`createDrawingPreview['selected']`) }}</div>
+        <el-checkbox v-model="isCheckedAll" @change="searchSelectAll">
+          {{ $t(`createDrawingPreview['select all']`) }}
+        </el-checkbox>
       </div>
       <DrawingGroup :list="galleryList" select :checkList.sync="checkList" />
     </div>
     <div v-else-if="activeName == 2">
       <el-row>
         <el-col :span="13">
-          <div class="md_title">Gallery Name</div>
+          <div class="md_title">{{ $t(`createDrawingPreview['Gallery Name']`) }}</div>
           <el-input v-model="galleryName" clearable style="width: 50%"> </el-input>
-          <div class="md_title">Description</div>
+          <div class="md_title">{{ $t('app.Description') }}</div>
           <el-input v-model="description" type="textarea"> </el-input>
         </el-col>
         <el-col :span="10" :offset="1">
-          <div class="md_title">Who can view?</div>
+          <div class="md_title">{{ $t(`createDrawingPreview['Who can view?']`) }}</div>
           <div v-for="(item, index) in galleryConfig" :key="index" class="jsb ac mb-24">
-            <div>{{ item.label }}</div>
+            <div>{{ $t(`createDrawingPreview['${item.label}']`) }}</div>
             <el-switch v-model="item.open"></el-switch>
           </div>
         </el-col>
       </el-row>
-      <div class="md_title">{{ selectList.length }} Drawings selected</div>
+      <div class="md_title">{{ selectList.length }} {{ $t(`createDrawingPreview['Drawings selected']`) }}</div>
     </div>
     <div v-else>
       <el-row>
         <el-col :span="13">
-          <div class="md_title">Gallery Name</div>
+          <div class="md_title">{{ $t(`createDrawingPreview['Gallery Name']`) }}</div>
           <p>{{ galleryName }}</p>
-          <div class="md_title">Description</div>
+          <div class="md_title">{{ $t('app.Description') }}</div>
           <p>{{ description }}</p>
         </el-col>
         <el-col :span="10" :offset="1">
@@ -59,9 +63,9 @@
       </el-row>
       <div class="preview_message_max jac pb-24">
         <div class="inner_content">
-          <div class="md_title">Who can view?</div>
+          <div class="md_title">{{ $t(`createDrawingPreview['Who can view?']`) }}</div>
           <div v-for="(item, index) in galleryConfig" :key="index" class="jsb ac mb-24">
-            <div>{{ item.label }}</div>
+            <div>{{ $t(`createDrawingPreview['${item.label}']`) }}</div>
             <el-switch v-model="item.open"></el-switch>
           </div>
           <div class="link pd-24 mb-24">{{ shareLink }}</div>
@@ -169,6 +173,7 @@ export default {
     width: 50%;
   }
   .link {
+    word-break: break-all;
     color: #65b1ff;
     padding: 6px 10px;
     border: 1px solid #e1e1e1;

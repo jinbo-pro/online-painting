@@ -5,13 +5,16 @@
         <el-image :src="item.cover"></el-image>
       </el-col>
       <el-col :span="12" class="right_content fdc jsb pl-24">
-        <div class="ac">
-          <el-avatar :size="40" :src="item.userImg" class="item_head mr-16"></el-avatar>
-          <span>{{ item.userName }}</span>
+        <div class="jsb ac">
+          <div class="ac">
+            <el-avatar :size="40" :src="item.userImg" class="item_head mr-16"></el-avatar>
+            <span>{{ item.userName }}</span>
+          </div>
+          <i v-if="isShare" class="el-icon-s-promotion"></i>
         </div>
         <p>{{ item.content }}</p>
         <div class="jsb ac">
-          <el-button type="primary" round>Marketing</el-button>
+          <el-button type="primary" round>{{ $t('drawPreview.Marketing') }}</el-button>
           <span>{{ item.createTime }}</span>
         </div>
       </el-col>
@@ -26,6 +29,10 @@ export default {
     show: {
       type: Boolean,
       default: false
+    },
+    isShare: {
+      type: Boolean,
+      default: true
     },
     item: {
       type: Object,
@@ -55,5 +62,8 @@ export default {
 <style lang="scss" scoped>
 .right_content {
   height: 250px;
+  .el-icon-s-promotion {
+    font-size: 32px;
+  }
 }
 </style>

@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+import { identityList } from '@/config/app'
 
 /**
  * 模拟数据列表
@@ -19,7 +20,7 @@ export function listData(count = '2-5') {
         createTime: '@date(dd/MM/yyyy)',
         'cover|+1': 1,
         'userList|2-5': ['@name()'],
-        'tagList|3': [{ title: '@word()', bgc: '@color()' }]
+        identityList: identityList.slice(0, Mock.Random.integer(1, identityList.length))
       }
     ]
   })

@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="ac mb-24" @click="linkSearch">
-      <span class="mr-24">Search</span>
+      <span class="mr-24">{{ $t('app.Search') }}</span>
       <el-input v-model="keyword" placeholder="prompt, theme, keywords..." style="width: 40%"></el-input>
     </div>
     <el-row>
@@ -31,12 +31,12 @@
                     </el-col>
                     <el-col :span="16" class="pl-14 fw ac tag_max">
                       <div
-                        v-for="(tag, i) in item.tagList"
+                        v-for="(tag, i) in item.identityList"
                         :key="i"
                         class="tag_item_box"
                         :style="`background-color: ${tag.bgc};`"
                       >
-                        {{ tag.title }}
+                        {{ $t('identity.' + tag.label) }}
                       </div>
                     </el-col>
                   </el-row>
@@ -147,7 +147,7 @@ export default {
   .tag_item_box {
     border-radius: 16px;
     color: #fff;
-    padding: 2px 6px;
+    padding: 4px 8px;
     margin-right: 8px;
     margin-bottom: 8px;
   }

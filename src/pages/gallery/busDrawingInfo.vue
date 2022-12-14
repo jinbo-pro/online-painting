@@ -51,7 +51,7 @@
               </div>
               <p>{{ item.content }}</p>
               <div class="jsb ac">
-                <el-button type="primary" round>Marketing</el-button>
+                <el-button type="primary" round>{{ $t('drawPreview.Marketing') }}</el-button>
                 <span>{{ item.createTime }}</span>
               </div>
             </el-col>

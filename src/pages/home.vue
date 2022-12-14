@@ -4,27 +4,28 @@
       <el-col :xs="0" :span="4" class="jsb ac">
         <div class="left_nav_max container fdc jsb">
           <el-tabs tab-position="right" class="nav_content">
-            <el-tab-pane v-for="(item, index) in leftNavList" :key="index" :label="item.title"> </el-tab-pane>
+            <el-tab-pane v-for="(item, index) in leftNavList" :key="index" :label="$t(`myHome['${item.title}']`)">
+            </el-tab-pane>
           </el-tabs>
           <div class="foot_btn pb-16 fdc jsb ac">
             <div class="mb-16">
-              <el-button type="primary">Sign Out</el-button>
+              <el-button type="primary">{{ $t(`myHome['Sign Out']`) }}</el-button>
             </div>
-            <el-button type="text">Help</el-button>
+            <el-button type="text">{{ $t(`myHome['Help']`) }}</el-button>
           </div>
         </div>
       </el-col>
       <el-col :xs="24" :span="20">
         <div class="right_drawing_max container pd-24">
-          <div class="title">Create something new</div>
+          <div class="title">{{ $t(`myHome['Create something new']`) }}</div>
           <div class="create_btn" @click="linkDraw">
             <div class="btn_box jac">
               <i class="el-icon-circle-plus"></i>
             </div>
             <p v-if="isManage" class="foot_msg jac">+ new company gallery</p>
-            <p v-else class="foot_msg jac">+ new canvas</p>
+            <p v-else class="foot_msg jac">+ {{ $t(`myHome['new canvas']`) }}</p>
           </div>
-          <div class="title">My drawings</div>
+          <div class="title">{{ $t(`myHome['My drawings']`) }}</div>
           <div class="drawing_content">
             <DrawingGroup :list="drawingList" @handle="linkInfo" />
           </div>

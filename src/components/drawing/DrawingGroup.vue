@@ -59,12 +59,14 @@ export default {
   // 平板
   @media only screen and (min-width: 768px) and (max-width: 991px) {
     display: grid;
+    grid-row-gap: 16px;
     grid-column-gap: 16px;
     grid-template-columns: repeat(4, 200px);
   }
   // 电脑
   @media only screen and (min-width: 1200px) and (max-width: 1919px) {
     display: grid;
+    grid-row-gap: 16px;
     grid-column-gap: 16px;
     grid-template-columns: repeat(6, 200px);
   }

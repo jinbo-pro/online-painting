@@ -10,7 +10,7 @@
       <el-col :span="11" class="right_message_box">
         <div class="jsb ac">
           <div>
-            <div class="title">Title</div>
+            <div class="title">{{ $t('app.Title') }}</div>
             <div class="time">02/12/2022</div>
           </div>
           <div class="send">
@@ -23,7 +23,7 @@
           esset,nihil tamen possides.
         </p>
         <el-button type="primary" icon="el-icon-present" class="order_swag" @click="linkShopping">
-          Order a Swag
+          {{ $t(`myHome['Order a Swag']`) }}
         </el-button>
       </el-col>
     </el-row>
