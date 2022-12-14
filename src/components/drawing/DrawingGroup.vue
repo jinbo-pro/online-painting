@@ -64,7 +64,7 @@ export default {
     grid-template-columns: repeat(4, 200px);
   }
   // 电脑
-  @media only screen and (min-width: 1200px) and (max-width: 1919px) {
+  @media only screen and (min-width: 1200px) {
     display: grid;
     grid-row-gap: 16px;
     grid-column-gap: 16px;

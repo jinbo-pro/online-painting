@@ -2,22 +2,22 @@
   <div class="container">
     <div class="ac">
       <PageNavigator />
-      <div class="title ml-24">Prepare your AI canvas</div>
+      <div class="title ml-24">{{ $t(`drawMode['Prepare your AI canvas']`) }}</div>
     </div>
     <el-row class="content_max">
       <el-col :span="8" class="box fdc jsb ac">
-        <div class="title top">Canvas mode</div>
+        <div class="title top">{{ $t(`drawMode['Canvas mode']`) }}</div>
         <div v-for="(item, index) in leftSelectModeList" :key="index" class="select_mode">
           <label class="select_label fdc jac">
             <el-radio v-model="activeMode" :label="item.value" class="radio"></el-radio>
             <img class="mb-16" :src="item.icon" alt="" />
-            <div class="title">{{ item.title }}</div>
+            <div class="title">{{ $t(`drawMode['${item.title}']`) }}</div>
           </label>
         </div>
       </el-col>
       <el-col :span="16" class="pl-24">
         <div class="box fdc jsb ac">
-          <div class="title top jac">Do you want to draw for</div>
+          <div class="title top jac">{{ $t(`drawMode['Do you want to draw for?']`) }}</div>
           <div class="right_type fw jac">
             <div v-for="(item, index) in drawModeList" :key="index" class="item_type_box fdc jac">
               <div class="item_type box_bod">
@@ -26,11 +26,11 @@
                   <img :src="item.icon" alt="" />
                 </label>
               </div>
-              <div>{{ item.title }}</div>
+              <div>{{ $t(`drawMode['${item.title}']`) }}</div>
             </div>
           </div>
-          <div class="foot_btn jac">
-            <el-button type="primary" @click="linkDraw">Let's draw!</el-button>
+          <div class="foot_btn jac mt-24">
+            <el-button type="primary" @click="linkDraw">{{ $t(`drawMode["Let's draw!"]`) }}</el-button>
           </div>
         </div>
       </el-col>
@@ -80,7 +80,8 @@ export default {
         path = '/connectTeam'
       }
       this.$router.push({
-        path
+        path,
+        query: { mode: this.activeMode }
       })
     }
   }

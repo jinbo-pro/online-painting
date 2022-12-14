@@ -2,7 +2,7 @@
   <div class="container">
     <div class="ac">
       <PageNavigator />
-      <div class="title ml-24">You are drawing for</div>
+      <div class="title ml-24">{{ $t(`drawSubject['You are drawing for']`) }}</div>
     </div>
     <div class="title jac">Main title here: When do you feel most free?</div>
     <p class="subject_about">
@@ -11,7 +11,7 @@
     </p>
     <div class="refresh_box jac">
       <i class="el-icon-refresh-right"></i>
-      <el-button class="btn" type="text">l don"t like this topic, refresh</el-button>
+      <el-button class="btn" type="text">{{ $t(`drawSubject['l don"t like this topic, refresh']`) }}</el-button>
     </div>
     <el-row class="jac">
       <el-col :xs="24" :span="16" class="jac">
@@ -26,9 +26,9 @@
     </el-row>
     <div class="fdc jac mt-30">
       <el-button type="primary" @click="linkDraw" :disabled="count != 0">
-        Counting down {{ count ? `${count}s` : '' }}
+        {{ $t(`drawSubject['Counting down']`) }} {{ count ? `${count}s` : '' }}
       </el-button>
-      <el-button class="mt-16" type="text" @click="linkDraw">Skip to drawing</el-button>
+      <el-button class="mt-16" type="text" @click="linkDraw">{{ $t(`drawSubject['Skip to drawing']`) }}</el-button>
     </div>
   </div>
 </template>

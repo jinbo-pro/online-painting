@@ -32,10 +32,10 @@
     </el-row>
     <el-row v-if="pageIndex >= 2">
       <el-col :span="12" :class="['order_message_max', { box_bod: pageIndex == 4 }]">
-        <div v-if="pageIndex < 4" class="title">Your Order</div>
+        <div v-if="pageIndex < 4" class="title">{{ $t(`shoppingMall['Your Order']`) }}</div>
         <div v-if="pageIndex == 4" class="title">
           <i class="el-icon-success"></i>
-          <span>Your Order is completed</span>
+          <span>{{ $t(`shoppingMall['Your Order is completed']`) }}</span>
         </div>
         <div class="cover_box jac">
           <div class="mr-16">
@@ -54,7 +54,9 @@
         </div>
         <div v-if="pageIndex >= 3">
           <div class="md_title">Deliver to</div>
-          <p v-for="(item, index) in orderInfo" :key="index">{{ item.label }}: {{ item.value }}</p>
+          <p v-for="(item, index) in orderInfo" :key="index">
+            {{ $t(`shoppingMall['${item.label}']`) }}: {{ item.value }}
+          </p>
         </div>
         <div v-if="pageIndex == 4">
           <p>Product 15,00 EUR</p>
@@ -65,12 +67,12 @@
       <el-col :span="11" :offset="1">
         <div v-if="pageIndex == 2">
           <div v-for="(item, index) in orderInfo" :key="index">
-            <p>{{ item.label }}</p>
+            <p>{{ $t(`shoppingMall['${item.label}']`) }}</p>
             <el-input v-model="item.value"> </el-input>
           </div>
         </div>
         <div v-if="pageIndex == 3" class="money_max">
-          <div class="md_title">Payment</div>
+          <div class="md_title">{{ $t(`shoppingMall['Payment']`) }}</div>
           <div class="fdc jac">
             <div class="money_list">
               <div class="product">Product 15,00 EUR</div>
@@ -80,12 +82,12 @@
           </div>
           <div class="money mb-32 jac">1500 EUR</div>
           <div class="jac">
-            <el-button type="primary">Pay with Stripe</el-button>
+            <el-button type="primary">{{ $t(`shoppingMall['Pay with Stripe']`) }}</el-button>
           </div>
         </div>
         <div v-if="pageIndex == 4" class="success_max fdc jac">
-          <el-button class="btn_track" type="primary">Track my order</el-button>
-          <el-button>Order another one</el-button>
+          <el-button class="btn_track" type="primary">{{ $t(`shoppingMall['Track my order']`) }}</el-button>
+          <el-button>{{ $t(`shoppingMall['Order another one']`) }}</el-button>
         </div>
       </el-col>
     </el-row>

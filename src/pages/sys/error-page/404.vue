@@ -6,13 +6,13 @@
           <img src="./404-1.png" />
         </div>
         <div class="errorin-middle">
-          <span>哇哦，出错啦！</span>
+          <span>{{ $t('notFound.foundTitle') }}</span>
           <img src="./404-2.png" />
         </div>
         <div class="errorin-info">
-          您访问的页面不存在...
+          {{ $t('notFound.foundMsg') }}
           <div class="errorin-do">
-            <a href="/" class="btn btn-info">返回首页</a>
+            <a href="/" class="btn btn-info">{{ $t('notFound.foundBtn') }}</a>
           </div>
         </div>
       </div>

@@ -65,13 +65,56 @@ export default {
     'Send a new message': 'Send a new message',
     Recipient: 'Recipient',
     Message: 'Message',
-    Send: 'Send',
+    Send: 'Send'
   },
-  router: {
-    home: 'home'
+  drawMode: {
+    'Prepare your AI canvas': 'Prepare your AI canvas',
+    'Canvas mode': 'Canvas mode',
+    "Let's draw!": "Let's draw!",
+    'Do you want to draw for?': 'Do you want to draw for?',
+    'By myself': 'By myself',
+    'With someone': 'With someone',
+    'Self Relfection': 'Self Relfection',
+    'Greetings for athers': 'Greetings for athers',
+    'Stress-relief games': 'Stress-relief games',
+    'Getting to connect with a new person': 'Getting to connect with a new person',
+    'Crafting a group greeting': 'Crafting a group greeting',
+    'Quick games with the team': 'Quick games with the team',
+    'Team-building games': 'Team-building games'
+  },
+  drawSubject: {
+    'You are drawing for': 'You are drawing for',
+    'l don"t like this topic, refresh': 'l don"t like this topic, refresh',
+    'Skip to drawing': 'Skip to drawing',
+    'Start to draw': 'Start to draw',
+    "I'm ready!": "I'm ready!",
+    'Counting down': 'Counting down'
+  },
+  shoppingMall: {
+    Name: 'Name',
+    Address: 'Address',
+    'Contact number': 'Contact number',
+    City: 'City',
+    'Zip code': 'Zip code',
+    Coutnry: 'Coutnry',
+    'Your Order': 'Your Order',
+    'Your Order is completed': 'Your Order is completed',
+    Payment: 'Payment',
+    'Pay with Stripe': 'Pay with Stripe',
+    'Track my order': 'Track my order',
+    'Order another one': 'Order another one'
+  },
+  siteNotice: {
+    Form: 'Form',
+    Description: 'Description',
+    Status: 'Status',
+    Sender: 'Sender',
+    Message: 'Message',
+    'Mark as Read': 'Mark as Read',
+    Delete: 'Delete'
   },
   notFound: {
-    foundTitle: 'Wrong address input, please re-enter the address~',
+    foundTitle: 'Page Not Found',
     foundMsg: 'You can check the web address first, and then re-enter or give us feedback.',
     foundBtn: 'Back to home page'
   }
