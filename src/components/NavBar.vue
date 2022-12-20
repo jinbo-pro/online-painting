@@ -63,10 +63,10 @@ export default {
       activeIndex: 0,
       navList: [
         { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
-        { title: 'Connect', url: '/Connect', disabled: false },
-        { title: 'Play', url: '/Play', disabled: false },
-        { title: 'Greet', url: '/Greet', disabled: false },
-        { title: 'Learn', url: '/Learn', disabled: true }
+        { title: 'Connect', url: '', disabled: false },
+        { title: 'Play', url: '', disabled: false },
+        { title: 'Greet', url: '', disabled: false },
+        { title: 'Learn', url: '', disabled: true }
       ]
     }
   },
@@ -78,6 +78,10 @@ export default {
       if (item.disabled) return
       this.activeIndex = index
       console.log(item.url, '-->>> url')
+      if (!item.url) {
+        console.log('链接开发中')
+        return
+      }
       if (this.$route.path != item.url) {
         this.$router.replace(item.url)
       }

@@ -23,6 +23,7 @@ export default {
     Drawings: 'Drawings',
     Description: 'Description',
     Next: 'Next',
+    Back: 'Back',
     userName: 'user name'
   },
   myHome: {

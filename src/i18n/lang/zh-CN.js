@@ -23,6 +23,7 @@ export default {
     Drawings: '画作',
     Description: '描述',
     Next: '下一步',
+    Back: '返回',
     userName: '用户名'
   },
   myHome: {
