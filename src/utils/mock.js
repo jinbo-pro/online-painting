@@ -18,7 +18,7 @@ export function listData(count = '2-5') {
         'userImg|+3': 1,
         content: '@sentence()',
         createTime: '@date(dd/MM/yyyy)',
-        'cover|+1': 1,
+        'path|+1': 1,
         'userList|2-5': ['@name()'],
         identityList: identityList.slice(0, Mock.Random.integer(1, identityList.length))
       }
@@ -26,7 +26,7 @@ export function listData(count = '2-5') {
   })
   const list = res.data
   for (let item of list) {
-    item.cover = `http://www.ruanyifeng.com/images_pub/pub_${item.cover}.jpg`
+    item.path = `http://www.ruanyifeng.com/images_pub/pub_${item.path}.jpg`
     item.userImg = `http://www.ruanyifeng.com/images_pub/pub_${item.userImg}.jpg`
   }
   return list

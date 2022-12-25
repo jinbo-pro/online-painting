@@ -75,6 +75,7 @@
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 import { listData } from '@/utils/mock'
+import { getGalleryList } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup
@@ -93,8 +94,14 @@ export default {
     this.trendingList = listData('5-10')
     this.popularList = listData('3-10')
     this.teamGalleryList = listData('3-10')
+    this.getList()
   },
   methods: {
+    getList() {
+      getGalleryList({}).then((res) => {
+        console.log(res, '-->>> 678')
+      })
+    },
     linkSearch() {
       this.$router.push({
         path: '/drawingSearch',

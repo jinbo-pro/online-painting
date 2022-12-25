@@ -32,7 +32,7 @@
                 class="notice_item_box mb-16"
                 @click="linkNoticeInfo(item.id)"
               >
-                You received a message from @{{ item.userName }}
+                {{ item.title }}
               </div>
             </div>
             <div slot="reference">
@@ -50,7 +50,7 @@
 
 <script>
 import SelectLang from '@/components/SelectLang.vue'
-import { listData } from '@/utils/mock'
+import { getIrecipientList } from '@/apiList/api_work'
 export default {
   name: 'NavBar',
   components: {
@@ -71,9 +71,14 @@ export default {
     }
   },
   created() {
-    this.noticeList = listData('10-20')
+    this.getNoticeList()
   },
   methods: {
+    getNoticeList() {
+      getIrecipientList({}).then((res) => {
+        this.noticeList = res
+      })
+    },
     handleSelect(item, index) {
       if (item.disabled) return
       this.activeIndex = index

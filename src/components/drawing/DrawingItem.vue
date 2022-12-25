@@ -1,7 +1,7 @@
 <template>
   <div class="drawing_item_box" @click="linkInfo">
     <div class="cover_box jac">
-      <el-image class="cover" :src="item.cover" lazy></el-image>
+      <el-image class="cover" :src="item.path" lazy></el-image>
     </div>
     <p class="jac">{{ item.title }}</p>
   </div>

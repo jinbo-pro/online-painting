@@ -54,7 +54,7 @@
 
 <script>
 import { local } from '@/utils/storage'
-import { userLogin } from '@/apiList/loginAuth'
+import { userLogin } from '@/apiList/api_work'
 import { pageLoading } from '@/utils/common'
 export default {
   name: 'Login',
@@ -99,12 +99,16 @@ export default {
         if (!valid) return
         const loading = pageLoading()
         this.isSubmit = true
-        userLogin(this.loginForm)
+        userLogin({
+          user: this.loginForm.username,
+          password: this.loginForm.password
+        })
           .then((res) => {
             loading.close()
             this.isSubmit = false
             local.get('userName', this.loginForm.username)
-            local.set('token', res.token)
+            local.set('token', res.auth)
+            local.set('userInfo', res.user)
             this.$router.push({ path: '/' })
           })
           .catch(() => {

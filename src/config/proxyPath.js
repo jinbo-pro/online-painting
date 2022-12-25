@@ -1,10 +1,10 @@
 // 代理地址 [head 代理头] [local 本地] [network 网络]
 
 const proxyPathMap = {
-  // 政务网
+  // 绘画
   work: {
-    local: 'http://192.168.2.86',
-    network: '/work'
+    local: 'http://192.168.2.86:19088/draw_client',
+    network: '/draw_client'
   }
 }
 

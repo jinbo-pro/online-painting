@@ -9,7 +9,7 @@
           </el-tabs>
           <div class="foot_btn pb-16 fdc jsb ac">
             <div class="mb-16">
-              <el-button type="primary">{{ $t(`myHome['Sign Out']`) }}</el-button>
+              <el-button type="primary" @click="signOut">{{ $t(`myHome['Sign Out']`) }}</el-button>
             </div>
             <el-button type="text">{{ $t(`myHome['Help']`) }}</el-button>
           </div>
@@ -37,8 +37,8 @@
 
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
-import { listData } from '@/utils/mock'
 import { local } from '@/utils/storage'
+import { getMyDrawList, userLogout } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup
@@ -54,10 +54,15 @@ export default {
     }
   },
   created() {
-    this.drawingList = listData('3-10')
+    this.getDrawList()
     this.isManage = local.get('userName') == 'admin'
   },
   methods: {
+    getDrawList() {
+      getMyDrawList({}).then((res) => {
+        this.drawingList = res
+      })
+    },
     linkDraw() {
       if (this.isManage) {
         this.$router.push('/createDrawingPreview')
@@ -70,6 +75,11 @@ export default {
         path: '/drawingInfo',
         query: { id: item.id || 1 }
       })
+    },
+    signOut() {
+      local.clear()
+      location.reload()
+      userLogout()
     }
   }
 }

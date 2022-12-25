@@ -30,16 +30,39 @@
             </div>
           </div>
           <div class="foot_btn jac mt-24">
-            <el-button type="primary" @click="linkDraw">{{ $t(`drawMode["Let's draw!"]`) }}</el-button>
+            <el-button v-if="activeMode == 1" type="primary" @click="linkDraw">
+              {{ $t(`drawMode["Let's draw!"]`) }}
+            </el-button>
+            <template v-else>
+              <el-button type="primary" @click="createDrawGroup">创建组</el-button>
+              <el-button type="primary" @click="openTeamList">加入组</el-button>
+            </template>
           </div>
         </div>
       </el-col>
     </el-row>
+    <el-dialog title="选择加入的房间" :visible.sync="dialogTableVisible">
+      <el-table :data="teamList">
+        <el-table-column prop="name" label="名称"> </el-table-column>
+        <el-table-column prop="createDate" label="创建时间">
+          <template slot-scope="{ row }">
+            {{ row.createDate | parseTimeFnumber(row.createTime) }}
+          </template>
+        </el-table-column>
+        <el-table-column label="操作">
+          <template slot-scope="{ row }">
+            <el-button size="mini" type="primary" @click="joinDrawGroup(row.id)">加入</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import PageNavigator from '@/components/PageNavigator.vue'
+import { addTeam, addTeamUser, getTeamId, getTeamList, leaveTeam } from '@/apiList/api_work'
+import { local } from '@/utils/storage'
 export default {
   components: {
     PageNavigator
@@ -51,7 +74,9 @@ export default {
         { value: 1, title: 'By myself', icon: require('@/assets/draw-mode/1.png') },
         { value: 2, title: 'With someone', icon: require('@/assets/draw-mode/2.png') }
       ],
-      activeType: 1
+      activeType: 1,
+      dialogTableVisible: false,
+      teamList: []
     }
   },
   computed: {
@@ -72,8 +97,31 @@ export default {
       }
     }
   },
-  created() {},
+  created() {
+    this.checkIsJoinTeam()
+  },
   methods: {
+    async checkIsJoinTeam() {
+      const info = await getTeamId({})
+      if (!info || !info.id) return
+      this.$confirm(`${info.name} <br />是否进入?`, '您有一个正在进行中的团队', {
+        dangerouslyUseHTMLString: true,
+        confirmButtonText: '进入',
+        cancelButtonText: '离开',
+        type: 'warning'
+      })
+        .then(() => {
+          this.$router.push({
+            path: '/connectTeam',
+            query: { teamId: info.id }
+          })
+        })
+        .catch(() => {
+          leaveTeam(info.id).then(() => {
+            this.$message.success('离开成功')
+          })
+        })
+    },
     linkDraw() {
       let path = '/drawSubject'
       if (this.activeMode == 2) {
@@ -82,6 +130,31 @@ export default {
       this.$router.push({
         path,
         query: { mode: this.activeMode }
+      })
+    },
+    async createDrawGroup() {
+      const userInfo = local.get('userInfo')
+      const res = await addTeam({
+        name: userInfo.name + '新建的绘画房间',
+        type: '1'
+      })
+      this.$router.push({
+        path: '/connectTeam',
+        query: { mode: this.activeMode, teamId: res.id }
+      })
+    },
+    openTeamList() {
+      this.dialogTableVisible = true
+      getTeamList({ type: '1' }).then((res) => {
+        this.teamList = res
+      })
+    },
+    joinDrawGroup(teamId) {
+      addTeamUser(teamId).then((res) => {
+        this.$router.push({
+          path: '/connectTeam',
+          query: { mode: this.activeMode, teamId }
+        })
       })
     }
   }
