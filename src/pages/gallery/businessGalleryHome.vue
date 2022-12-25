@@ -69,13 +69,14 @@
     <div class="popular_max">
       <DrawingGroup :list="teamGalleryList" @handle="linkInfo" />
     </div>
+    <div class="line_se"></div>
   </div>
 </template>
 
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 import { listData } from '@/utils/mock'
-import { getGalleryList } from '@/apiList/api_work'
+import { getGalleryBannerList, getGalleryList } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup
@@ -92,15 +93,35 @@ export default {
   created() {
     this.bannerList = listData(5)
     this.trendingList = listData('5-10')
-    this.popularList = listData('3-10')
-    this.teamGalleryList = listData('3-10')
     this.getList()
   },
   methods: {
     getList() {
-      getGalleryList({}).then((res) => {
-        console.log(res, '-->>> 678')
+      const getDrawList = (res) => {
+        if (!Array.isArray(res)) return []
+        return res.map((e) => {
+          return {
+            path: `http://www.ruanyifeng.com/images_pub/pub_1.jpg`,
+            title: e.name
+          }
+        })
+      }
+      getGalleryList({ keyword: this.keyword, type: 1 }).then((res) => {
+        this.popularList = getDrawList(res)
       })
+      getGalleryList({ keyword: this.keyword, type: 2 }).then((res) => {
+        this.teamGalleryList = getDrawList(res)
+      })
+
+      // 获取画廊 banner 列表
+      // getGalleryBannerList().then((res) => {
+      //   this.bannerList = res
+      // })
+
+      // 获取画廊 首页 列表
+      // getGalleryHomeList().then((res) => {
+      //   console.log(678, '-->>> 678')
+      // })
     },
     linkSearch() {
       this.$router.push({

@@ -10,6 +10,14 @@ export function userLogin(data) {
 export function userLogout(data) {
   return request.postJson('/login/logout', data)
 }
+/**获取主题 */
+export function getTheme(data) {
+  return request.postJson('/theme/getTheme', data)
+}
+/**获取人员树 */
+export function getUserTreeList(data) {
+  return request.postJson('/office/getUserList', data)
+}
 
 /**
  * 画作
@@ -18,14 +26,14 @@ export function userLogout(data) {
 export function getMyDrawList(data) {
   return request.postJson('/draw/getMyDrawList', data)
 }
-/**获取主题 */
-export function getTheme(data) {
-  return request.postJson('/theme/getTheme', data)
-}
 
 /**
  * 消息
  */
+/**发送 */
+export function sendMessage(data) {
+  return request.postJson('/message/sendMessage', data)
+}
 /**接收的列表 */
 export function getIrecipientList(data) {
   return request.postJson('/message/getIrecipientList', data)
@@ -85,4 +93,24 @@ export function getGalleryList(data) {
 /**新增 */
 export function addGallery(data) {
   return request.postJson('/gallery/addGallery', data)
+}
+/**详情 */
+export function getGalleryById(data) {
+  return request.postJson('/gallery/getById', data)
+}
+/**获取画廊banner列表 */
+export function getGalleryBannerList(data) {
+  return request.postJson('/gallery/getGalleryBannerList', data)
+}
+/**获取画廊首页列表 */
+export function getGalleryHomeList(data) {
+  return request.postJson('/gallery/getGalleryHomeList', data)
+}
+/**画廊点赞 */
+export function galleryStar(id) {
+  return request.postJson('/gallery/star', { id })
+}
+/**画廊取消点赞 */
+export function galleryCancelStar(id) {
+  return request.postJson('/gallery/cancelStar', { id })
 }

@@ -8,7 +8,7 @@
         <el-tab-pane :label="'3.' + $t(`createDrawingPreview['complete']`)" name="3"></el-tab-pane>
       </el-tabs>
       <el-button type="primary" @click="nextHandle" :disabled="nextIsDisabled">
-        {{ $t('app.Next') }}
+        {{ activeName == 3 ? 'Finish' : $t('app.Next') }}
       </el-button>
     </div>
     <div v-if="activeName == 1">
@@ -86,7 +86,7 @@
 import { copyText } from '@/utils/jcore'
 import SendNotice from './components/SendNotice.vue'
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
-import { listData } from '@/utils/mock'
+import { addGallery, getMyDrawList, sendMessage } from '@/apiList/api_work'
 export default {
   components: {
     SendNotice,
@@ -104,9 +104,9 @@ export default {
       galleryName: '',
       description: '',
       galleryConfig: [
-        { label: 'Team', open: true },
-        { label: 'All Company', open: true },
-        { label: 'Public', open: true }
+        { key: 'team', label: 'Team', open: true },
+        { key: 'allCommpany', label: 'All Company', open: true },
+        { key: 'pub', label: 'Public', open: true }
       ],
 
       showNotice: false,
@@ -124,15 +124,41 @@ export default {
     }
   },
   created() {
-    this.galleryList = listData('3-15')
+    this.getDrawList()
   },
   methods: {
+    getDrawList() {
+      getMyDrawList({ keyword: this.keyword }).then((res) => {
+        if (!Array.isArray(res)) return
+        this.galleryList = res.map((e) => {
+          return {
+            ...e,
+            checked: false
+          }
+        })
+      })
+    },
+
     searchSelectAll() {
       this.checkList = this.isCheckedAll ? this.galleryList.map((e) => e.id) : []
     },
     nextHandle() {
       this.navCheck = true
       this.activeName++
+      if (this.activeName == 3) {
+        const lookObj = this.galleryConfig.reduce((p, c) => {
+          p[c.key] = c.open ? '1' : ''
+          return p
+        }, {})
+        addGallery({
+          ...lookObj,
+          galleryName: this.galleryName,
+          description: this.description,
+          drawIds: this.checkList.toString()
+        }).then((res) => {
+          this.$message.success('画廊新建成功')
+        })
+      }
       this.$nextTick(() => {
         this.navCheck = false
       })
@@ -144,8 +170,11 @@ export default {
     share() {
       console.log('[x] 待开发')
     },
-    sendNoticeConfirm() {
-      console.log('[x] 待开发')
+    sendNoticeConfirm(data) {
+      sendMessage({ content: data.message, userIds: data.recipient }).then((res) => {
+        this.showNotice = false
+        this.$message.success('发送成功')
+      })
     }
   }
 }

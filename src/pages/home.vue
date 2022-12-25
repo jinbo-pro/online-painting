@@ -64,11 +64,7 @@ export default {
       })
     },
     linkDraw() {
-      if (this.isManage) {
-        this.$router.push('/createDrawingPreview')
-      } else {
-        this.$router.push('/selectDrawMode')
-      }
+      this.$router.push('/createDrawingPreview')
     },
     linkInfo(item) {
       this.$router.push({
@@ -77,9 +73,10 @@ export default {
       })
     },
     signOut() {
-      local.clear()
-      location.reload()
-      userLogout()
+      userLogout({}).then(() => {
+        local.clear()
+        location.reload()
+      })
     }
   }
 }

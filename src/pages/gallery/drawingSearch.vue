@@ -9,7 +9,7 @@
             </el-input>
           </el-col>
           <el-col :span="12" class="jend">
-            <el-select v-model="searchType" clearable>
+            <!-- <el-select v-model="searchType" clearable>
               <el-option
                 v-for="(item, index) in searchTypeList"
                 :key="index"
@@ -17,17 +17,14 @@
                 :value="item.value"
               >
               </el-option>
-            </el-select>
+            </el-select> -->
           </el-col>
         </el-row>
       </div>
       <div class="search_result_max">
-        <div v-for="(item, index) in showDataList" :key="index">
-          <p>{{ item.title }}</p>
-          <el-divider></el-divider>
-          <DrawingGroup :list="item.data" @handle="linkInfo" />
-        </div>
+        <DrawingGroup :list="serachList" @handle="linkInfo" />
       </div>
+      <div class="line_se"></div>
     </div>
     <PreviewDialog :show.sync="showPreview" :item="selectDraw" />
   </div>
@@ -36,7 +33,7 @@
 <script>
 import PreviewDialog from './components/PreviewDialog.vue'
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
-import { listData } from '@/utils/mock'
+import { getGalleryList } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup,
@@ -46,10 +43,9 @@ export default {
     return {
       searchType: '',
       searchTypeList: [
-        { label: 'Department', value: 1 },
-        { label: 'Team', value: 2 },
-        { label: 'Prompt', value: 3 },
-        { label: 'Time', value: 4 }
+        { key: 'department', label: 'Department', value: 1 },
+        { key: 'team', label: 'Team', value: 2 },
+        { key: 'prompt', label: 'Prompt', value: 3 }
       ],
       serachList: [],
       showPreview: false,
@@ -63,25 +59,22 @@ export default {
       }
     }
   },
-  computed: {
-    showDataList() {
-      if (this.searchType) {
-        return this.serachList.filter((e) => e.type == this.searchType)
-      } else {
-        return this.serachList
-      }
-    }
-  },
   created() {
-    this.serachList = this.searchTypeList.map((e) => {
-      return {
-        title: e.label,
-        type: e.value,
-        data: listData('3-10')
-      }
-    })
+    this.getList()
   },
   methods: {
+    getList() {
+      getGalleryList({ keyword: this.searchKeyWord }).then((res) => {
+        if (!Array.isArray(res)) return
+        this.serachList = res.map((e) => {
+          return {
+            ...e,
+            title: e.name,
+            path: `http://www.ruanyifeng.com/images_pub/pub_1.jpg`
+          }
+        })
+      })
+    },
     linkInfo(item) {
       Object.assign(this.selectDraw, item)
       this.showPreview = true

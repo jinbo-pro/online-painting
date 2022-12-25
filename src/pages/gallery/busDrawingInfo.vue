@@ -10,7 +10,7 @@
       <div class="right_message ml-24">
         <div class="jsb ac">
           <div class="right_title mb-14">Music of Life</div>
-          <div class="right_icon as">
+          <div class="right_icon as" @click="starDrawHandle">
             <div class="mr-16 fdc jac">
               <i class="iconfont icon-aixin"></i>
               1.2k
@@ -71,6 +71,7 @@ import PageNavigator from '@/components/PageNavigator.vue'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import PreviewDialog from './components/PreviewDialog.vue'
 import ShareDrawingDialog from './components/ShareDrawingDialog.vue'
+import { galleryCancelStar, galleryStar, getGalleryById } from '@/apiList/api_work'
 export default {
   components: {
     PageNavigator,
@@ -90,7 +91,11 @@ export default {
         content: '',
         createTime: ''
       },
-      drawingList: []
+      drawingList: [],
+      drawInfo: {
+        id: '',
+        isStar: ''
+      }
     }
   },
   computed: {
@@ -99,9 +104,18 @@ export default {
     }
   },
   created() {
+    let id = this.$route.query.id
+    if (id) {
+      this.getDrawInfo(id)
+    }
     this.drawingList = listData('3-10')
   },
   methods: {
+    getDrawInfo(id) {
+      getGalleryById(this.drawId).then((res) => {
+        Object.assign(this.drawInfo, res)
+      })
+    },
     previewCover(item) {
       Object.assign(this.selectDraw, item)
       this.showPreview = true
@@ -111,6 +125,16 @@ export default {
     },
     footCoverChange(e) {
       this.$refs.swiper.setActiveItem(e)
+    },
+    // 点赞/取消点赞
+    async starDrawHandle() {
+      const id = this.drawInfo.id
+      if (this.drawInfo.isStar == 0) {
+        await galleryStar(id)
+      } else {
+        await galleryCancelStar(id)
+      }
+      this.$message.success('操作成功')
     }
   }
 }
