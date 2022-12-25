@@ -5,29 +5,26 @@
     </div>
     <el-row class="about_box">
       <el-col :span="13" class="img_box box_bod jac pd-16">
-        <img class="info_cover" :src="currentCover.cover" />
+        <img class="info_cover" :src="drawInfo.path" />
       </el-col>
       <el-col :span="11" class="right_message_box">
         <div class="jsb ac">
           <div>
-            <div class="title">{{ $t('app.Title') }}</div>
-            <div class="time">02/12/2022</div>
+            <div class="title">{{ drawInfo.title }}</div>
+            <div class="time">{{ drawInfo.createDate | parseTimeFnumber(drawInfo.createTime) }}</div>
           </div>
           <div class="send">
             <i class="el-icon-s-promotion"></i>
           </div>
         </div>
-        <p>
-          Tollere odium autem in nostra potestate sint.ab omnibus et contra naturam transferre innobis.Sed interim toto
-          desiderio supprimunt:si vis aliqua quae in manu tua tibi necesseconfundentur et quae,quod laudabile
-          esset,nihil tamen possides.
-        </p>
+        <p>{{ drawInfo.description }}</p>
         <el-button type="primary" icon="el-icon-present" class="order_swag" @click="linkShopping">
           {{ $t(`myHome['Order a Swag']`) }}
         </el-button>
       </el-col>
     </el-row>
-    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="cover" />
+    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" />
+    <div class="line_se"></div>
   </div>
 </template>
 
@@ -35,6 +32,7 @@
 import PageNavigator from '@/components/PageNavigator.vue'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import { listData } from '@/utils/mock'
+import { getDrawInfo } from '@/apiList/api_work'
 export default {
   components: {
     PageNavigator,
@@ -43,7 +41,15 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      drawingList: []
+      drawingList: [],
+      drawInfo: {
+        id: '',
+        path: '',
+        title: '',
+        description: '',
+        createDate: '',
+        createTime: ''
+      }
     }
   },
   computed: {
@@ -52,9 +58,18 @@ export default {
     }
   },
   created() {
+    const id = this.$route.query.id
+    if (id) {
+      this.getInfo(id)
+    }
     this.drawingList = listData('3-10')
   },
   methods: {
+    getInfo(id) {
+      getDrawInfo(id).then((res) => {
+        Object.assign(this.drawInfo, res)
+      })
+    },
     linkShopping(id) {
       this.$router.push({
         path: '/shoppingMall',

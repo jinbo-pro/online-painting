@@ -69,7 +69,7 @@ export default {
     linkInfo(item) {
       this.$router.push({
         path: '/drawingInfo',
-        query: { id: item.id || 1 }
+        query: { id: item.id }
       })
     },
     signOut() {

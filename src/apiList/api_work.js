@@ -26,6 +26,10 @@ export function getUserTreeList(data) {
 export function getMyDrawList(data) {
   return request.postJson('/draw/getMyDrawList', data)
 }
+/**详情 */
+export function getDrawInfo(id) {
+  return request.postJson('/draw/getById', { id })
+}
 
 /**
  * 消息

@@ -101,7 +101,7 @@ export default {
         if (!Array.isArray(res)) return []
         return res.map((e) => {
           return {
-            path: `http://www.ruanyifeng.com/images_pub/pub_1.jpg`,
+            path: e.coverPath,
             title: e.name
           }
         })
