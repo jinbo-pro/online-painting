@@ -1,13 +1,13 @@
 <template>
   <div class="container">
     <el-table :data="tableData" style="width: 100%" border>
-      <el-table-column prop="userName" :label="$t(`siteNotice['Form']`)"> </el-table-column>
-      <el-table-column prop="title" :label="$t(`siteNotice['Description']`)"> </el-table-column>
-      <el-table-column prop="userName" :label="$t(`siteNotice['Status']`)"> </el-table-column>
+      <el-table-column prop="recipientUserId" :label="$t(`siteNotice['Form']`)"> </el-table-column>
+      <el-table-column prop="content" :label="$t(`siteNotice['Description']`)"> </el-table-column>
+      <el-table-column prop="status" :label="$t(`siteNotice['Status']`)"> </el-table-column>
     </el-table>
     <div class="mt-30 pd-30 box_bod">
       <div class="title">{{ $t(`siteNotice['Sender']`) }}</div>
-      <p>{{ current.userName }}</p>
+      <p>{{ current.sendUserId }}</p>
       <div class="title">{{ $t(`siteNotice['Message']`) }}</div>
       <p>
         {{ current.content }}
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
+import { getIrecipientList } from '@/apiList/api_work'
 export default {
   data() {
     return {
@@ -31,8 +31,10 @@ export default {
     }
   },
   created() {
-    this.tableData = listData('2-5')
-    this.current = listData('2-3')[0]
+    getIrecipientList({}).then((res) => {
+      this.tableData = res
+      this.current = res[0]
+    })
   },
   methods: {
     read() {

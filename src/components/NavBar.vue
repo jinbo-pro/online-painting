@@ -32,7 +32,7 @@
                 class="notice_item_box mb-16"
                 @click="linkNoticeInfo(item.id)"
               >
-                {{ item.title }}
+                {{ item.content }} {{ item.createDate | parseTimeFnumber(item.createTime) }}
               </div>
             </div>
             <div slot="reference">
@@ -96,7 +96,7 @@ export default {
     },
     linkNoticeInfo(id) {
       this.$router.push({
-        path: '/busDrawingInfo',
+        path: '/siteNoticeManage',
         query: { id }
       })
     },

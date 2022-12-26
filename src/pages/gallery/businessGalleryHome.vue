@@ -136,8 +136,8 @@ export default {
         query: { id }
       })
     },
-    linkInfo() {
-      console.log('预览?')
+    linkInfo(row) {
+      this.linkBannerInfo(row.id)
     }
   }
 }

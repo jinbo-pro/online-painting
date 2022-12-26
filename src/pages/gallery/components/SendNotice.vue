@@ -1,5 +1,10 @@
 <template>
-  <el-dialog :title="$t(`sendNotice['Send a new message']`)" :visible.sync="dialogVisible" width="50%">
+  <el-dialog
+    :title="$t(`sendNotice['Send a new message']`)"
+    :visible.sync="dialogVisible"
+    width="50%"
+    :close-on-click-modal="false"
+  >
     <div class="mb-16">{{ $t(`sendNotice['Recipient']`) }}</div>
     <el-cascader-multi
       clearable
@@ -63,6 +68,9 @@ export default {
       const user = list.filter((e) => e.type == 'user').map((e) => e.id)
       if (!user.length) return this.$message.error('请选择人员')
       this.$emit('send', { recipient: user.toString(), message: this.message })
+      // reset
+      this.message = ''
+      this.selectUserIds = []
     }
   }
 }
