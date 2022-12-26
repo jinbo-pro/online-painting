@@ -2,7 +2,7 @@
   <el-dialog :visible.sync="dialogVisible" width="90%">
     <el-row>
       <el-col :span="12">
-        <el-image :src="item.cover"></el-image>
+        <el-image :src="item.coverPath"></el-image>
       </el-col>
       <el-col :span="12" class="right_content fdc jsb pl-24">
         <div class="jsb ac">
@@ -12,10 +12,10 @@
           </div>
           <i v-if="isShare" class="el-icon-s-promotion"></i>
         </div>
-        <p>{{ item.content }}</p>
+        <p>{{ item.description }}</p>
         <div class="jsb ac">
           <el-button type="primary" round>{{ $t('drawPreview.Marketing') }}</el-button>
-          <span>{{ item.createTime }}</span>
+          <span>{{ item.createDate | parseTimeFnumber(item.createTime) }}</span>
         </div>
       </el-col>
     </el-row>

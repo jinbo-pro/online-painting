@@ -70,7 +70,7 @@ export default {
           return {
             ...e,
             title: e.name,
-            path: `http://www.ruanyifeng.com/images_pub/pub_1.jpg`
+            path: e.coverPath
           }
         })
       })

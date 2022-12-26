@@ -112,7 +112,7 @@ export default {
   },
   methods: {
     getDrawInfo(id) {
-      getGalleryById(this.drawId).then((res) => {
+      getGalleryById(id).then((res) => {
         Object.assign(this.drawInfo, res)
       })
     },
