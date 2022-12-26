@@ -10,8 +10,8 @@
       <div class="right_message ml-24">
         <div class="jsb ac">
           <div class="right_title mb-14">Music of Life</div>
-          <div class="right_icon as" @click="starDrawHandle">
-            <div class="mr-16 fdc jac">
+          <div class="right_icon as">
+            <div class="mr-16 fdc jac" @click="starDrawHandle">
               <i v-if="drawInfo.isStar" class="iconfont icon-aixin1"></i>
               <i v-else class="iconfont icon-aixin"></i>
               {{ drawInfo.starCount | numberFormat }}
