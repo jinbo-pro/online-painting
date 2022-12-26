@@ -35,7 +35,8 @@ export default {
     height: 80%;
   }
   .cover {
-    max-width: 100%;
+    width: 200px;
+    height: 130px;
   }
 }
 </style>

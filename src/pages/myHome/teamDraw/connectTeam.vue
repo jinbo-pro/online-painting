@@ -4,7 +4,7 @@
       <PageNavigator :customer="true" @handleBack="handleBack" />
       <div class="title ml-24">{{ $t(`drawSubject['You are drawing for']`) }}</div>
     </div>
-    <div class="title jac">Main title here: When do you feel most free?</div>
+    <div class="title jac">{{ drawInfo.description }}</div>
     <p class="subject_about">{{ drawInfo.title }}</p>
     <div class="refresh_box jac">
       <i class="el-icon-refresh-right"></i>

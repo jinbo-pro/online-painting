@@ -73,7 +73,7 @@ function ra(max) {
  */
 export function createPoint(w, h, count, domW) {
   const pointList = []
-  const maxCount = (w / domW) * (h / domW) * 0.6
+  const maxCount = (w / domW) * (h / domW) * 0.5
   if (count > maxCount) {
     count = maxCount
     console.log(`建议最大数量：${maxCount}`)

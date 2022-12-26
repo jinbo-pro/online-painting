@@ -99,8 +99,8 @@ export function addGallery(data) {
   return request.postJson('/gallery/addGallery', data)
 }
 /**详情 */
-export function getGalleryById(data) {
-  return request.postJson('/gallery/getById', data)
+export function getGalleryById(id) {
+  return request.postJson('/gallery/getById', { id })
 }
 /**获取画廊banner列表 */
 export function getGalleryBannerList(data) {

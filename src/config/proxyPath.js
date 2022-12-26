@@ -3,7 +3,8 @@
 const proxyPathMap = {
   // 绘画
   work: {
-    local: 'http://192.168.2.86:19088/drawClient',
+    // local: 'http://192.168.2.86:19088/drawClient',
+    local: 'http://114.115.209.57:9000/drawClient',
     network: '/drawClient'
   }
 }

@@ -19,7 +19,7 @@ export function listData(count = '2-5') {
         content: '@sentence()',
         createTime: '@date(dd/MM/yyyy)',
         'path|+1': 1,
-        'userList|2-5': ['@name()'],
+        'userList|2-3': ['@name()'],
         identityList: identityList.slice(0, Mock.Random.integer(1, identityList.length))
       }
     ]

@@ -5,14 +5,15 @@
     </div>
     <div class="about_head_max">
       <div class="left_head">
-        <img class="info_cover" :src="currentCover" />
+        <img class="info_cover" :src="drawInfo.coverPath" />
       </div>
       <div class="right_message ml-24">
         <div class="jsb ac">
           <div class="right_title mb-14">Music of Life</div>
           <div class="right_icon as" @click="starDrawHandle">
             <div class="mr-16 fdc jac">
-              <i class="iconfont icon-aixin"></i>
+              <i v-if="drawInfo.isStar" class="iconfont icon-aixin1"></i>
+              <i v-else class="iconfont icon-aixin"></i>
               1.2k
             </div>
             <i class="iconfont icon-fenxiangfangshi" @click="showShare = true"></i>
@@ -20,13 +21,9 @@
         </div>
         <div class="two_title">
           <span class="mr-32">Curafor's Words</span>
-          <span>02/12/2022</span>
+          <span>{{ drawInfo.createDate | parseTimeFnumber(drawInfo.createTime) }}</span>
         </div>
-        <p>
-          Tenete ergo quod si servitus quae natura liber, et aliena tua tunc impeditur. Dolebis, etturbabuntur, et
-          invenietis, cum culpa tam dis hominibusque.Quod si tibi tantum sit propriaet aliena quale sit, nemo unquam vel
-          invitum te continebis.
-        </p>
+        <p>{{ drawInfo.description }}</p>
       </div>
     </div>
     <div class="cover_list_max box_bod pd-16">
@@ -42,11 +39,11 @@
         <el-carousel-item v-for="(item, index) in drawingList" :key="index">
           <el-row>
             <el-col :span="12" class="cover_max jac">
-              <el-image :src="item.cover" @click="previewCover(item)"></el-image>
+              <el-image :src="item.path" @click="previewCover(item)"></el-image>
             </el-col>
             <el-col :span="12" class="right_content fdc jsb pl-24">
               <div class="ac">
-                <el-avatar :size="40" :src="item.cover" class="item_head mr-16"></el-avatar>
+                <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
                 <span>{{ item.userName }}</span>
               </div>
               <p>{{ item.content }}</p>
@@ -59,7 +56,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="cover" @change="footCoverChange" />
+    <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" @change="footCoverChange" />
     <PreviewDialog :show.sync="showPreview" :item="selectDraw" />
     <ShareDrawingDialog :show.sync="showShare" />
   </div>
@@ -106,12 +103,13 @@ export default {
   created() {
     let id = this.$route.query.id
     if (id) {
-      this.getDrawInfo(id)
+      this.drawId = id
+      this.getDrawInfo()
     }
     this.drawingList = listData('3-10')
   },
   methods: {
-    getDrawInfo(id) {
+    getDrawInfo() {
       getGalleryById(this.drawId).then((res) => {
         Object.assign(this.drawInfo, res)
       })
@@ -134,6 +132,7 @@ export default {
       } else {
         await galleryCancelStar(id)
       }
+      this.getDrawInfo()
       this.$message.success('操作成功')
     }
   }

@@ -8,13 +8,13 @@
       <el-col :span="18" class="banner_max box_bod">
         <el-carousel trigger="click" height="280px" :interval="8000" indicator-position="outside">
           <el-carousel-item v-for="(item, index) in bannerList" :key="index">
-            <el-row @click.native="linkBannerInfo">
+            <el-row @click.native="linkBannerInfo(item.id)">
               <el-col :span="12" class="cover_max pd-12 jac">
-                <el-image class="info_cover" :src="item.cover"></el-image>
+                <el-image class="info_cover" :src="item.coverPath"></el-image>
               </el-col>
               <el-col :span="12">
-                <div class="mt-12">Featured Gallery</div>
-                <div class="title">December, Remember</div>
+                <div class="mt-12">{{ item.description }}</div>
+                <div class="title">{{ item.name }}</div>
                 <div class="user_max fw ac">
                   <div v-for="(user, i) in item.userList" :key="i" class="user_item_box">{{ user }}</div>
                 </div>
@@ -76,7 +76,7 @@
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 import { listData } from '@/utils/mock'
-import { getGalleryBannerList, getGalleryList } from '@/apiList/api_work'
+import { getGalleryBannerList, getGalleryHomeList, getGalleryList } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup
@@ -91,7 +91,6 @@ export default {
     }
   },
   created() {
-    this.bannerList = listData(5)
     this.trendingList = listData('5-10')
     this.getList()
   },
@@ -106,22 +105,24 @@ export default {
           }
         })
       }
-      getGalleryList({ keyword: this.keyword, type: 1 }).then((res) => {
-        this.popularList = getDrawList(res)
-      })
-      getGalleryList({ keyword: this.keyword, type: 2 }).then((res) => {
-        this.teamGalleryList = getDrawList(res)
-      })
-
       // 获取画廊 banner 列表
-      // getGalleryBannerList().then((res) => {
-      //   this.bannerList = res
-      // })
+      getGalleryBannerList({}).then((res) => {
+        if (!Array.isArray(res)) return
+        const mockList = listData(res.length)
+        this.bannerList = mockList.map((e, i) => {
+          return {
+            ...e,
+            ...res[i]
+          }
+        })
+      })
 
       // 获取画廊 首页 列表
-      // getGalleryHomeList().then((res) => {
-      //   console.log(678, '-->>> 678')
-      // })
+      getGalleryHomeList({}).then((res) => {
+        if (!res) return
+        this.popularList = getDrawList(res.popular)
+        this.teamGalleryList = getDrawList(res.teamGallery)
+      })
     },
     linkSearch() {
       this.$router.push({
@@ -129,10 +130,10 @@ export default {
         query: { keyword: this.keyword }
       })
     },
-    linkBannerInfo(item) {
+    linkBannerInfo(id) {
       this.$router.push({
         path: '/busDrawingInfo',
-        query: { id: item.id || 1 }
+        query: { id }
       })
     },
     linkInfo() {
