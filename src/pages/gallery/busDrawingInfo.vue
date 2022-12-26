@@ -14,7 +14,7 @@
             <div class="mr-16 fdc jac">
               <i v-if="drawInfo.isStar" class="iconfont icon-aixin1"></i>
               <i v-else class="iconfont icon-aixin"></i>
-              1.2k
+              {{ drawInfo.starCount | numberFormat }}
             </div>
             <i class="iconfont icon-fenxiangfangshi" @click="showShare = true"></i>
           </div>
@@ -91,7 +91,8 @@ export default {
       drawingList: [],
       drawInfo: {
         id: '',
-        isStar: ''
+        isStar: '',
+        starCount: ''
       }
     }
   },

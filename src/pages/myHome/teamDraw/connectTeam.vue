@@ -4,8 +4,8 @@
       <PageNavigator :customer="true" @handleBack="handleBack" />
       <div class="title ml-24">{{ $t(`drawSubject['You are drawing for']`) }}</div>
     </div>
-    <div class="title jac">{{ drawInfo.description }}</div>
-    <p class="subject_about">{{ drawInfo.title }}</p>
+    <div class="title jac">{{ drawInfo.title }}</div>
+    <p class="subject_about">{{ drawInfo.description }}</p>
     <div class="refresh_box jac">
       <i class="el-icon-refresh-right"></i>
       <el-button class="btn" type="text" @click="getDrawTitle">

@@ -44,7 +44,7 @@
                     <div class="stars_icon">
                       <i class="iconfont icon-aixin"></i>
                     </div>
-                    {{ item.stars | numberFormat }}
+                    {{ item.starCount | numberFormat }}
                   </div>
                 </div>
               </el-col>
@@ -76,7 +76,7 @@
 <script>
 import DrawingGroup from '@/components/drawing/DrawingGroup.vue'
 import { listData } from '@/utils/mock'
-import { getGalleryBannerList, getGalleryHomeList, getGalleryList } from '@/apiList/api_work'
+import { getGalleryBannerList, getGalleryHomeList } from '@/apiList/api_work'
 export default {
   components: {
     DrawingGroup

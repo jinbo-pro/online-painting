@@ -4,14 +4,13 @@
       <PageNavigator />
       <div class="title ml-24">{{ $t(`drawSubject['You are drawing for']`) }}</div>
     </div>
-    <div class="title jac">Main title here: When do you feel most free?</div>
-    <p class="subject_about">
-      Sollicitant homines non sunt nisi quam formae rerum principiis opiniones.Mors enimest terribilis ut Socrati aliud
-      esse apparet.Sed timor mortis est notio terribile.Cum
-    </p>
+    <div class="title jac">{{ drawInfo.title }}</div>
+    <p class="subject_about">{{ drawInfo.description }}</p>
     <div class="refresh_box jac">
       <i class="el-icon-refresh-right"></i>
-      <el-button class="btn" type="text">{{ $t(`drawSubject['l don"t like this topic, refresh']`) }}</el-button>
+      <el-button class="btn" type="text" @click="getDrawTitle">
+        {{ $t(`drawSubject['l don"t like this topic, refresh']`) }}
+      </el-button>
     </div>
     <el-row class="jac">
       <el-col :xs="24" :span="16" class="jac">
@@ -36,16 +35,23 @@
 <script>
 import PageNavigator from '@/components/PageNavigator.vue'
 import { SetTimr } from '@/utils/common'
+import { getTheme } from '@/apiList/api_work'
 export default {
   components: {
     PageNavigator
   },
   data() {
     return {
-      count: 30
+      count: 30,
+      drawInfo: {
+        id: '',
+        title: ''
+      }
     }
   },
-  created() {},
+  created() {
+    this.getDrawTitle()
+  },
   mounted() {
     const t = new SetTimr(this.count)
     t.start((count) => {
@@ -56,6 +62,11 @@ export default {
     linkDraw() {
       console.log(678, '-->>> 开始作画')
       this.$message.success('作画 [x]')
+    },
+    getDrawTitle() {
+      getTheme({}).then((res) => {
+        Object.assign(this.drawInfo, res)
+      })
     }
   }
 }
