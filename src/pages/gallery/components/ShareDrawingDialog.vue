@@ -1,5 +1,5 @@
 <template>
-  <el-dialog :title="$t(`sendNotice['Send a new message']`)" :visible.sync="dialogVisible" width="50%">
+  <SendNotice :show.sync="dialogVisible" @send="sendNoticeConfirm">
     <div class="cover_box jac">
       <div class="mr-16">
         <img class="left_img" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg" />
@@ -9,27 +9,25 @@
         <img class="right_img" src="http://www.ruanyifeng.com/images_pub/pub_3.jpg" />
       </div>
     </div>
-    <div class="mb-16">{{ $t(`sendNotice['Recipient']`) }}</div>
-    <el-input v-model="recipient"></el-input>
-    <div class="mt-16 mb-16">{{ $t(`sendNotice['Message']`) }}</div>
-    <el-input type="textarea" v-model="message"></el-input>
-    <div slot="footer">
-      <div class="jac">
-        <el-button icon="el-icon-s-promotion" type="primary" @click="send">
-          {{ $t(`sendNotice['Send']`) }}
-        </el-button>
-      </div>
-    </div>
-  </el-dialog>
+  </SendNotice>
 </template>
 
 <script>
+import { sendMessage } from '@/apiList/api_work'
+import SendNotice from './SendNotice.vue'
 export default {
   name: 'ShareDrawingDialog',
+  components: {
+    SendNotice
+  },
   props: {
     show: {
       type: Boolean,
       default: false
+    },
+    list: {
+      type: Array,
+      default: () => []
     }
   },
   data() {
@@ -49,8 +47,11 @@ export default {
     }
   },
   methods: {
-    send() {
-      this.$emit('send', { recipient: this.recipient, message: this.message })
+    sendNoticeConfirm(data) {
+      sendMessage({ content: data.message, userIds: data.recipient }).then((res) => {
+        this.dialogVisible = false
+        this.$message.success('发送成功')
+      })
     }
   }
 }

@@ -58,7 +58,7 @@
     </div>
     <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" @change="footCoverChange" />
     <PreviewDialog :show.sync="showPreview" :item="selectDraw" />
-    <ShareDrawingDialog :show.sync="showShare" />
+    <ShareDrawingDialog :show.sync="showShare" :list="drawingList" />
   </div>
 </template>
 

@@ -5,6 +5,7 @@
     width="50%"
     :close-on-click-modal="false"
   >
+    <slot />
     <div class="mb-16">{{ $t(`sendNotice['Recipient']`) }}</div>
     <el-cascader-multi
       clearable

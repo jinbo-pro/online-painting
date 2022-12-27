@@ -15,11 +15,8 @@
     <el-row class="jac">
       <el-col :xs="24" :span="16" class="jac">
         <div class="about_video">
-          <video
-            class="meta"
-            controls
-            src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"
-          ></video>
+          <video class="meta" v-if="drawInfo.path.endsWith('.mp4')" controls :src="drawInfo.path"></video>
+          <img class="about_img" v-else :src="drawInfo.path">
         </div>
       </el-col>
     </el-row>
@@ -45,6 +42,7 @@ export default {
       count: 30,
       drawInfo: {
         id: '',
+        path: '',
         title: ''
       }
     }
@@ -88,6 +86,9 @@ export default {
   padding: 24px 0;
   .meta {
     width: 100%;
+  }
+  .about_img {
+    max-height: 300px;
   }
 }
 </style>
