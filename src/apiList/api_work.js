@@ -10,6 +10,15 @@ export function userLogin(data) {
 export function userLogout(data) {
   return request.postJson('/login/logout', data)
 }
+/**根据邀请码获取用户信息 */
+export function inviteByUser(inviteCode) {
+  return request.postJson('/login/inviteByUser', { inviteCode })
+}
+/**根据邀请码修改密码 */
+export function initUser(data) {
+  return request.postJson('/login/initUser', data)
+}
+
 /**获取主题 */
 export function getTheme(data) {
   return request.postJson('/theme/getTheme', data)
@@ -45,6 +54,18 @@ export function getIrecipientList(data) {
 /**发送的列表 */
 export function getIsendList(data) {
   return request.postJson('/message/getIsendList', data)
+}
+/**获取消息详情 */
+export function msg_getById(id) {
+  return request.postJson('/message/getById', { id })
+}
+/**标记消息已读 */
+export function msg_markRead(ids) {
+  return request.postJson('/message/markRead', { ids })
+}
+/**删除消息 */
+export function msg_del(ids) {
+  return request.postJson('/message/delMessage', { ids })
 }
 
 /**

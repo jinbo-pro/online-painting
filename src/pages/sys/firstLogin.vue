@@ -6,7 +6,7 @@
         <div class="title mb-30">You've received an invitation to join VIVA AT WORK.</div>
         <p class="mb-30">lnvitation code:</p>
         <div class="box_bod pd-16">
-          {{ invitationCode }}
+          <el-input style="width: 300px" v-model="inviteCode" type="text" placeholder="请输入邀请码"></el-input>
         </div>
         <div class="pd-30">
           <el-button @click="nextHandle">Next</el-button>
@@ -48,9 +48,7 @@
       </div>
 
       <div v-if="active == 4">
-        <div class="title jac mb-30">
-          Please check your inbox and confirm the verification email.
-        </div>
+        <div class="title jac mb-30">Please check your inbox and confirm the verification email.</div>
         <div class="pd-30 jac mt-30">
           <el-button type="primary" @click="signIn">Sign in</el-button>
         </div>
@@ -78,6 +76,7 @@ export default {
       invitationCode: guid(),
       LogoImg: require('@/assets/logo.png'),
 
+      inviteCode: '',
       password: '',
       confirmPassword: '',
 
