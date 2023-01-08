@@ -73,7 +73,7 @@ export default {
     }
   },
   created() {
-    this.throttledArrowClick = throttle(300, true, (index) => {
+    this.throttledArrowClick = throttle(100, true, (index) => {
       this.setActiveItem(index)
     })
   },
@@ -82,9 +82,8 @@ export default {
       this.activeIndex = index
       this.$emit('change', index)
     },
-    setActiveItem(index) {
+    async setActiveItem(index) {
       let length = this.list.length
-      let oldIndex = this.activeIndex
       if (index < 0) {
         this.activeIndex = 0
       } else if (index >= length) {
@@ -92,12 +91,9 @@ export default {
       } else {
         this.activeIndex = index
       }
+      await this.$nextTick()
       const dom = this.$refs.imgListDom
-      if (oldIndex < this.activeIndex) {
-        dom.scrollLeft += 150
-      } else {
-        dom.scrollLeft -= 150
-      }
+      dom.scrollLeft = (dom.clientWidth / this.list.length) * this.activeIndex
       this.$emit('change', this.activeIndex)
     }
   }

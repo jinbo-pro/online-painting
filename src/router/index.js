@@ -69,6 +69,25 @@ export const constantRoutes = [
       }
     ]
   },
+  // 我的连接
+  {
+    path: '/connect',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'connect' },
+    redirect: '/dashboard',
+    children: [
+      {
+        path: '/dashboard',
+        component: () => import('@/pages/connect/dashboard.vue'),
+        meta: { title: '仪表台' }
+      },
+      {
+        path: '/newConnect',
+        component: () => import('@/pages/connect/newConnect.vue'),
+        meta: { title: '新建连接' }
+      }
+    ]
+  },
   {
     path: '/login',
     component: () => import('@/pages/sys/login.vue'),

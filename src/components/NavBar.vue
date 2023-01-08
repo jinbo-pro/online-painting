@@ -63,7 +63,7 @@ export default {
       activeIndex: 0,
       navList: [
         { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
-        { title: 'Connect', url: '', disabled: false },
+        { title: 'Connect', url: '/dashboard', disabled: false },
         { title: 'Play', url: '', disabled: false },
         { title: 'Greet', url: '', disabled: false },
         { title: 'Learn', url: '', disabled: true }
@@ -71,6 +71,9 @@ export default {
     }
   },
   created() {
+    const path = this.$route.path
+    const index = this.navList.findIndex((e) => e.url == path)
+    this.activeIndex = index > 0 ? index : 0
     this.getNoticeList()
   },
   methods: {

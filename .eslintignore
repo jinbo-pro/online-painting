@@ -2,6 +2,7 @@ build
 node_modules
 src/assets
 src/lib
+src/styles/fonts
 public
 dist
 tests
