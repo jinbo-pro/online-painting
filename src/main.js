@@ -13,6 +13,7 @@ import * as filters from './utils/filters'
 import './styles/fonts/iconfont.css'
 import elCascaderMulti from 'el-cascader-multi'
 Vue.use(elCascaderMulti)
+import './assets/icon/index'
 
 Vue.config.productionTip = false
 Vue.use(Element, {

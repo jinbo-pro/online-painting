@@ -29,6 +29,7 @@
     "mockjs": "^1.1.0",
     "sass": "1.56.1",
     "sass-loader": "12.6.0",
+    "svg-sprite-loader": "^6.0.11",
     "vue-template-compiler": "2.6.14"
   },
   "browserslist": [

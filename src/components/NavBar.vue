@@ -3,7 +3,7 @@
     <el-row class="jsb ac">
       <el-col :xs="0" :span="4" class="jac">
         <router-link to="/">
-          <el-avatar :src="LogoImg"></el-avatar>
+          <svg-icon width="40px" height="40px" icon-class="Logo"></svg-icon>
         </router-link>
       </el-col>
       <el-col :xs="20" :span="14">
@@ -114,11 +114,12 @@ export default {
 .nav_max {
   padding: 6px;
   box-sizing: border-box;
-  background-color: #ced8e0;
+  background-color: #fff;
   position: sticky;
   top: 0;
   left: 0;
   z-index: 100;
+  box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.1);
 }
 .nav_item_box {
   height: 40px;
@@ -126,7 +127,7 @@ export default {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   &.active {
-    border-bottom: 2px solid #409eff;
+    border-bottom: 2px solid #7DA453;
   }
   &.disabled {
     color: #999;
