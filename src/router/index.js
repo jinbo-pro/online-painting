@@ -85,6 +85,11 @@ export const constantRoutes = [
         path: '/newConnect',
         component: () => import('@/pages/connect/newConnect.vue'),
         meta: { title: '新建连接' }
+      },
+      {
+        path: '/newConnectDiscuss',
+        component: () => import('@/pages/connect/newConnectDiscuss.vue'),
+        meta: { title: '连接讨论' }
       }
     ]
   },
