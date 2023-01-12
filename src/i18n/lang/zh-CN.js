@@ -5,7 +5,8 @@ export default {
     Play: '玩一下',
     Greet: '打招呼',
     Learn: '学习',
-    Draw: '绘画'
+    Draw: '绘画',
+    Reflect: '反应'
   },
   identity: {
     Marketing: '市场',

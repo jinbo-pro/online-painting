@@ -14,7 +14,22 @@
             @click="handleSelect(item, index)"
             :class="['nav_item_box jac', { active: activeIndex == index }, { disabled: item.disabled }]"
           >
-            {{ $t('navBar.' + item.title) }}
+            <div v-if="item.children && item.children.length">
+              <el-dropdown>
+                <span>{{ $t('navBar.' + item.title) }}</span>
+                <el-dropdown-menu slot="dropdown">
+                  <el-dropdown-item
+                    v-for="(e, i) in item.children"
+                    :key="i"
+                    @click.native="dropLinkPage(e.url)"
+                    :disabled="e.disabled"
+                  >
+                    {{ e.title }}
+                  </el-dropdown-item>
+                </el-dropdown-menu>
+              </el-dropdown>
+            </div>
+            <div v-else>{{ $t('navBar.' + item.title) }}</div>
           </div>
           <div class="hidden-xs-only draw_box">
             <el-button type="primary" @click="linkDraw">{{ $t('navBar.Draw') }}</el-button>
@@ -63,10 +78,35 @@ export default {
       activeIndex: 0,
       navList: [
         { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
-        { title: 'Connect', url: '/dashboard', disabled: false },
-        { title: 'Play', url: '', disabled: false },
-        { title: 'Greet', url: '', disabled: false },
-        { title: 'Learn', url: '', disabled: true }
+        {
+          title: 'Connect',
+          url: '/dashboard',
+          disabled: false,
+          children: [
+            { title: 'My Connect', url: '/newConnect' },
+            { title: 'Dashboard', url: '/dashboard' }
+          ]
+        },
+        {
+          title: 'Greet',
+          url: '/greetDashboard',
+          disabled: false,
+          children: [
+            { title: 'Individual', url: '/createIndividualGreet' },
+            { title: 'Team', url: '/myReflections', disabled: true }
+          ]
+        },
+        {
+          title: 'Reflect',
+          url: '/myReflections',
+          disabled: false,
+          children: [
+            { title: 'Create New', url: '/selectReflectionMode' },
+            { title: 'My Reflections', url: '/myReflections' }
+          ]
+        },
+        { title: 'Play', url: '', disabled: false }
+        // { title: 'Learn', url: '', disabled: true }
       ]
     }
   },
@@ -105,6 +145,10 @@ export default {
     },
     load() {
       this.count++
+    },
+    dropLinkPage(url) {
+      if (this.$route.path == url) return
+      this.$router.push(url)
     }
   }
 }
@@ -127,7 +171,7 @@ export default {
   cursor: pointer;
   border-bottom: 2px solid transparent;
   &.active {
-    border-bottom: 2px solid #7DA453;
+    border-bottom: 2px solid #7da453;
   }
   &.disabled {
     color: #999;

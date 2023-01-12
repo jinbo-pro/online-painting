@@ -1,7 +1,7 @@
 <template>
   <div class="paint_max ac fw">
     <div v-for="(item, index) in list" :key="index" class="mr-16 mb-16">
-      <PaintingItem :item="item" />
+      <PaintingItem :item="item" :showLookRange="item.showLookRange" />
     </div>
   </div>
 </template>

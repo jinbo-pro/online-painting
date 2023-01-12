@@ -5,7 +5,8 @@ export default {
     Play: 'Play',
     Greet: 'Greet',
     Learn: 'Learn',
-    Draw: 'Draw'
+    Draw: 'Draw',
+    Reflect: 'Reflect'
   },
   identity: {
     Marketing: 'Marketing',

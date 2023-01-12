@@ -93,6 +93,54 @@ export const constantRoutes = [
       }
     ]
   },
+  // 打招呼
+  {
+    path: '/greet',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'greet' },
+    redirect: '/greetDashboard',
+    children: [
+      {
+        path: '/greetDashboard',
+        component: () => import('@/pages/greet/greetDashboard.vue'),
+        meta: { title: '打招呼首页' }
+      },
+      {
+        path: '/createIndividualGreet',
+        component: () => import('@/pages/greet/createIndividualGreet.vue'),
+        meta: { title: '新建招呼任务' }
+      },
+      {
+        path: '/individualGreet',
+        component: () => import('@/pages/greet/individualGreet.vue'),
+        meta: { title: '个人打招呼' }
+      }
+    ]
+  },
+  // 思考
+  {
+    path: '/reflect',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'greet' },
+    redirect: '/myReflections',
+    children: [
+      {
+        path: '/myReflections',
+        component: () => import('@/pages/reflect/myReflections.vue'),
+        meta: { title: '我的思考' }
+      },
+      {
+        path: '/selectReflectionMode',
+        component: () => import('@/pages/reflect/selectReflectionMode.vue'),
+        meta: { title: '选择创建模式' }
+      },
+      {
+        path: '/createNewReflection',
+        component: () => import('@/pages/reflect/createNewReflection.vue'),
+        meta: { title: '新建思考' }
+      }
+    ]
+  },
   {
     path: '/login',
     component: () => import('@/pages/sys/login.vue'),
