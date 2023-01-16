@@ -20,12 +20,14 @@
 
         <p class="item_label">Add a personal notes</p>
         <el-input v-model="formData.notes" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
-        <div class="ac mt-24 mb-24">
+        <div class="ac mt-24 mb-24 swag_link" @click="$router.push('/shoppingMall')">
           <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
           <div class="ml-12 item_label">Add a swag for free!</div>
         </div>
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success">Complete Task</el-button>
+          <el-button class="start_drawing" type="success" @click="$router.push('/shoppingMall')">
+            Complete Task
+          </el-button>
         </div>
       </el-col>
     </el-row>
@@ -82,7 +84,9 @@ export default {
   padding: 0 16px;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.05);
 }
-
+.swag_link {
+  cursor: pointer;
+}
 .start_drawing {
   width: 50%;
   padding: 12px;

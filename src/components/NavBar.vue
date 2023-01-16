@@ -95,7 +95,7 @@ export default {
           url: '/greet',
           disabled: false,
           children: [
-            { title: 'Individual', url: '/individualGreet' },
+            { title: 'Individual', url: '/individualGreetMode' },
             { title: 'Team', url: '/myReflections', disabled: true }
           ]
         },

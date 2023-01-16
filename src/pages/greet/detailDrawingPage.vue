@@ -29,10 +29,8 @@
               </div>
               <div class="jsb ac">
                 <div class="xs_title">Spiritual Animal</div>
-                <template>
-                  <i v-if="item.isStar" class="iconfont icon-aixin1"></i>
-                  <i v-else class="iconfont icon-aixin"></i>
-                </template>
+                <i v-if="item.isStar" class="iconfont icon-aixin1"></i>
+                <i v-else class="iconfont icon-aixin"></i>
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">

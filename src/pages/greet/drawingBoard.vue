@@ -39,7 +39,7 @@ export default {
     submitHandle(type) {
       console.log(type, '-->>> type')
       this.$router.push({
-        path: '/drawDoneDiscuss',
+        path: '/individualGreetComplete',
         query: { id: 1 }
       })
     }

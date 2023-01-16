@@ -163,13 +163,13 @@ export const constantRoutes = [
         meta: { title: '画作详情' }
       },
       {
-        path: '/createIndividualGreet',
-        component: () => import('@/pages/greet/createIndividualGreet.vue'),
+        path: '/individualGreetComplete',
+        component: () => import('@/pages/greet/individualGreetComplete.vue'),
         meta: { title: '新建祝福' }
       },
       {
-        path: '/individualGreet',
-        component: () => import('@/pages/greet/individualGreet.vue'),
+        path: '/individualGreetMode',
+        component: () => import('@/pages/greet/individualGreetMode.vue'),
         meta: { title: '个人祝福' }
       },
       {

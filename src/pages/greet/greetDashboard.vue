@@ -2,7 +2,7 @@
   <div class="container dashboard_container">
     <div class="jsb ac">
       <div class="md_title">Connect Analytics</div>
-      <el-button class="new_greetings" type="success" @click="$router.push('/createIndividualGreet')">
+      <el-button class="new_greetings" type="success" @click="$router.push('/drawingBoard')">
         + New Greetings
       </el-button>
     </div>
