@@ -18,7 +18,7 @@ body {
 .container {
   padding: 20px 24px;
   box-sizing: border-box;
-  height: calc(100vh - 62px);
+  height: calc(100vh - 112px);
   background-color: #fff;
   .title {
     font-size: 24px;
@@ -34,6 +34,10 @@ body {
     font-weight: bold;
     font-size: 18px;
     padding: 18px 0;
+  }
+  // 单选框超出换行
+  .el-radio__label {
+    white-space: break-spaces;
   }
 }
 

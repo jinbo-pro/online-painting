@@ -20,10 +20,12 @@
         </div>
         <p>Maybe you want to discuss and guess each other’s drawing. Start a quick chat with</p>
 
-        <div class="chat_max jac"></div>
+        <div class="chat_max">
+          <ChatRoom />
+        </div>
 
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="isDone = 2">Start Drawing</el-button>
+          <el-button class="start_drawing" type="success" @click="isDone = 2">Complete Task</el-button>
         </div>
       </el-col>
       <el-col v-if="isDone == 2" :span="10" class="right_info_max">
@@ -45,7 +47,9 @@
           <div class="time_box">0 days 0 hours 0 mins</div>
         </div>
         <div class="pb-32"></div>
-        <div class="chat_max"></div>
+        <div class="chat_max">
+          <ChatRoom />
+        </div>
         <div class="jac mt-32">
           <el-button class="start_drawing" @click="isDone = 3">Exit</el-button>
         </div>
@@ -55,10 +59,12 @@
 </template>
 
 <script>
+import ChatRoom from '@/components/ChatRoom.vue'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import { listData } from '@/utils/mock'
 export default {
   components: {
+    ChatRoom,
     PaintingItem
   },
   data() {
@@ -110,9 +116,6 @@ export default {
 .chat_max {
   width: 100%;
   height: 374px;
-  border-radius: 20px;
-  box-sizing: border-box;
-  border: 1px solid rgba(141, 141, 141, 0.5);
 }
 .not_point {
   border: none;

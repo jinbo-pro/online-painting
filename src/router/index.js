@@ -114,14 +114,24 @@ export const constantRoutes = [
         meta: { title: '更多连接' }
       },
       {
-        path: '/newConnect',
-        component: () => import('@/pages/connect/newConnect.vue'),
-        meta: { title: '新建连接' }
+        path: '/myConnect',
+        component: () => import('@/pages/connect/myConnect.vue'),
+        meta: { title: '我的连接' }
       },
       {
-        path: '/newConnectDiscuss',
-        component: () => import('@/pages/connect/newConnectDiscuss.vue'),
-        meta: { title: '连接讨论' }
+        path: '/createNewPainting',
+        component: () => import('@/pages/connect/createNewPainting.vue'),
+        meta: { title: '新建画作' }
+      },
+      {
+        path: '/editDraftPainting',
+        component: () => import('@/pages/connect/editDraftPainting.vue'),
+        meta: { title: '编辑草稿' }
+      },
+      {
+        path: '/drawDoneDiscuss',
+        component: () => import('@/pages/connect/drawDoneDiscuss.vue'),
+        meta: { title: '作画完成交流' }
       }
     ]
   },

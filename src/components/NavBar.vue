@@ -86,8 +86,8 @@ export default {
           url: '/connect',
           disabled: false,
           children: [
-            { title: 'My Connect', url: '/newConnect' },
-            { title: 'Dashboard', url: '/dashboard' }
+            { title: 'My Connect', url: '/myConnect' },
+            { title: 'Dashboard', url: '/connectDashboard' }
           ]
         },
         {
