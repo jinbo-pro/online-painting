@@ -179,7 +179,7 @@ export const constantRoutes = [
       }
     ]
   },
-  // 思考
+  // 话题
   {
     path: '/reflect',
     component: () => import('@/pages/main-layout.vue'),
@@ -189,7 +189,7 @@ export const constantRoutes = [
       {
         path: '/myReflections',
         component: () => import('@/pages/reflect/myReflections.vue'),
-        meta: { title: '我的思考' }
+        meta: { title: '我的话题' }
       },
       {
         path: '/selectReflectionMode',
@@ -199,7 +199,17 @@ export const constantRoutes = [
       {
         path: '/createNewReflection',
         component: () => import('@/pages/reflect/createNewReflection.vue'),
-        meta: { title: '新建思考' }
+        meta: { title: '新建话题' }
+      },
+      {
+        path: '/reflectBoard',
+        component: () => import('@/pages/reflect/reflectBoard.vue'),
+        meta: { title: '话题创作' }
+      },
+      {
+        path: '/reflectComplete',
+        component: () => import('@/pages/reflect/reflectComplete.vue'),
+        meta: { title: '话题创作完成' }
       }
     ]
   },

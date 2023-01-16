@@ -32,7 +32,7 @@
             <div v-else>{{ $t('navBar.' + item.title) }}</div>
           </div>
           <div class="hidden-xs-only draw_box">
-            <el-button type="primary" @click="linkDraw">{{ $t('navBar.Draw') }}</el-button>
+            <el-button type="primary" @click="$router.push('/selectDrawMode')">{{ $t('navBar.Draw') }}</el-button>
           </div>
         </div>
       </el-col>
@@ -44,7 +44,7 @@
                 v-for="(item, index) in noticeList"
                 :key="index"
                 class="notice_item_box mb-16"
-                @click="linkNoticeInfo(item.id)"
+                @click="$router.push(`/siteNoticeManage?id=${item.id}`)"
               >
                 {{ item.content }} {{ item.createDate | parseTimeFnumber(item.createTime) }}
               </div>
@@ -143,29 +143,13 @@ export default {
     handleSelect(item, index) {
       if (item.disabled) return
       this.activeIndex = index
-      console.log(item.url, '-->>> url')
-      if (!item.url) {
-        console.log('链接开发中')
-        return
-      }
-      if (this.$route.path != item.url) {
-        this.$router.replace(item.url)
-      }
-    },
-    linkDraw() {
-      this.$router.push('/selectDrawMode')
-    },
-    linkNoticeInfo(id) {
-      this.$router.push({
-        path: '/siteNoticeManage',
-        query: { id }
-      })
-    },
-    load() {
-      this.count++
+      this.linkPage(item.url)
     },
     dropLinkPage(url, index) {
       this.activeIndex = index
+      this.linkPage(url)
+    },
+    linkPage(url) {
       if (this.$route.path == url) return
       this.$router.push(url)
     }

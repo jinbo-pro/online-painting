@@ -1,7 +1,7 @@
 <template>
   <div class="paint_max ac fw">
     <div v-for="(item, index) in list" :key="index" class="mr-16 mb-16">
-      <PaintingItem :item="item" :showLookRange="item.showLookRange" />
+      <PaintingItem :item="item" :showLookRange="item.showLookRange" @handle="handlePainting" />
     </div>
   </div>
 </template>
@@ -23,7 +23,11 @@ export default {
     return {}
   },
   created() {},
-  methods: {}
+  methods: {
+    handlePainting(e) {
+      this.$emit('handle', e)
+    }
+  }
 }
 </script>
 

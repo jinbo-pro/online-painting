@@ -2,7 +2,7 @@
   <div class="container dashboard_container">
     <div class="jsb ac">
       <div class="md_title">REFLECT Analytics</div>
-      <el-button class="new_greetings" type="success" @click="$router.push('/createNewReflection')">
+      <el-button class="new_greetings" type="success" @click="$router.push('/selectReflectionMode')">
         + New Reflection
       </el-button>
     </div>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div class="md_title"></div>
-    <PaintingGroup :list="coverList" />
+    <PaintingGroup :list="coverList" @handle="$router.push('/detailDrawingPage')" />
   </div>
 </template>
 

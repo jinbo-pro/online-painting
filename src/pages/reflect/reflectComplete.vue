@@ -3,10 +3,7 @@
     <el-row class="inner_content">
       <el-col :span="14">
         <div class="md_title">Daily Mood</div>
-        <div class="top_message ac">
-          <div>Wish a colleage to recover soon created on</div>
-          <div class="time_box">jan 2 - 9, 2023</div>
-        </div>
+        <div class="top_message ac">l2 What’s your mood today? Why do you feel it?</div>
         <div class="user_list_max mt-32">
           <PaintingItem :item="userList[0]" :showLookRange="true" @handle="$router.push('/detailDrawingPage')" />
         </div>
@@ -14,19 +11,15 @@
       <el-col :span="10" class="right_info_max">
         <div class="md_title">Before you finish</div>
 
-        <p>Add a personal note to your colleage!</p>
-        <p class="item_label">Send to</p>
-        <el-input v-model="formData.emoji" placeholder="Search for colleage"></el-input>
+        <p class="item_label">How you feel</p>
+        <el-input v-model="formData.emoji" placeholder="Search for emoji"></el-input>
 
-        <p class="item_label">Add a personal notes</p>
-        <el-input v-model="formData.notes" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
-        <div class="ac mt-24 mb-24 swag_link" @click="$router.push('/shoppingMall')">
-          <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
-          <div class="ml-12 item_label">Add a swag for free!</div>
-        </div>
+        <p class="item_label">Leave some notes for yourself</p>
+        <el-input v-model="formData.notes" type="textarea" :rows="3" placeholder="Write notes"></el-input>
+
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="$router.push('/shoppingMall')">
-            Complete Task
+          <el-button class="start_drawing" type="success">
+            Save to My Reflections
           </el-button>
         </div>
       </el-col>
@@ -66,16 +59,6 @@ export default {
   margin-right: 6px;
   margin-bottom: 8px;
 }
-.time_box {
-  font-size: 12px;
-  padding: 4px 6px;
-  margin-left: 16px;
-  border-radius: 16px;
-  box-sizing: border-box;
-  font-weight: normal;
-  border: 1px solid #daddb4;
-}
-
 .inner_content {
   height: 100%;
 }
@@ -84,9 +67,7 @@ export default {
   padding: 0 16px;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.05);
 }
-.swag_link {
-  cursor: pointer;
-}
+
 .start_drawing {
   width: 50%;
   padding: 12px;
