@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="ac">
       <PageNavigator />
       <div class="title ml-24">{{ $t(`drawMode['Prepare your AI canvas']`) }}</div>

@@ -21,7 +21,7 @@
                   <el-dropdown-item
                     v-for="(e, i) in item.children"
                     :key="i"
-                    @click.native="dropLinkPage(e.url)"
+                    @click.native="dropLinkPage(e.url, index)"
                     :disabled="e.disabled"
                   >
                     {{ e.title }}
@@ -38,7 +38,6 @@
       </el-col>
       <el-col :xs="4" :span="6">
         <div class="jac">
-          <SelectLang />
           <el-popover placement="right" width="300" trigger="hover">
             <div class="notice_max pd-24">
               <div
@@ -51,12 +50,19 @@
               </div>
             </div>
             <div slot="reference">
-              <div class="hidden-xs-only notice_icon mr-14">
-                <i class="el-icon-message-solid"></i>
+              <div class="mr-16">
+                <svg-icon width="20px" height="20px" icon-class="TopNotice"></svg-icon>
               </div>
             </div>
           </el-popover>
-          <el-avatar class="hidden-xs-only" :src="LogoImg"></el-avatar>
+          <el-dropdown>
+            <el-avatar class="hidden-xs-only" :src="LogoImg"></el-avatar>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item v-for="(e, i) in profileList" :key="i" @click.native="profileHandle(e)">
+                {{ e.title }}
+              </el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
         </div>
       </el-col>
     </el-row>
@@ -64,13 +70,10 @@
 </template>
 
 <script>
-import SelectLang from '@/components/SelectLang.vue'
-import { getIrecipientList } from '@/apiList/api_work'
+import { getIrecipientList, userLogout } from '@/apiList/api_work'
+import { local } from '@/utils/storage'
 export default {
   name: 'NavBar',
-  components: {
-    SelectLang
-  },
   data() {
     return {
       noticeList: [],
@@ -80,7 +83,7 @@ export default {
         { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
         {
           title: 'Connect',
-          url: '/dashboard',
+          url: '/connect',
           disabled: false,
           children: [
             { title: 'My Connect', url: '/newConnect' },
@@ -89,7 +92,7 @@ export default {
         },
         {
           title: 'Greet',
-          url: '/greetDashboard',
+          url: '/greet',
           disabled: false,
           children: [
             { title: 'Individual', url: '/createIndividualGreet' },
@@ -98,25 +101,40 @@ export default {
         },
         {
           title: 'Reflect',
-          url: '/myReflections',
+          url: '/reflect',
           disabled: false,
           children: [
             { title: 'Create New', url: '/selectReflectionMode' },
             { title: 'My Reflections', url: '/myReflections' }
           ]
-        },
-        { title: 'Play', url: '', disabled: false }
-        // { title: 'Learn', url: '', disabled: true }
+        }
+      ],
+      profileList: [
+        { title: 'Sign out', url: 'Sign out' },
+        { title: 'Profile Settings', url: '/profileSettings' },
+        { title: 'My Orders', url: '/myOrders' }
       ]
     }
   },
   created() {
-    const path = this.$route.path
+    const path = this.$route.matched[0].path
     const index = this.navList.findIndex((e) => e.url == path)
     this.activeIndex = index > 0 ? index : 0
     this.getNoticeList()
   },
   methods: {
+    async profileHandle(e) {
+      const url = e.url
+      if (url == 'Sign out') {
+        await this.$confirm('确认退出吗？', '提示', { type: 'warning' })
+        await userLogout({})
+        local.clear()
+        location.reload()
+        return
+      }
+      if (this.$route.path == url) return
+      this.$router.push(url)
+    },
     getNoticeList() {
       getIrecipientList({}).then((res) => {
         this.noticeList = res
@@ -146,7 +164,8 @@ export default {
     load() {
       this.count++
     },
-    dropLinkPage(url) {
+    dropLinkPage(url, index) {
+      this.activeIndex = index
       if (this.$route.path == url) return
       this.$router.push(url)
     }

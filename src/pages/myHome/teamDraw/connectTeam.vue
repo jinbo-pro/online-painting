@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="ac">
       <PageNavigator :customer="true" @handleBack="handleBack" />
       <div class="title ml-24">{{ $t(`drawSubject['You are drawing for']`) }}</div>

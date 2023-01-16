@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="title">{{ $t(`createDrawingPreview['Create a company gallery']`) }}</div>
     <div class="jsb ac">
       <el-tabs :value="activeName + ''" :before-leave="() => navCheck" @tab-click="navCheck = false">

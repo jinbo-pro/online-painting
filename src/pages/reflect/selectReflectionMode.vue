@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="md_title">Topic of the week (ongoing)</div>
     <div class="jac">
       <el-image class="left_cover" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg"></el-image>

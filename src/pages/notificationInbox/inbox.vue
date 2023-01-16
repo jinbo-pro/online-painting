@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <el-table :data="tableData" style="width: 100%" border>
       <el-table-column prop="recipientUserId" :label="$t(`siteNotice['Form']`)"> </el-table-column>
       <el-table-column prop="content" :label="$t(`siteNotice['Description']`)"> </el-table-column>

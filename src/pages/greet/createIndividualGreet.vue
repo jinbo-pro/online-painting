@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <el-row class="inner_content">
       <el-col :span="14">
         <div class="md_title">Daily Mood</div>

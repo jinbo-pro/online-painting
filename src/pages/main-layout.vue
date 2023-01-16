@@ -1,7 +1,8 @@
 <template>
   <div>
     <NavBar />
-    <div>
+    <div class="container">
+      <Breadcrumb />
       <router-view />
     </div>
   </div>
@@ -9,9 +10,11 @@
 
 <script>
 import NavBar from '@/components/NavBar.vue'
+import Breadcrumb from '@/components/Breadcrumb.vue'
 export default {
   components: {
-    NavBar
+    NavBar,
+    Breadcrumb
   },
   data() {
     return {}

@@ -60,12 +60,39 @@ export const constantRoutes = [
         path: '/createDrawingPreview',
         component: () => import('@/pages/gallery/createDrawingPreview.vue'),
         meta: { title: '公司创建画廊' }
-      },
-      // 站内信
+      }
+    ]
+  },
+  // 站内信
+  {
+    path: '/notificationInbox',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'notificationInbox' },
+    redirect: '/inbox',
+    children: [
       {
-        path: '/siteNoticeManage',
-        component: () => import('@/pages/myHome/siteNoticeManage.vue'),
-        meta: { title: '站内信管理' }
+        path: '/inbox',
+        component: () => import('@/pages/notificationInbox/inbox.vue'),
+        meta: { title: '查看站内信' }
+      }
+    ]
+  },
+  // 账户设置
+  {
+    path: '/profile',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'profile' },
+    redirect: '/profileSettings',
+    children: [
+      {
+        path: '/profileSettings',
+        component: () => import('@/pages/profile/profileSettings.vue'),
+        meta: { title: '账户设置' }
+      },
+      {
+        path: '/myOrders',
+        component: () => import('@/pages/profile/myOrders.vue'),
+        meta: { title: '我的订单' }
       }
     ]
   },
@@ -74,12 +101,17 @@ export const constantRoutes = [
     path: '/connect',
     component: () => import('@/pages/main-layout.vue'),
     meta: { title: 'connect' },
-    redirect: '/dashboard',
+    redirect: '/connectDashboard',
     children: [
       {
-        path: '/dashboard',
+        path: '/connectDashboard',
         component: () => import('@/pages/connect/dashboard.vue'),
         meta: { title: '仪表台' }
+      },
+      {
+        path: '/moreConnect',
+        component: () => import('@/pages/connect/moreConnect.vue'),
+        meta: { title: '更多连接' }
       },
       {
         path: '/newConnect',

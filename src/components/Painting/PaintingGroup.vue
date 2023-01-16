@@ -22,9 +22,7 @@ export default {
   data() {
     return {}
   },
-  created() {
-    console.log(this.list, '-->>> 678');
-  },
+  created() {},
   methods: {}
 }
 </script>

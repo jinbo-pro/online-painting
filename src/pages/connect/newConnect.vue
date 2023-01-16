@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <el-row class="inner_content">
       <el-col :span="14">
         <div class="top_message ac">
@@ -26,7 +26,7 @@
           </div>
         </div>
       </el-col>
-      <el-col v-if="isNew" :span="10" class="right_info_max">
+      <el-col v-if="editType == 'create'" :span="10" class="right_info_max">
         <div class="md_title">Ready to go?</div>
         <div class="jsb ac">
           <div>Deadline in</div>
@@ -71,7 +71,7 @@
 export default {
   data() {
     return {
-      isNew: true,
+      editType: 'create',
       radio: 2,
       LogoImg: require('@/assets/logo.png'),
       discoverDrawList: [
@@ -81,7 +81,9 @@ export default {
       ]
     }
   },
-  created() {},
+  created() {
+    this.editType = this.$route.query.editType || 'create'
+  },
   methods: {
     linkPage() {
       this.$router.push({

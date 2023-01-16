@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="ac mb-24" @click="linkSearch">
       <span class="mr-24">{{ $t('app.Search') }}</span>
       <el-input v-model="keyword" placeholder="prompt, theme, keywords..." style="width: 40%"></el-input>

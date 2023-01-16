@@ -18,7 +18,10 @@
             <div class="count_num f24">{{ item.count }}</div>
           </div>
         </div>
-        <div class="md_title">Past Connect</div>
+        <div class="md_title ac">
+          <span>Past Connect</span>
+          <span class="f16 ml-18 see_more" @click="$router.push('/moreConnect')">See more</span>
+        </div>
         <PaintingGroup :list="coverList" />
       </el-col>
       <el-col :span="8" :offset="2">
@@ -107,5 +110,8 @@ export default {
       font-weight: bold;
     }
   }
+}
+.see_more {
+  cursor: pointer;
 }
 </style>

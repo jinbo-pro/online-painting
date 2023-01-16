@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="md_title">Select a topic</div>
     <div class="topic_max ac fw">
       <div v-for="(item, index) in coverList" :key="index" class="topic_item_box mr-16 mb-16">

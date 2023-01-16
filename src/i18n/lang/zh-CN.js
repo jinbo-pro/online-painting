@@ -6,7 +6,7 @@ export default {
     Greet: '打招呼',
     Learn: '学习',
     Draw: '绘画',
-    Reflect: '反应'
+    Reflect: '话题'
   },
   identity: {
     Marketing: '市场',

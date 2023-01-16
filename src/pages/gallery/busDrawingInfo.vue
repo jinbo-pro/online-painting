@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div class="pb-24">
       <PageNavigator />
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div>
     <div v-if="pageIndex != 4" class="pb-24 jsb ac">
       <PageNavigator />
       <PageNavigator type="next" @handleNext="handleNext" />

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div>
       <div class="mb-24">
         <el-row>
           <el-col :span="12" class="ac">
