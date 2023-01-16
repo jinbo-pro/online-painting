@@ -10,7 +10,12 @@
       </div>
     </div>
     <div class="lv_max ac fw mt-32">
-      <div v-for="(item, index) in lvList" :key="index" class="lv_item_box mr-16 mb-16">
+      <div
+        v-for="(item, index) in lvList"
+        :key="index"
+        class="lv_item_box mr-16 mb-16"
+        @click="linkDrawingBoard(item.id)"
+      >
         <div class="cover_box as">
           <el-image class="cover" :src="item.path"></el-image>
         </div>
@@ -33,7 +38,14 @@ export default {
     this.coverList = listData(7)
     this.lvList = listData(3)
   },
-  methods: {}
+  methods: {
+    linkDrawingBoard(id) {
+      this.$router.push({
+        path: '/drawingBoard',
+        query: { id }
+      })
+    }
+  }
 }
 </script>
 

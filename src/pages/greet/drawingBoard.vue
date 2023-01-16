@@ -2,19 +2,13 @@
   <div>
     <el-row class="inner_content">
       <el-col :span="14">
-        <div class="ac xs_title top_message">
-          <div class="time_box mr-14">3 days 5 hours 30 mins</div>
-          CONNECT with
-          <div class="user_name ml-14">Ben Green</div>
-        </div>
         <div class="pd-16">
           <Draw />
         </div>
       </el-col>
       <el-col :span="10" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
-        <div class="md_title">Stories and memories</div>
-        <div class="xs_title">Best travel experience I’ve had recently</div>
+        <div class="md_title">Speedy Recovery</div>
         <div class="xs_title">Thinking Guide(L4)</div>
         <p>
           Is there a memorable moment during travel? Or any eventful story with ups and downs? Did you meet someone
@@ -56,22 +50,6 @@ export default {
 <style lang="scss" scoped>
 .inner_content {
   height: 100%;
-}
-.top_message {
-  .time_box {
-    font-size: 12px;
-    padding: 4px 6px;
-    border-radius: 16px;
-    box-sizing: border-box;
-    font-weight: normal;
-    border: 1px solid #daddb4;
-  }
-  .user_name {
-    color: #7da453;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 8px;
-  }
 }
 .right_info_max {
   height: 100%;

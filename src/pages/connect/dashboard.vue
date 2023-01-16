@@ -86,10 +86,10 @@ export default {
   },
   methods: {
     linkCountInfo() {
-      this.$router.push({
-        path: '/newConnect',
-        query: { id: 1 }
-      })
+      // this.$router.push({
+      //   path: '/newConnect',
+      //   query: { id: 1 }
+      // })
     }
   }
 }

@@ -2,14 +2,16 @@
   <div class="container dashboard_container">
     <div class="jsb ac">
       <div class="md_title">Connect Analytics</div>
-      <el-button class="new_greetings" type="success">+ New Greetings</el-button>
+      <el-button class="new_greetings" type="success" @click="$router.push('/createIndividualGreet')">
+        + New Greetings
+      </el-button>
     </div>
     <div class="count_max ac">
       <div
         v-for="(item, index) in countList"
         :key="index"
         class="count_item_box mr-24"
-        @click="linkCountInfo"
+        @click="linkCountInfo(item.url)"
         :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
@@ -36,10 +38,10 @@ export default {
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'Received', count: 33, icon: 'greetReceived', bgc: '#F7F9FB' },
-        { title: 'Sent', count: 21, icon: 'greetSent', bgc: '#FAFBEE' },
-        { title: 'Swag', count: 21, icon: 'greetSwag', bgc: '#FAFBEE' },
-        { title: 'Unifished', count: 5, icon: 'greetUnifished', bgc: '#F7F9FB' }
+        { title: 'Received', count: 33, icon: 'greetReceived', bgc: '#F7F9FB', url: '/receivedBlessing' },
+        { title: 'Sent', count: 21, icon: 'greetSent', bgc: '#F7F9FB', url: '/detailDrawingPage' },
+        { title: 'Swag', count: 21, icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
+        { title: 'Unifished', count: 5, icon: 'greetUnifished', bgc: '#F7F9FB', url: '/detailDrawingPage' }
       ]
     }
   },
@@ -53,9 +55,9 @@ export default {
     })
   },
   methods: {
-    linkCountInfo() {
+    linkCountInfo(path) {
       this.$router.push({
-        path: '/newConnect',
+        path,
         query: { id: 1 }
       })
     }

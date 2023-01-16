@@ -148,14 +148,34 @@ export const constantRoutes = [
         meta: { title: '打招呼首页' }
       },
       {
+        path: '/receivedBlessing',
+        component: () => import('@/pages/greet/receivedBlessing.vue'),
+        meta: { title: '收到的祝福' }
+      },
+      {
+        path: '/swagBlessing',
+        component: () => import('@/pages/greet/receivedBlessing.vue'),
+        meta: { title: '赠送的祝福' }
+      },
+      {
+        path: '/detailDrawingPage',
+        component: () => import('@/pages/greet/detailDrawingPage.vue'),
+        meta: { title: '画作详情' }
+      },
+      {
         path: '/createIndividualGreet',
         component: () => import('@/pages/greet/createIndividualGreet.vue'),
-        meta: { title: '新建招呼任务' }
+        meta: { title: '新建祝福' }
       },
       {
         path: '/individualGreet',
         component: () => import('@/pages/greet/individualGreet.vue'),
-        meta: { title: '个人打招呼' }
+        meta: { title: '个人祝福' }
+      },
+      {
+        path: '/drawingBoard',
+        component: () => import('@/pages/greet/drawingBoard.vue'),
+        meta: { title: '新建祝福画板' }
       }
     ]
   },
