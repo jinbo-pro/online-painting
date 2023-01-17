@@ -80,7 +80,14 @@ export default {
       LogoImg: require('@/assets/logo.png'),
       activeIndex: 0,
       navList: [
-        { title: 'Gallery', url: '/businessGalleryHome', disabled: false },
+        {
+          title: 'Gallery',
+          url: '/businessGalleryHome',
+          disabled: false,
+          children: [
+            { title: 'All Galleries', url: '/allGalleries' }
+          ]
+        },
         {
           title: 'Connect',
           url: '/connect',

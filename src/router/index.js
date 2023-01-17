@@ -213,6 +213,20 @@ export const constantRoutes = [
       }
     ]
   },
+  // 画廊
+  {
+    path: '/gallery',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'gallery' },
+    redirect: '/allGalleries',
+    children: [
+      {
+        path: '/allGalleries',
+        component: () => import('@/pages/gallery/allGalleries.vue'),
+        meta: { title: '画廊一览' }
+      }
+    ]
+  },
   {
     path: '/login',
     component: () => import('@/pages/sys/login.vue'),
