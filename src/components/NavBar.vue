@@ -44,7 +44,7 @@
                 v-for="(item, index) in noticeList"
                 :key="index"
                 class="notice_item_box mb-16"
-                @click="$router.push(`/siteNoticeManage?id=${item.id}`)"
+                @click="$router.push(`/inbox?id=${item.id}`)"
               >
                 {{ item.content }} {{ item.createDate | parseTimeFnumber(item.createTime) }}
               </div>

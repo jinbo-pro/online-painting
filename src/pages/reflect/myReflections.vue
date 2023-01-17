@@ -11,7 +11,6 @@
         v-for="(item, index) in countList"
         :key="index"
         class="count_item_box mr-24"
-        @click="linkCountInfo"
         :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
@@ -54,14 +53,7 @@ export default {
       }
     })
   },
-  methods: {
-    linkCountInfo() {
-      this.$router.push({
-        path: '/newConnect',
-        query: { id: 1 }
-      })
-    }
-  }
+  methods: {}
 }
 </script>
 

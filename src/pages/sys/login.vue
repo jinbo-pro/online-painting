@@ -1,63 +1,49 @@
 <template>
-  <div class="login-container">
-    <el-form
-      ref="loginForm"
-      :model="loginForm"
-      :rules="loginRules"
-      class="login-form"
-      autocomplete="on"
-      label-position="left"
-    >
-      <div class="title-container">
-        <h3 class="title">登录</h3>
+  <div class="login">
+    <div class="login-weaper">
+      <div class="login-right">
+        <div class="login-main">
+          <h4 class="login-title">VIVA B2B</h4>
+          <el-form class="el-form login-form" ref="loginForm" :model="loginForm" :rules="loginRules">
+            <el-form-item style="margin-left: 0px" prop="username">
+              <el-input
+                type="text"
+                placeholder="账号"
+                prefix-icon="el-icon-user"
+                v-model="loginForm.username"
+                clearable
+                autocomplete="off"
+              >
+              </el-input>
+            </el-form-item>
+            <el-form-item style="margin-left: 0px" prop="password">
+              <el-input
+                type="password"
+                placeholder="密码"
+                prefix-icon="el-icon-lock"
+                v-model="loginForm.password"
+                autocomplete="off"
+                :show-password="true"
+                @keyup.enter.native="handleLogin"
+              >
+              </el-input>
+            </el-form-item>
+            <el-form-item style="margin: 40px 0px 0">
+              <el-button type="primary" class="login-submit" @click="handleLogin" :loading="isSubmit">
+                <span>登录</span>
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </div>
       </div>
-      <el-form-item prop="username">
-        <span class="svg-container">
-          <i class="el-icon-user"></i>
-        </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="用户名"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
-        />
-      </el-form-item>
-      <el-form-item prop="password">
-        <span class="svg-container">
-          <i class="el-icon-lock"></i>
-        </span>
-        <el-input
-          ref="password"
-          v-model="loginForm.password"
-          type="password"
-          placeholder="密码"
-          name="password"
-          tabindex="2"
-          autocomplete="on"
-          @keyup.enter.native="handleLogin"
-        />
-      </el-form-item>
-
-      <el-button
-        :loading="isSubmit"
-        type="primary"
-        style="width: 100%; margin-bottom: 30px"
-        @click.native.prevent="handleLogin"
-        >登 录</el-button
-      >
-    </el-form>
+    </div>
+    <div class="vue-particles"></div>
   </div>
 </template>
-
 <script>
-import { local } from '@/utils/storage'
 import { userLogin } from '@/apiList/api_work'
-import { pageLoading } from '@/utils/common'
+import { local } from '@/utils/storage'
 export default {
-  name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value) {
@@ -85,26 +71,17 @@ export default {
       isSubmit: false
     }
   },
-  mounted() {
-    if (this.loginForm.username === '') {
-      this.$refs.username.focus()
-    } else if (this.loginForm.password === '') {
-      this.$refs.password.focus()
-    }
-  },
   methods: {
     // 登录提交
     handleLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (!valid) return
-        const loading = pageLoading()
         this.isSubmit = true
         userLogin({
           user: this.loginForm.username,
           password: this.loginForm.password
         })
           .then((res) => {
-            loading.close()
             this.isSubmit = false
             local.get('userName', this.loginForm.username)
             local.set('token', res.auth)
@@ -112,7 +89,6 @@ export default {
             this.$router.push({ path: '/' })
           })
           .catch(() => {
-            loading.close()
             this.isSubmit = false
           })
       })
@@ -121,81 +97,79 @@ export default {
 }
 </script>
 
-<style lang="scss">
-$bg: #283443;
-$light_gray: #fff;
-$cursor: #fff;
-
-/* reset element-ui css */
-.login-container {
-  .el-input {
-    display: inline-block;
-    height: 47px;
-    width: 85%;
-
-    input {
-      background: transparent;
-      border: 0px;
-      -webkit-appearance: none;
-      border-radius: 0px;
-      padding: 12px 5px 12px 15px;
-      color: $light_gray;
-      height: 47px;
-      caret-color: $cursor;
-
-      &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
-      }
-    }
-  }
-
-  .el-form-item {
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    color: #454545;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
-$bg: #2d3a4b;
-$dark_gray: #889aa4;
-$light_gray: #eee;
-
-.login-container {
-  min-height: 100vh;
+.login {
   width: 100%;
-  background-color: $bg;
+  height: 100vh;
   overflow: hidden;
-
-  .login-form {
-    position: relative;
-    width: 520px;
-    max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
-    overflow: hidden;
+  display: flex;
+  position: relative;
+  box-sizing: border-box;
+  .vue-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at top left, rgba(105, 155, 200, 1) 0%, rgba(181, 197, 216, 1) 57%);
   }
-
-  .svg-container {
-    padding: 6px 5px 6px 15px;
-    color: $dark_gray;
-    vertical-align: middle;
-    width: 30px;
-    display: inline-block;
-  }
-
-  .title-container {
+  .login-weaper {
+    margin: auto;
+    height: 450px;
+    display: flex;
+    box-sizing: border-box;
     position: relative;
-
-    .title {
-      font-size: 26px;
-      color: $light_gray;
-      margin: 0px auto 40px auto;
-      text-align: center;
-      font-weight: bold;
+    z-index: 1;
+    border: none;
+    box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+    .login-right {
+      width: 480px;
+      padding: 20px;
+      position: relative;
+      align-items: center;
+      display: flex;
+      background-color: #ffffff;
+      border-radius: 8px;
+      .login-main {
+        margin: 0 auto;
+        width: 70%;
+        .login-title {
+          color: #303133;
+          margin-bottom: 40px;
+          font-weight: 500;
+          font-size: 22px;
+          text-align: center;
+          letter-spacing: 4px;
+        }
+        .login-form {
+          margin: 10px 0;
+          i {
+            color: #303133;
+          }
+          .el-form-item {
+            margin-bottom: 20px !important;
+            .login-submit {
+              width: 100%;
+              letter-spacing: 2px;
+            }
+          }
+        }
+        .login-menu {
+          margin-top: 30px;
+          width: 100%;
+          text-align: left;
+          a {
+            color: #909399;
+            font-size: 12px;
+            margin: 0 8px;
+            text-decoration: none;
+            &:hover {
+              color: #409eff;
+              text-decoration: underline;
+            }
+          }
+        }
+      }
     }
   }
 }

@@ -87,7 +87,7 @@ export default {
   methods: {
     linkCountInfo() {
       // this.$router.push({
-      //   path: '/newConnect',
+      //   path: '/editDraftPainting',
       //   query: { id: 1 }
       // })
     }

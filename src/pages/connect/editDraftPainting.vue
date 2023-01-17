@@ -51,7 +51,7 @@ export default {
   methods: {
     linkPage() {
       this.$router.push({
-        path: '/newConnectDiscuss',
+        path: '/editDraftPainting',
         query: { id: 1 }
       })
     },
