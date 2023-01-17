@@ -1,40 +1,41 @@
 <template>
   <div class="container jac">
     <div class="fdc jac">
-      <div v-if="active == 1" class="fdc jac">
-        <el-avatar :src="LogoImg"></el-avatar>
+      <div v-if="active == 1" class="content fdc jac">
+        <svg-icon width="100px" height="100px" icon-class="firstLoginTopHead"></svg-icon>
         <div class="title mb-30">You've received an invitation to join VIVA AT WORK.</div>
         <p class="mb-30">lnvitation code:</p>
-        <div class="box_bod pd-16">
+        <div class="pd-16">
           <el-input style="width: 300px" v-model="inviteCode" type="text" placeholder="请输入邀请码"></el-input>
         </div>
         <div class="pd-30">
-          <el-button @click="nextHandle">Next</el-button>
+          <el-button type="success" class="next_btn" @click="nextHandle">Next</el-button>
         </div>
       </div>
 
-      <div v-if="active == 2" class="fdc jac">
+      <div v-if="active == 2" class="content fdc">
+        <div class="jac">
+          <svg-icon width="100px" height="100px" icon-class="firstLoginTopHead"></svg-icon>
+        </div>
+        <div class="md_title">Set a new password</div>
+        <PasswordInput :text.sync="password" />
+        <div class="md_title">confirm the password</div>
+        <PasswordInput :text.sync="confirmPassword" />
+        <div class="jac pd-30">
+          <el-button type="success" class="next_btn" @click="nextHandle">Next</el-button>
+        </div>
+      </div>
+
+      <div v-if="active == 3" class="content user_info_max">
         <div class="jac">
           <el-upload
             action="https://jsonplaceholder.typicode.com/posts/"
             :show-file-list="false"
             :on-success="handleAvatarSuccess"
           >
-            <el-avatar :src="imageUrl"></el-avatar>
+            <el-avatar v-if="imageUrl" :size="100" :src="imageUrl"></el-avatar>
+            <svg-icon v-else width="100px" height="100px" icon-class="firstLoginUploadHead"></svg-icon>
           </el-upload>
-        </div>
-        <div class="md_title">Set a new password</div>
-        <PasswordInput :text.sync="password" />
-        <div class="md_title">confirm the password</div>
-        <PasswordInput :text.sync="confirmPassword" />
-        <div class="pd-30">
-          <el-button @click="nextHandle">Next</el-button>
-        </div>
-      </div>
-
-      <div v-if="active == 3" class="user_info_max">
-        <div class="jac">
-          <el-avatar :src="imageUrl"></el-avatar>
         </div>
         <div class="fw jsb">
           <div v-for="(item, index) in userInfo" :key="index" class="fdc jac">
@@ -43,21 +44,36 @@
           </div>
         </div>
         <div class="pd-30 jac">
-          <el-button type="primary" @click="nextHandle">Complete</el-button>
+          <el-button type="success" class="next_btn" @click="nextHandle">Complete</el-button>
         </div>
       </div>
 
-      <div v-if="active == 4">
-        <div class="title jac mb-30">Please check your inbox and confirm the verification email.</div>
+      <div v-if="active == 4" class="content">
+        <div class="jac mb-24">
+          <el-avatar :size="100" :src="imageUrl"></el-avatar>
+          <div class="md_title ml-24">Welcome Chelsea!</div>
+        </div>
+        <div class="xs_title jac mb-30">Please check your inbox and confirm the verification email.</div>
         <div class="pd-30 jac mt-30">
-          <el-button type="primary" @click="signIn">Sign in</el-button>
+          <el-button type="success" class="next_btn" @click="signIn">Sign in</el-button>
         </div>
       </div>
 
-      <div class="step_tips f12">Step {{ active }}</div>
-      <div class="step_max box_bod">
-        <div class="step_inner" :style="{ width: stepWidth }"></div>
-      </div>
+      <template v-if="active < 4">
+        <div class="step_tips f12">Step {{ active }} / 3</div>
+        <div class="step_max box_bod">
+          <div class="step_inner" :style="{ width: stepWidth }"></div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="step_tips f12">Complete</div>
+        <div class="ac">
+          <div class="step_max box_bod">
+            <div class="step_inner" :style="{ width: stepWidth }"></div>
+          </div>
+          <svg-icon width="20px" height="20px" icon-class="CompleteIcon"></svg-icon>
+        </div>
+      </template>
     </div>
   </div>
 </template>
@@ -90,7 +106,7 @@ export default {
   },
   computed: {
     stepWidth() {
-      return 50 * this.active + 'px'
+      return 200 * this.active + 'px'
     }
   },
   created() {},
@@ -110,13 +126,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.content {
+  height: 430px;
+}
 .step_tips {
-  width: 200px;
+  width: 600px;
   text-align: left;
   margin-bottom: 4px;
 }
 .step_max {
-  width: 200px;
+  width: 600px;
   height: 20px;
   border-radius: 4px;
   overflow: hidden;
@@ -127,7 +146,7 @@ export default {
     top: 0;
     left: 0;
     transition: 0.3s;
-    background-color: #409eff;
+    background-color: #7da453;
   }
 }
 .head_img_box {
@@ -138,5 +157,9 @@ export default {
 }
 .user_info_max {
   width: 430px;
+}
+.next_btn {
+  border-radius: 30px;
+  padding: 12px 36px;
 }
 </style>

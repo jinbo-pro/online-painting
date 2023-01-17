@@ -20,7 +20,7 @@
       </div>
     </div>
     <div class="mt-32">
-      <el-button class="save" @click="saveChange" type="success">Save changes</el-button>
+      <el-button class="save" @click="saveSettings" type="success">Save Settings</el-button>
     </div>
   </div>
 </template>
@@ -43,7 +43,7 @@ export default {
   },
   created() {},
   methods: {
-    saveChange() {
+    saveSettings() {
       console.log(this.formData, this.isPublic, '-->>> 678')
     }
   }
