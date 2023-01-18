@@ -93,11 +93,13 @@ export default {
     'Counting down': 'Counting down'
   },
   shoppingMall: {
-    Name: 'Name',
+    FirstName: 'FirstName',
+    LastName: 'LastName',
     Address: 'Address',
+    Address2: 'Address2',
+    State: 'State',
     'Contact number': 'Contact number',
     City: 'City',
-    'Zip code': 'Zip code',
     Coutnry: 'Coutnry',
     'Your Order': 'Your Order',
     'Your Order is completed': 'Your Order is completed',

@@ -31,9 +31,9 @@
             </div>
             <div v-else>{{ $t('navBar.' + item.title) }}</div>
           </div>
-          <div class="hidden-xs-only draw_box">
+          <!-- <div class="hidden-xs-only draw_box">
             <el-button type="primary" @click="$router.push('/selectDrawMode')">{{ $t('navBar.Draw') }}</el-button>
-          </div>
+          </div> -->
         </div>
       </el-col>
       <el-col :xs="4" :span="6">
@@ -84,9 +84,7 @@ export default {
           title: 'Gallery',
           url: '/businessGalleryHome',
           disabled: false,
-          children: [
-            { title: 'All Galleries', url: '/allGalleries' }
-          ]
+          children: [{ title: 'All Galleries', url: '/allGalleries' }]
         },
         {
           title: 'Connect',
@@ -114,7 +112,8 @@ export default {
             { title: 'Create New', url: '/selectReflectionMode' },
             { title: 'My Reflections', url: '/myReflections' }
           ]
-        }
+        },
+        { title: 'Play', url: '', disabled: true }
       ],
       profileList: [
         { title: 'Sign out', url: 'Sign out' },

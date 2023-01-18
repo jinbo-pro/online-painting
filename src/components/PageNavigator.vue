@@ -1,6 +1,12 @@
 <template>
-  <el-button v-if="type == 'back'" icon="el-icon-back" @click="handleBack">{{ $t(`app.Back`) }}</el-button>
-  <el-button v-else @click="handleNext">{{ $t(`app.Next`) }} <i class="el-icon-right"></i> </el-button>
+  <div v-if="type == 'back'" @click="handleBack" class="btn">
+    <i class="el-icon-back"></i>
+    <span class="ml-10">{{ $t(`app.Back`) }}</span>
+  </div>
+  <div v-else @click="handleNext" class="btn">
+    <span class="mr-10">{{ $t(`app.Next`) }}</span>
+    <i class="el-icon-right"></i>
+  </div>
 </template>
 
 <script>
@@ -40,4 +46,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.btn {
+  cursor: pointer;
+}
+</style>

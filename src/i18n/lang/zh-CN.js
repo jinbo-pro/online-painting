@@ -92,11 +92,13 @@ export default {
     'Counting down': '倒计时'
   },
   shoppingMall: {
-    Name: '姓名',
+    FirstName: '姓氏',
+    LastName: '名称',
     Address: '地址',
+    Address2: '地址2',
+    State: 'state',
     'Contact number': '联系电话',
     City: '城市',
-    'Zip code': '邮编',
     Coutnry: '国家',
     'Your Order': '您的订单',
     'Your Order is completed': '您的订单已完成',

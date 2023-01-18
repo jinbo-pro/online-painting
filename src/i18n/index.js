@@ -21,7 +21,7 @@ export const localeList = [
 
 /**i18n */
 export const i18n = new VueI18n({
-  locale: local.get('i18n-locale') || 'zh-CN',
+  locale: local.get('i18n-locale') || 'en',
   messages: localeList.reduce((p, c) => {
     p[c.locale] = c.value
     return p
