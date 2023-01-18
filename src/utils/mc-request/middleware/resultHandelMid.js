@@ -36,13 +36,13 @@ export const resultHandelMid = async function (ctx, next) {
   // 判断 code 然后返回
   if (code === 0) {
     return resultSuccess(ctx, res.result || res.data)
-  } else if (res.result.code == 10000) {
+  } else if (res.result?.code == 10000) {
     return MessageBox.alert('登录失效请重新登录').then(() => {
       local.clear()
       location.reload()
     })
   } else {
-    let message = res.result.message || res.msg || '请求失败'
+    let message = res.result?.message || res.msg || '请求失败'
     return resultError(ctx, 'fail', message)
   }
 }
