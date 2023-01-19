@@ -81,12 +81,6 @@ export default {
       activeIndex: 0,
       navList: [
         {
-          title: 'Gallery',
-          url: '/businessGalleryHome',
-          disabled: false,
-          children: [{ title: 'All Galleries', url: '/allGalleries' }]
-        },
-        {
           title: 'Connect',
           url: '/connect',
           disabled: false,
@@ -112,6 +106,12 @@ export default {
             { title: 'Create New', url: '/selectReflectionMode' },
             { title: 'My Reflections', url: '/myReflections' }
           ]
+        },
+        {
+          title: 'Gallery',
+          url: '/allGalleries',
+          disabled: false,
+          children: [{ title: 'All Galleries', url: '/allGalleries' }]
         },
         { title: 'Play', url: '', disabled: true }
       ],
