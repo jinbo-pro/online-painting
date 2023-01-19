@@ -11,11 +11,11 @@
       </div>
       <div class="jac">
         <div class="left_max jac">
-          <el-avatar :size="220" :src="LogoImg"></el-avatar>
+          <el-avatar :size="220" :src="userInfo.photo"></el-avatar>
           <div class="message_box ml-24">
             <div class="mb-12">Hey, I am</div>
-            <div class="user_name">Ben Green</div>
-            <p class="about_title">Market Manager So great to meet you Chelsea!</p>
+            <div class="user_name">{{ userInfo.name }}</div>
+            <p class="about_title">{{ userInfo.title }}</p>
             <div class="about_info">
               Hi, I've been in the marketing team for 3 years. I like playing with my dog after work (sometimes durign
               work)
@@ -37,20 +37,15 @@
       </div>
       <div class="mt-24">Your Mission:</div>
       <div class="md_title">Stories and memories</div>
-      <el-radio-group v-model="radio">
+      <el-radio-group v-model="promptIndex">
         <div v-for="(item, index) in discoverDrawList" :key="index" class="item_select_discover">
-          <el-radio :label="item.value">{{ item.label }}</el-radio>
+          <el-radio :label="item.id">{{ item.body }}</el-radio>
         </div>
       </el-radio-group>
       <div class="md_title">Thinking Guide(L4)</div>
-      <p>
-        Is there a memorable moment during travel? Or any eventful story with ups and downs? Did you meet someone
-        special in the trip?
-      </p>
+      <p>{{ selectThinkingGuide }}</p>
       <div class="jac mt-32">
-        <el-button class="start_drawing" type="success" @click="$router.push('/createNewPainting')">
-          Start Drawing
-        </el-button>
+        <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
     </el-col>
     <el-col v-else :span="10" class="right_info_max">
@@ -68,18 +63,24 @@
 </template>
 
 <script>
-import { currentConnect } from '@/apiList/api_v1'
+import { currentConnect, getPromptByTopic, setPrompt } from '@/apiList/api_v1'
 export default {
   data() {
     return {
       editType: 'create',
-      radio: 2,
-      LogoImg: require('@/assets/logo.png'),
-      discoverDrawList: [
-        { label: 'L3 - Body', value: 1 },
-        { label: 'Best travel experience I’ve had recently', value: 2 },
-        { label: 'What is something new you’ve recently tried that changed your life ', value: 3 }
-      ]
+      promptIndex: '10',
+      discoverDrawList: [],
+      userInfo: {
+        photo: '',
+        name: '',
+        title: ''
+      }
+    }
+  },
+  computed: {
+    selectThinkingGuide() {
+      const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
+      return cur ? cur.thinkingGuide : ''
     }
   },
   created() {
@@ -87,9 +88,18 @@ export default {
     this.getInitData()
   },
   methods: {
-    getInitData() {
-      currentConnect({}).then((res) => {
-        console.log(res, '-->>> 678')
+    async getInitData() {
+      const res = await currentConnect({})
+      if (!res) return
+      const [user] = res.list
+      Object.assign(this.userInfo, user)
+      const promp = await getPromptByTopic({ topic: 'relax&fun' })
+      this.discoverDrawList = promp.list
+    },
+    setPromptHandle() {
+      const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
+      setPrompt({ promptId: cur.id, connectId: this.userInfo.connectId }).then((res) => {
+        this.$message.success('设置主题成功')
       })
     },
     linkPage() {

@@ -34,3 +34,11 @@ export function saveConnectSetting(data) {
 export function currentConnect(data) {
   return request.postJson('/connect/currentConnect', data)
 }
+/**获取话题 */
+export function getPromptByTopic(data) {
+  return request.postJson('/prompt/getPromptByTopic', data)
+}
+/**设置话题 */
+export function setPrompt(data) {
+  return request.postJson('/connect/setPrompt', data)
+}
