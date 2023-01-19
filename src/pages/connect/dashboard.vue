@@ -26,79 +26,144 @@
       </el-col>
       <el-col :span="8" :offset="2">
         <div class="md_title">Connect Setting</div>
-        <el-form label-width="150px">
-          <el-form-item label="Pause for this week:">
-            <el-switch v-model="connectConfig.pause" active-color="#13ce66" inactive-color="#ff4949"></el-switch>
-          </el-form-item>
-          <el-form-item label="Frequency:">
-            <el-select v-model="connectConfig.frequency" placeholder="请选择">
-              <el-option v-for="item in frequencyList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Connect preference:">
-            <el-select v-model="connectConfig.connectPreference" multiple placeholder="请选择">
-              <el-option v-for="item in preferenceList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="Topic preference:">
-            <el-select v-model="connectConfig.topicPreference" multiple placeholder="请选择">
-              <el-option v-for="item in preferenceList" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-        </el-form>
+        <div class="jsb ac">
+          <div class="xs_title">Pause for next connect</div>
+          <el-switch v-model="connectConfig.isWeek" active-color="#13ce66"></el-switch>
+        </div>
+        <div class="pause_tips mb-24">You will not be matched with connects</div>
+
+        <div class="xs_title">Connect preference:</div>
+        <div>
+          <p>Departments:</p>
+          <el-cascader-multi
+            clearable
+            v-model="connectConfig.differentOffice"
+            :data="differentOfficeList"
+            label-key="name"
+            value-key="id"
+          ></el-cascader-multi>
+          <p>language preference:</p>
+          <el-select style="width: 100%" v-model="connectConfig.language" multiple placeholder="请选择">
+            <el-option v-for="item in languageList" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+          <p>Topic preference:</p>
+          <el-select style="width: 100%" v-model="connectConfig.topicPreference" multiple placeholder="请选择">
+            <el-option v-for="item in topicList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+          </el-select>
+        </div>
+        <div class="jac mt-32">
+          <el-button class="save" @click="saveSettings" type="success">Save Settings</el-button>
+        </div>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
-import { preferenceList } from '@/config/preference'
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
+import {
+  getConnectSetting,
+  getIndexData,
+  getLanguageList,
+  getOfficeList,
+  getPromptL1,
+  getTotail,
+  saveConnectSetting
+} from '@/apiList/api_v1'
+import { findNodeAll, treeFindPath } from '@/utils/tree'
 export default {
   components: {
     PaintingGroup
   },
   data() {
     return {
-      preferenceList,
-      frequencyList: [{ label: 'Once a week', value: 7 }],
+      differentOfficeList: [],
+      languageList: [],
+      topicList: [],
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'Connects', count: 33, icon: 'Connection', bgc: '#F7F9FB' },
-        { title: 'Department', count: 21, icon: 'Department', bgc: '#FAFBEE' },
-        { title: 'Follow-up chat', count: 5, icon: 'Follow-up-chat', bgc: '#F7F9FB' }
+        { title: 'Connects', count: 0, icon: 'Connection', key: 'connectsCount', bgc: '#F7F9FB' },
+        { title: 'Department', count: 0, icon: 'Department', key: 'deparmentsCount', bgc: '#FAFBEE' },
+        { title: 'Follow-up chat', count: 0, icon: 'Follow-up-chat', key: 'coffeeChatsCount', bgc: '#F7F9FB' }
       ],
       connectConfig: {
-        pause: '',
-        frequency: '', // 周期
-        connectPreference: '', // 语言偏好
-        topicPreference: '' // 语言偏好
+        isWeek: true, // 是否参与匹配
+        differentOffice: [], // 部门
+        language: [], // 语言偏好
+        topicPreference: [] // 分类
       }
     }
   },
   created() {
-    this.coverList = listData(10)
+    this.getInitData()
   },
   methods: {
-    linkCountInfo() {
-      // this.$router.push({
-      //   path: '/editDraftPainting',
-      //   query: { id: 1 }
-      // })
+    async getInitData() {
+      getTotail({}).then((res) => {
+        this.countList.forEach((item) => {
+          item.count = res[item.key]
+        })
+      })
+      getLanguageList({}).then((res) => {
+        this.languageList = res
+      })
+      getIndexData({}).then((res) => {
+        this.coverList = res ? res.list : []
+      })
+      getPromptL1({ code: 'connect' }).then((res) => {
+        if (!res) return
+        this.topicList = res.map((e) => {
+          return {
+            label: e.topic,
+            value: e.topic
+          }
+        })
+      })
+      await getOfficeList({}).then((res) => {
+        this.differentOfficeList = res
+      })
+      getConnectSetting({}).then((res) => {
+        if (!res) return
+        const language = res.language.split(',').map((e) => e.split('-')[1])
+        this.connectConfig = {
+          language,
+          isWeek: res.isWeek == 1,
+          differentOffice: res.differentOfficeId
+            ? res.differentOfficeId
+                .split(',')
+                .map((id) => treeFindPath(this.differentOfficeList, (node) => node.id == id))
+            : [],
+          topicPreference: res.topicPreferenceCode ? res.topicPreferenceCode.split(',') : []
+        }
+      })
+    },
+    linkCountInfo() {},
+    saveSettings() {
+      const { isWeek, differentOffice, language, topicPreference } = this.connectConfig
+
+      const officeIds = differentOffice.map((e) => e.slice(-1)[0])
+      const selectDifferentOffice = findNodeAll(this.differentOfficeList, (node) => officeIds.includes(node.id))
+      console.log(selectDifferentOffice, differentOffice, '-->>> 678')
+      const selectLanguage = this.languageList.filter((e) => language.includes(e.value))
+      const selectTopic = this.topicList.filter((e) => topicPreference.includes(e.value))
+      saveConnectSetting({
+        isWeek: isWeek ? '1' : '0',
+        differentOfficeName: selectDifferentOffice.map((e) => e.name).toString(),
+        differentOfficeId: officeIds.toString(),
+        language: selectLanguage.map((e) => `${e.label}-${e.value}`).toString(),
+        topicPreferenceCode: selectTopic.map((e) => e.value).toString(),
+        topicPreferenceName: selectTopic.map((e) => e.label).toString()
+      }).then((res) => {
+        this.$message.success('设置成功')
+      })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.dashboard_container {
-  overflow: hidden;
-}
 .count_max {
   .count_item_box {
     width: 202px;
@@ -113,5 +178,14 @@ export default {
 }
 .see_more {
   cursor: pointer;
+}
+
+.pause_tips {
+  font-size: 12px;
+  color: #999;
+}
+.save {
+  padding: 12px 36px;
+  border-radius: 32px;
 }
 </style>

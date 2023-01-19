@@ -4,7 +4,7 @@
       <div>
         <div class="jsb ac">
           <div class="mr-16">Make this visible to the company</div>
-          <el-switch v-model="lookRange" active-color="#13ce66" inactive-color="#ff4949"> </el-switch>
+          <el-switch v-model="lookRange" active-color="#13ce66"> </el-switch>
         </div>
         <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
       </div>

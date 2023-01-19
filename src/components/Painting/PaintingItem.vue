@@ -2,10 +2,10 @@
   <div class="painting_item_box" @click="linkInfo">
     <div class="top_info_box jsb ac">
       <div class="ac">
-        <el-avatar :size="30" :src="LogoImg"></el-avatar>
-        <div class="user_name ml-16">{{ item.userName }}</div>
+        <el-avatar :size="30" :src="item.photo"></el-avatar>
+        <div class="user_name ml-16">{{ item.officeName }}</div>
       </div>
-      <div class="pain_time jac">june 17th</div>
+      <div class="pain_time jac">{{ item.createDate | enDate}}</div>
     </div>
     <div class="paint_title">{{ item.title }}</div>
     <div class="cover_box jac">
@@ -14,7 +14,7 @@
     <div v-if="showLookRange" class="look_range_max mt-16">
       <div class="jsb ac">
         <div>Make this visible to the company</div>
-        <el-switch v-model="item.lookRange" active-color="#13ce66" inactive-color="#ff4949"> </el-switch>
+        <el-switch v-model="item.lookRange" active-color="#13ce66"> </el-switch>
       </div>
       <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
     </div>
@@ -35,9 +35,7 @@ export default {
     }
   },
   data() {
-    return {
-      LogoImg: require('@/assets/logo.png')
-    }
+    return {}
   },
   created() {},
   methods: {

@@ -14,7 +14,15 @@ export function numberFormat(val, dec = 1) {
     return n + ''
   }
 }
-
+/**
+ * 英文时间
+ * @param {number} val
+ * @returns
+ */
+export function enDate(val) {
+  const d = parseTimeFnumber(val)
+  return new Date(d).toDateString()
+}
 /**
  * 转换时间格式
  * @param {number} date 日期

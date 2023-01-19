@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import { currentConnect } from '@/apiList/api_v1'
 export default {
   data() {
     return {
@@ -83,8 +84,14 @@ export default {
   },
   created() {
     this.editType = this.$route.query.editType || 'create'
+    this.getInitData()
   },
   methods: {
+    getInitData() {
+      currentConnect({}).then((res) => {
+        console.log(res, '-->>> 678')
+      })
+    },
     linkPage() {
       this.$router.push({
         path: '/editDraftPainting',
