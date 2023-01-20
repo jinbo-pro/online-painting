@@ -36,9 +36,9 @@
       </el-col>
     </el-row>
 
-    <el-row v-if="pageIndex < 4">
+    <el-row v-if="pageIndex == 2 || pageIndex == 3">
       <el-col :span="8" class="order_message_max">
-        <div v-if="pageIndex < 4" class="md_title">{{ $t(`shoppingMall['Your Order']`) }}</div>
+        <div class="md_title">{{ $t(`shoppingMall['Your Order']`) }}</div>
         <div class="cover_box ac">
           <div class="box_show mr-16">
             <img class="order_left_img" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg" />
@@ -187,7 +187,7 @@ export default {
   },
   data() {
     return {
-      pageIndex: 4,
+      pageIndex: 1,
 
       activeIndex: 0,
       coverList: [],

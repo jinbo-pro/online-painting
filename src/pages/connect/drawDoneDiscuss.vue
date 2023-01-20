@@ -61,7 +61,7 @@
 <script>
 import ChatRoom from '@/components/ChatRoom.vue'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
-import { listData } from '@/utils/mock'
+import { currentConnect } from '@/apiList/api_v1'
 export default {
   components: {
     ChatRoom,
@@ -81,7 +81,9 @@ export default {
     }
   },
   created() {
-    this.userList = listData(2)
+    currentConnect({}).then((res) => {
+      this.userList = [res.connectUser, res.user]
+    })
   },
   methods: {}
 }

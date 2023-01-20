@@ -4,13 +4,7 @@
       <el-col :span="14">
         <div class="md_title">Connect Analytics</div>
         <div class="count_max jsb ac">
-          <div
-            v-for="(item, index) in countList"
-            :key="index"
-            class="count_item_box"
-            @click="linkCountInfo"
-            :style="`background-color: ${item.bgc};`"
-          >
+          <div v-for="(item, index) in countList" :key="index" @click="linkCountInfo" class="count_item_box">
             <div class="jsb ac">
               <div>{{ item.title }}</div>
               <svg-icon width="30px" height="30px" :icon-class="item.icon"></svg-icon>
@@ -84,9 +78,9 @@ export default {
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'Connects', count: 0, icon: 'Connection', key: 'connectsCount', bgc: '#F7F9FB' },
-        { title: 'Department', count: 0, icon: 'Department', key: 'deparmentsCount', bgc: '#FAFBEE' },
-        { title: 'Follow-up chat', count: 0, icon: 'Follow-up-chat', key: 'coffeeChatsCount', bgc: '#F7F9FB' }
+        { title: 'Connects', count: '', icon: 'Connection', key: 'connectsCount' },
+        { title: 'Department', count: '', icon: 'Department', key: 'deparmentsCount' },
+        { title: 'Follow-up chat', count: '', icon: 'Follow-up-chat', key: 'coffeeChatsCount' }
       ],
       connectConfig: {
         isWeek: true, // 是否参与匹配
@@ -171,6 +165,7 @@ export default {
     padding: 16px;
     border-radius: 16px;
     box-sizing: border-box;
+    background-color: #f7f9fb;
     .count_num {
       font-weight: bold;
     }

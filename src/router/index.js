@@ -9,6 +9,20 @@ export const constantRoutes = [
     meta: { title: 'main' },
     redirect: '/connectDashboard'
   },
+  // swag
+  {
+    path: '/swag',
+    component: () => import('@/pages/main-layout.vue'),
+    meta: { title: 'swag' },
+    redirect: '/shoppingMall',
+    children: [
+      {
+        path: '/shoppingMall',
+        component: () => import('@/pages/swag/shoppingMall.vue'),
+        meta: { title: '商城' }
+      }
+    ]
+  },
   // 站内信
   {
     path: '/notificationInbox',
@@ -94,13 +108,13 @@ export const constantRoutes = [
         meta: { title: '打招呼首页' }
       },
       {
-        path: '/receivedBlessing',
-        component: () => import('@/pages/greet/receivedBlessing.vue'),
-        meta: { title: '收到的祝福' }
+        path: '/sendBlessing',
+        component: () => import('@/pages/greet/sendBlessing.vue'),
+        meta: { title: '发送的祝福' }
       },
       {
         path: '/swagBlessing',
-        component: () => import('@/pages/greet/receivedBlessing.vue'),
+        component: () => import('@/pages/greet/sendBlessing.vue'),
         meta: { title: '赠送的祝福' }
       },
       {

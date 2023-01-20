@@ -10,25 +10,24 @@
       <div
         v-for="(item, index) in countList"
         :key="index"
-        class="count_item_box mr-24"
+        :class="['count_item_box mr-24', { active: activeIndex == index }]"
         @click="selectNavType(index)"
-        :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
           <div>{{ item.title }}</div>
-          <svg-icon width="20px" height="20px" :icon-class="item.icon" @click.stop="linkCountInfo(item.url)"></svg-icon>
+          <svg-icon width="20px" height="20px" :icon-class="item.icon"></svg-icon>
         </div>
         <div class="count_num f24">{{ item.count }}</div>
       </div>
     </div>
     <div class="md_title"></div>
-    <PaintingGroup :list="coverList" />
+    <PaintingGroup :list="coverList" @handle="handlePainting" />
   </div>
 </template>
 
 <script>
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
-import { getGreetIndexData, getListByType } from '@/apiList/api_v1'
+import { getStatistics, getListByType } from '@/apiList/api_v1'
 export default {
   components: {
     PaintingGroup
@@ -39,27 +38,24 @@ export default {
       countList: [
         {
           title: 'Received',
-          count: 33,
+          count: '',
           key: 'received',
           icon: 'greetReceived',
-          bgc: '#F7F9FB',
           url: '/receivedBlessing'
         },
         {
           title: 'Sent',
-          count: 21,
+          count: '',
           key: 'sent',
           icon: 'greetSent',
-          bgc: '#F7F9FB',
           url: '/detailDrawingPage'
         },
-        { title: 'Swag', count: 21, key: 'swage', icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
+        { title: 'Swag', count: '', key: 'swage', icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
         {
           title: 'Unifished',
-          count: 5,
+          count: '',
           key: 'unfinished',
           icon: 'greetUnifished',
-          bgc: '#F7F9FB',
           url: '/detailDrawingPage'
         }
       ],
@@ -67,7 +63,7 @@ export default {
     }
   },
   created() {
-    getGreetIndexData({}).then((res) => {
+    getStatistics({}).then((res) => {
       this.countList.forEach((item) => {
         item.count = res[item.key + 'Count']
       })
@@ -97,6 +93,22 @@ export default {
     selectNavType(index) {
       this.activeIndex = index
       this.getList()
+    },
+    handlePainting(e) {
+      let url = ''
+      if (this.activeIndex == 0) {
+        url = '/detailDrawingPage'
+      } else if (this.activeIndex == 1) {
+        url = '/sendBlessing'
+      } else if (this.activeIndex == 2) {
+        url = '/swagBlessing'
+      } else {
+        url = '/detailDrawingPage'
+      }
+      this.$router.push({
+        path: url,
+        query: { greetId: e.greetId }
+      })
     }
   }
 }
@@ -113,9 +125,15 @@ export default {
     padding: 16px;
     border-radius: 16px;
     box-sizing: border-box;
+    background-color: #f7f9fb;
+    border: 2px solid transparent;
     .count_num {
       font-weight: bold;
     }
+  }
+  .active {
+    background-color: #fafbee;
+    border: 2px solid #d2d97c;
   }
 }
 .new_greetings {

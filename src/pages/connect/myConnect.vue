@@ -33,7 +33,7 @@
       </div>
       <div class="jsb ac mt-12">
         <div>CONNECT with</div>
-        <div class="user_name">Ben Green</div>
+        <div class="user_name">{{ userInfo.name }}</div>
       </div>
       <div class="mt-24">Your Mission:</div>
       <div class="md_title">Stories and memories</div>
@@ -94,8 +94,7 @@ export default {
     async getInitData() {
       const res = await currentConnect({})
       if (!res) return
-      const [user] = res.list
-      Object.assign(this.userInfo, user)
+      Object.assign(this.userInfo, res.connectUser)
       if (res.prompt) {
         // 编辑已有连接
         this.editType = 'update'

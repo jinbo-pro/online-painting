@@ -47,8 +47,8 @@ export function setPrompt(data) {
  * greet
  */
 /**获取首页数据 */
-export function getGreetIndexData(data) {
-  return request.postJson('/greet/getIndex', data)
+export function getStatistics(data) {
+  return request.postJson('/greet/getStatistics', data)
 }
 /**获取分类列表数据 */
 export function getListByType(data) {
