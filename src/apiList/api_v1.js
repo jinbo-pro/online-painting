@@ -5,7 +5,6 @@ const request = createRequest({ prefix: getProxyPath('work') })
 /**
  * connect
  */
-
 /**获取首页列表 */
 export function getIndexData(data) {
   return request.postJson('/connect/getIndex', data)
@@ -41,6 +40,10 @@ export function getPromptByTopic(data) {
 /**设置话题 */
 export function setPrompt(data) {
   return request.postJson('/connect/setPrompt', data)
+}
+/**提交连接 */
+export function connectSubmit(data) {
+  return request.postJson('/connect/submit', data)
 }
 
 /**
@@ -89,4 +92,16 @@ export function getReflectList(data) {
 /**获取每周记录 */
 export function getWeek(data) {
   return request.postJson('/reflectView/getWeek', data)
+}
+
+/**
+ * 聊天室
+ */
+/**获取聊天列表 */
+export function getChatList(data) {
+  return request.postJson('/connectMessage/getList', data)
+}
+/**发送聊天消息 */
+export function sendChatMessage(data) {
+  return request.postJson('/connectMessage/sendMessage', data)
 }

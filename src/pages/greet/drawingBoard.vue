@@ -9,7 +9,7 @@
       <el-col :span="10" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
         <div class="md_title">{{ promptInfo.body }}</div>
-        <div class="xs_title">Thinking Guide(L4)</div>
+        <div class="xs_title">Thinking Guide</div>
         <p>{{ promptInfo.drawingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>

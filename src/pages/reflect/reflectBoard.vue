@@ -10,7 +10,7 @@
         <div class="mt-24">Your topic:</div>
         <div class="md_title">Daily Mood</div>
         <div class="xs_title">{{ reflectInfo.activity }}</div>
-        <div class="xs_title">Thinking Guide(L4)</div>
+        <div class="xs_title">Thinking Guide</div>
         <p>{{ reflectInfo.thinkingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>

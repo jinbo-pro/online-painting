@@ -12,6 +12,7 @@
           </div>
         </div>
       </el-col>
+      <!-- 时间没到联系 -->
       <el-col v-if="isDone == 1" :span="10" class="right_info_max">
         <div class="md_title">Before you finish</div>
         <div class="jsb ac">
@@ -21,13 +22,14 @@
         <p>Maybe you want to discuss and guess each other’s drawing. Start a quick chat with</p>
 
         <div class="chat_max">
-          <ChatRoom />
+          <ChatRoom v-if="grId" :grId="grId" />
         </div>
 
         <div class="jac mt-32">
           <el-button class="start_drawing" type="success" @click="isDone = 2">Complete Task</el-button>
         </div>
       </el-col>
+      <!-- 匹配失败展示 -->
       <el-col v-if="isDone == 2" :span="10" class="right_info_max">
         <div class="md_title">Mission failed</div>
         <div class="jsb ac">
@@ -40,6 +42,7 @@
           <el-button class="start_drawing" type="success" @click="isDone = 3">Start new CONNECT</el-button>
         </div>
       </el-col>
+      <!-- 作画完成 -->
       <el-col v-if="isDone == 3" :span="10" class="right_info_max">
         <div class="md_title">Mission completed 🌟</div>
         <div class="jsb ac">
@@ -72,17 +75,13 @@ export default {
       isDone: 1,
       radio: 2,
       userList: [],
-      LogoImg: require('@/assets/logo.png'),
-      discoverDrawList: [
-        { label: 'L3 - Body', value: 1 },
-        { label: 'Best travel experience I’ve had recently', value: 2 },
-        { label: 'What is something new you’ve recently tried that changed your life ', value: 3 }
-      ]
+      grId: ''
     }
   },
   created() {
     currentConnect({}).then((res) => {
-      this.userList = [res.connectUser, res.user]
+      this.userList = [res.user, res.connectUser]
+      this.grId = res.user.grId
     })
   },
   methods: {}

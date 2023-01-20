@@ -38,10 +38,10 @@ export default {
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'L1 Mood', count: 33, key: 'know yourself', icon: 'L1Mood', bgc: '#F7F9FB' },
-        { title: 'L1 Challenge', count: 21, key: 'calm and relax', icon: 'L1Challenge', bgc: '#FAFBEE' },
-        { title: 'L1 SafeSpace', count: 21, key: 'connection with people', icon: 'L1SafeSpace', bgc: '#FAFBEE' },
-        { title: 'L1 Unifished', count: 5, key: 'unifished', icon: 'L1Unifished', bgc: '#F7F9FB' }
+        { title: 'Mood', count: 33, key: 'know yourself', icon: 'L1Mood', bgc: '#F7F9FB' },
+        { title: 'Challenge', count: 21, key: 'calm and relax', icon: 'L1Challenge', bgc: '#FAFBEE' },
+        { title: 'SafeSpace', count: 21, key: 'connection with people', icon: 'L1SafeSpace', bgc: '#FAFBEE' },
+        { title: 'Unifished', count: 5, key: 'unifished', icon: 'L1Unifished', bgc: '#F7F9FB' }
       ]
     }
   },

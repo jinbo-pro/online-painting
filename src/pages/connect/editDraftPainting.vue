@@ -20,13 +20,13 @@
         <div class="md_title">Stories and memories</div>
         <div class="xs_title">Best travel experience I’ve had recently</div>
 
-        <div class="xs_title">Thinking Guide(L4)</div>
+        <div class="xs_title">Thinking Guide</div>
         <p>
           Is there a memorable moment during travel? Or any eventful story with ups and downs? Did you meet someone
           special in the trip?
         </p>
 
-        <div class="xs_title">Drawing Guide(L5)</div>
+        <div class="xs_title">Drawing Guide</div>
         <p>Start with characters or items in your mind and we will generate different styles for you.</p>
         <div class="jac mt-32">
           <el-button class="start_drawing" type="success" @click="submitHandle"> Edit my draft </el-button>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+/**页面-4 编辑-暂时不用 */
 import Draw from '@/components/Draw.vue'
 export default {
   components: {

@@ -15,11 +15,8 @@
           <div class="message_box ml-24">
             <div class="mb-12">Hey, I am</div>
             <div class="user_name">{{ userInfo.name }}</div>
-            <p class="about_title">{{ userInfo.title }}</p>
-            <div class="about_info">
-              Hi, I've been in the marketing team for 3 years. I like playing with my dog after work (sometimes durign
-              work)
-            </div>
+            <p class="about_title">{{ userInfo.officeName }}</p>
+            <div class="about_info">{{ userInfo.remarks }}</div>
             <div v-if="editType == 'create'" class="foot_btn jac mt-24">Switch</div>
           </div>
         </div>
@@ -42,7 +39,7 @@
           <el-radio :label="item.id">{{ item.body }}</el-radio>
         </div>
       </el-radio-group>
-      <div class="md_title">Thinking Guide(L4)</div>
+      <div class="md_title">Thinking Guide</div>
       <p>{{ selectThinkingGuide }}</p>
       <div class="jac mt-32">
         <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
@@ -73,9 +70,11 @@ export default {
       userInfo: {
         photo: '',
         name: '',
-        title: ''
+        officeName: '',
+        remarks: ''
       },
       updatePrompt: {
+        id: '',
         activity: '',
         body: ''
       }
@@ -94,7 +93,7 @@ export default {
     async getInitData() {
       const res = await currentConnect({})
       if (!res) return
-      Object.assign(this.userInfo, res.connectUser)
+      Object.assign(this.userInfo, res.user)
       if (res.prompt) {
         // 编辑已有连接
         this.editType = 'update'
@@ -108,12 +107,12 @@ export default {
     async setPromptHandle() {
       const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
       await setPrompt({ promptId: cur.id, connectId: this.userInfo.connectId })
-      this.$router.push('/createNewPainting')
+      this.linkPage()
     },
     linkPage() {
       this.$router.push({
-        path: '/editDraftPainting',
-        query: { id: 1 }
+        path: '/createNewPainting',
+        query: { id: this.updatePrompt.id }
       })
     }
   }
