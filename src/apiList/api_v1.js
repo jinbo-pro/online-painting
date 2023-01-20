@@ -2,6 +2,10 @@ import { createRequest } from '../utils/mc-request/index'
 import { getProxyPath } from '../config/proxyPath'
 const request = createRequest({ prefix: getProxyPath('work') })
 
+/**
+ * connect
+ */
+
 /**获取首页列表 */
 export function getIndexData(data) {
   return request.postJson('/connect/getIndex', data)
@@ -41,4 +45,12 @@ export function getPromptByTopic(data) {
 /**设置话题 */
 export function setPrompt(data) {
   return request.postJson('/connect/setPrompt', data)
+}
+
+/**
+ * greet
+ */
+/**获取首页数据 */
+export function getGreetIndexData(data) {
+  return request.postJson('/greet/getIndex', data)
 }

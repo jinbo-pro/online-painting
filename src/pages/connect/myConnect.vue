@@ -45,7 +45,10 @@
       <div class="md_title">Thinking Guide(L4)</div>
       <p>{{ selectThinkingGuide }}</p>
       <div class="jac mt-32">
-        <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
+        <!-- <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button> -->
+        <el-button class="start_drawing" type="success" @click="$router.push('/createNewPainting')">
+          Start Drawing
+        </el-button>
       </div>
     </el-col>
     <el-col v-else :span="10" class="right_info_max">

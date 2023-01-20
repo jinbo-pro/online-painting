@@ -11,12 +11,12 @@
         v-for="(item, index) in countList"
         :key="index"
         class="count_item_box mr-24"
-        @click="linkCountInfo(item.url)"
+        @click="activeIndex = index"
         :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
           <div>{{ item.title }}</div>
-          <svg-icon width="20px" height="20px" :icon-class="item.icon"></svg-icon>
+          <svg-icon width="20px" height="20px" :icon-class="item.icon" @click.stop="linkCountInfo(item.url)"></svg-icon>
         </div>
         <div class="count_num f24">{{ item.count }}</div>
       </div>
@@ -29,6 +29,7 @@
 <script>
 import { listData } from '@/utils/mock'
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
+import { getGreetIndexData } from '@/apiList/api_v1'
 export default {
   components: {
     PaintingGroup
@@ -36,22 +37,64 @@ export default {
   data() {
     return {
       activeIndex: 0,
-      coverList: [],
       countList: [
-        { title: 'Received', count: 33, icon: 'greetReceived', bgc: '#F7F9FB', url: '/receivedBlessing' },
-        { title: 'Sent', count: 21, icon: 'greetSent', bgc: '#F7F9FB', url: '/detailDrawingPage' },
-        { title: 'Swag', count: 21, icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
-        { title: 'Unifished', count: 5, icon: 'greetUnifished', bgc: '#F7F9FB', url: '/detailDrawingPage' }
-      ]
+        {
+          title: 'Received',
+          count: 33,
+          key: 'received',
+          icon: 'greetReceived',
+          bgc: '#F7F9FB',
+          url: '/receivedBlessing'
+        },
+        {
+          title: 'Sent',
+          count: 21,
+          key: 'sent',
+          icon: 'greetSent',
+          bgc: '#F7F9FB',
+          url: '/detailDrawingPage'
+        },
+        { title: 'Swag', count: 21, key: 'swageCount', icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
+        {
+          title: 'Unifished',
+          count: 5,
+          key: 'unfinished',
+          icon: 'greetUnifished',
+          bgc: '#F7F9FB',
+          url: '/detailDrawingPage'
+        }
+      ],
+      indexData: {
+        receivedCount: 0,
+        receivedList: {},
+        sentCount: 0,
+        sentList: {},
+        swageCount: 0,
+        swageList: {},
+        unfinishedCount: 0,
+        unfinishedList: {}
+      }
+    }
+  },
+  computed: {
+    coverList() {
+      const cur = this.indexData[this.countList[this.activeIndex].key + 'List']
+      if (!cur || !cur.list) return []
+      return cur.list.map((e) => {
+        return {
+          ...e,
+          path: e.userDrawPath,
+          title: e.name
+        }
+      })
     }
   },
   created() {
-    const list = listData(10)
-    this.coverList = list.map((e) => {
-      return {
-        ...e,
-        showLookRange: true
-      }
+    getGreetIndexData({}).then((res) => {
+      Object.assign(this.indexData, res)
+      this.countList.forEach((item) => {
+        item.count = res[item.key + 'Count']
+      })
     })
   },
   methods: {

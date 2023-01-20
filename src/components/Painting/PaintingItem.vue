@@ -5,7 +5,7 @@
         <el-avatar :size="30" :src="item.photo"></el-avatar>
         <div class="user_name ml-16">{{ item.officeName }}</div>
       </div>
-      <div class="pain_time jac">{{ item.createDate | enDate }}</div>
+      <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
     </div>
     <div class="paint_title">{{ item.title }}</div>
     <div class="cover_box jac">
