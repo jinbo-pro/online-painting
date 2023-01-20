@@ -45,16 +45,13 @@
       <div class="md_title">Thinking Guide(L4)</div>
       <p>{{ selectThinkingGuide }}</p>
       <div class="jac mt-32">
-        <!-- <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button> -->
-        <el-button class="start_drawing" type="success" @click="$router.push('/createNewPainting')">
-          Start Drawing
-        </el-button>
+        <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
     </el-col>
     <el-col v-else :span="10" class="right_info_max">
       <div class="mt-24">Your Mission:</div>
-      <div class="md_title">Stories and memories</div>
-      <p>Best travel experience I’ve had recently</p>
+      <div class="md_title">{{ updatePrompt.activity }}</div>
+      <p>{{ updatePrompt.body }}</p>
       <div class="cover_box jac">
         <el-image class="cover" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg" lazy></el-image>
       </div>
@@ -77,6 +74,10 @@ export default {
         photo: '',
         name: '',
         title: ''
+      },
+      updatePrompt: {
+        activity: '',
+        body: ''
       }
     }
   },
@@ -87,7 +88,6 @@ export default {
     }
   },
   created() {
-    this.editType = this.$route.query.editType || 'create'
     this.getInitData()
   },
   methods: {
@@ -96,14 +96,20 @@ export default {
       if (!res) return
       const [user] = res.list
       Object.assign(this.userInfo, user)
-      const promp = await getPromptByTopic({ topic: 'relax&fun' })
-      this.discoverDrawList = promp.list
+      if (res.prompt) {
+        // 编辑已有连接
+        this.editType = 'update'
+        Object.assign(this.updatePrompt, res.prompt)
+      } else {
+        // 配置新连接
+        const promp = await getPromptByTopic({ topic: 'relax&fun' })
+        this.discoverDrawList = promp.list
+      }
     },
-    setPromptHandle() {
+    async setPromptHandle() {
       const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
-      setPrompt({ promptId: cur.id, connectId: this.userInfo.connectId }).then((res) => {
-        this.$message.success('设置主题成功')
-      })
+      await setPrompt({ promptId: cur.id, connectId: this.userInfo.connectId })
+      this.$router.push('/createNewPainting')
     },
     linkPage() {
       this.$router.push({

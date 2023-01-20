@@ -9,12 +9,9 @@
       <el-col :span="10" class="right_info_max">
         <div class="mt-24">Your topic:</div>
         <div class="md_title">Daily Mood</div>
-        <div class="xs_title">What’s your mood today? Why do you feel it?</div>
+        <div class="xs_title">{{ reflectInfo.activity }}</div>
         <div class="xs_title">Thinking Guide(L4)</div>
-        <p>
-          Is there a memorable moment during travel? Or any eventful story with ups and downs? Did you meet someone
-          special in the trip?
-        </p>
+        <p>{{ reflectInfo.thinkingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle(2)">
@@ -28,14 +25,24 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
+import { getPromptByActivity } from '@/apiList/api_v1'
 export default {
   components: {
     Draw
   },
   data() {
-    return {}
+    return {
+      reflectInfo: {
+        activity: '',
+        thinkingGuide: ''
+      }
+    }
   },
-  created() {},
+  created() {
+    getPromptByActivity({ activity: this.$route.query.activity }).then((res) => {
+      Object.assign(this.reflectInfo, res)
+    })
+  },
   methods: {
     submitHandle(type) {
       console.log(type, '-->>> type')

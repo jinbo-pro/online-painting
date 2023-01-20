@@ -2,7 +2,7 @@
   <div class="container dashboard_container">
     <div class="jsb ac">
       <div class="md_title">Connect Analytics</div>
-      <el-button class="new_greetings" type="success" @click="$router.push('/drawingBoard')">
+      <el-button class="new_greetings" type="success" @click="$router.push('/individualGreetMode')">
         + New Greetings
       </el-button>
     </div>
@@ -11,7 +11,7 @@
         v-for="(item, index) in countList"
         :key="index"
         class="count_item_box mr-24"
-        @click="activeIndex = index"
+        @click="selectNavType(index)"
         :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
@@ -27,9 +27,8 @@
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
-import { getGreetIndexData } from '@/apiList/api_v1'
+import { getGreetIndexData, getListByType } from '@/apiList/api_v1'
 export default {
   components: {
     PaintingGroup
@@ -54,7 +53,7 @@ export default {
           bgc: '#F7F9FB',
           url: '/detailDrawingPage'
         },
-        { title: 'Swag', count: 21, key: 'swageCount', icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
+        { title: 'Swag', count: 21, key: 'swage', icon: 'greetSwag', bgc: '#F7F9FB', url: '/swagBlessing' },
         {
           title: 'Unifished',
           count: 5,
@@ -64,45 +63,40 @@ export default {
           url: '/detailDrawingPage'
         }
       ],
-      indexData: {
-        receivedCount: 0,
-        receivedList: {},
-        sentCount: 0,
-        sentList: {},
-        swageCount: 0,
-        swageList: {},
-        unfinishedCount: 0,
-        unfinishedList: {}
-      }
-    }
-  },
-  computed: {
-    coverList() {
-      const cur = this.indexData[this.countList[this.activeIndex].key + 'List']
-      if (!cur || !cur.list) return []
-      return cur.list.map((e) => {
-        return {
-          ...e,
-          path: e.userDrawPath,
-          title: e.name
-        }
-      })
+      coverList: []
     }
   },
   created() {
     getGreetIndexData({}).then((res) => {
-      Object.assign(this.indexData, res)
       this.countList.forEach((item) => {
         item.count = res[item.key + 'Count']
       })
     })
+    this.getList()
   },
   methods: {
+    getList() {
+      getListByType({ type: this.countList[this.activeIndex].key }).then((res) => {
+        this.coverList = res.list.map((e) => {
+          return {
+            ...e,
+            showLookRange: true,
+            lookRange: e.companyIsView == 1,
+            path: e.userDrawPath,
+            title: e.name
+          }
+        })
+      })
+    },
     linkCountInfo(path) {
       this.$router.push({
         path,
         query: { id: 1 }
       })
+    },
+    selectNavType(index) {
+      this.activeIndex = index
+      this.getList()
     }
   }
 }

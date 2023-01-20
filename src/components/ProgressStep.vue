@@ -2,8 +2,8 @@
   <div class="step_max">
     <div class="step_inner_bgc" :style="{ width: stepBgcLang }"></div>
     <div class="bar_max jsb ac">
-      <div v-for="(item, index) in stepCount" :key="item" class="bar_box">
-        <div :class="['bar', { active_bar: (progress / 100) * (stepCount - 1) >= index }]"></div>
+      <div v-for="(item, index) in stepCount" :key="index" class="bar_box">
+        <div :class="['bar', { active_bar: item }]"></div>
       </div>
     </div>
   </div>
@@ -18,8 +18,8 @@ export default {
       default: 0
     },
     stepCount: {
-      type: Number,
-      default: 5
+      type: Array,
+      default: () => []
     }
   },
   data() {

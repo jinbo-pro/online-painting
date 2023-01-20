@@ -14,7 +14,7 @@
     <div v-if="showLookRange" class="look_range_max mt-16">
       <div class="jsb ac">
         <div>Make this visible to the company</div>
-        <el-switch v-model="item.lookRange" active-color="#13ce66"> </el-switch>
+        <el-switch v-model="item.lookRange" active-color="#13ce66" @change="updateLookSate"> </el-switch>
       </div>
       <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
     </div>
@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { updateIsView } from '@/apiList/api_v1'
 export default {
   name: 'PaintingItem',
   props: {
@@ -41,6 +42,9 @@ export default {
   methods: {
     linkInfo() {
       this.$emit('handle', this.item)
+    },
+    updateLookSate(e) {
+      updateIsView({ id: this.item.greetId, companyIsView: e ? '1' : '0' })
     }
   }
 }

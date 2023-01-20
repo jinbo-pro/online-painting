@@ -18,10 +18,6 @@ export function getTotail(data) {
 export function getLanguageList(data) {
   return request.postJson('/user/getLanguageList', data)
 }
-/**获取一级分类 */
-export function getPromptL1(data) {
-  return request.postJson('/prompt/getPromptL1', data)
-}
 /**获取所有部门 */
 export function getOfficeList(data) {
   return request.postJson('/office/getList', data)
@@ -53,4 +49,44 @@ export function setPrompt(data) {
 /**获取首页数据 */
 export function getGreetIndexData(data) {
   return request.postJson('/greet/getIndex', data)
+}
+/**获取分类列表数据 */
+export function getListByType(data) {
+  return request.postJson('/greet/getListByType', data)
+}
+/**修改单位状态是否可见 */
+export function updateIsView(data) {
+  return request.postJson('/draw/updateIsView', data)
+}
+/**获取一级分类 */
+export function getPromptL1(data) {
+  return request.postJson('/prompt/getPromptL1', data)
+}
+/**根据一级获取二级 */
+export function getActivityByTopic(data) {
+  return request.postJson('/prompt/getActivityByTopic', data)
+}
+/**根据二级获取 Activity */
+export function getPromptByActivity(data) {
+  return request.postJson('/prompt/getPromptByActivity', data)
+}
+/**获取二级主题 Topic */
+export function getReflectPromptByTopic(data) {
+  return request.postJson('/prompt/getReflectPromptByTopic', data)
+}
+
+/**
+ * reflect
+ */
+/**获取话题统计 */
+export function getReflectIndex(data) {
+  return request.postJson('/reflectView/getIndex', data)
+}
+/**获取话题列表 */
+export function getReflectList(data) {
+  return request.postJson('/reflectView/getList', data)
+}
+/**获取每周记录 */
+export function getWeek(data) {
+  return request.postJson('/reflectView/getWeek', data)
 }

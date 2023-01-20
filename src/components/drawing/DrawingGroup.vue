@@ -77,7 +77,7 @@ export default {
     position: absolute;
     top: 8px;
     left: 8px;
-    z-index: 100px;
+    z-index: 100;
     ::v-deep .el-checkbox__label {
       color: transparent;
     }

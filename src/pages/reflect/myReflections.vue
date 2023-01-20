@@ -11,6 +11,7 @@
         v-for="(item, index) in countList"
         :key="index"
         class="count_item_box mr-24"
+        @click="selectNavType(index)"
         :style="`background-color: ${item.bgc};`"
       >
         <div class="jsb ac">
@@ -26,8 +27,8 @@
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
+import { getReflectIndex, getReflectList } from '@/apiList/api_v1'
 export default {
   components: {
     PaintingGroup
@@ -37,23 +38,38 @@ export default {
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'L1 Mood', count: 33, icon: 'L1Mood', bgc: '#F7F9FB' },
-        { title: 'L1 Challenge', count: 21, icon: 'L1Challenge', bgc: '#FAFBEE' },
-        { title: 'L1 SafeSpace', count: 21, icon: 'L1SafeSpace', bgc: '#FAFBEE' },
-        { title: 'L1 Unifished', count: 5, icon: 'L1Unifished', bgc: '#F7F9FB' }
+        { title: 'L1 Mood', count: 33, key: 'know yourself', icon: 'L1Mood', bgc: '#F7F9FB' },
+        { title: 'L1 Challenge', count: 21, key: 'calm and relax', icon: 'L1Challenge', bgc: '#FAFBEE' },
+        { title: 'L1 SafeSpace', count: 21, key: 'connection with people', icon: 'L1SafeSpace', bgc: '#FAFBEE' },
+        { title: 'L1 Unifished', count: 5, key: 'unifished', icon: 'L1Unifished', bgc: '#F7F9FB' }
       ]
     }
   },
   created() {
-    const list = listData(10)
-    this.coverList = list.map((e) => {
-      return {
-        ...e,
-        showLookRange: true
-      }
+    getReflectIndex({}).then((res) => {
+      this.countList.forEach((item) => {
+        item.count = res[item.key]
+      })
     })
+    this.getList()
   },
-  methods: {}
+  methods: {
+    selectNavType(index) {
+      this.activeIndex = index
+      this.getList()
+    },
+    getList() {
+      getReflectList({ promptTopic: this.countList[this.activeIndex].key }).then((res) => {
+        if (!res || !res.list) return
+        this.coverList = res.list.map((e) => {
+          return {
+            ...e,
+            path: e.userDrawPath
+          }
+        })
+      })
+    }
+  }
 }
 </script>
 

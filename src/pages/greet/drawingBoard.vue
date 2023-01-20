@@ -8,12 +8,9 @@
       </el-col>
       <el-col :span="10" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
-        <div class="md_title">Speedy Recovery</div>
+        <div class="md_title">{{ promptInfo.body }}</div>
         <div class="xs_title">Thinking Guide(L4)</div>
-        <p>
-          Is there a memorable moment during travel? Or any eventful story with ups and downs? Did you meet someone
-          special in the trip?
-        </p>
+        <p>{{ promptInfo.drawingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle(2)">
@@ -27,14 +24,26 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
+import { getPromptByActivity } from '@/apiList/api_v1'
 export default {
   components: {
     Draw
   },
   data() {
-    return {}
+    return {
+      promptInfo: {
+        activity: '',
+        body: '',
+        drawingGuide: ''
+      }
+    }
   },
-  created() {},
+  created() {
+    const activity = this.$route.query.activity
+    getPromptByActivity({ activity }).then((res) => {
+      Object.assign(this.promptInfo, res)
+    })
+  },
   methods: {
     submitHandle(type) {
       console.log(type, '-->>> type')

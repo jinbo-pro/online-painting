@@ -6,7 +6,7 @@
       <div class="ml-16">
         <div class="xs_title mb-16">Weekly progress</div>
         <div class="progress_max pl-24">
-          <ProgressStep :progress="progress" :stepCount="7" />
+          <ProgressStep :progress="progress" :stepCount="progressList" />
         </div>
       </div>
     </div>
@@ -16,12 +16,12 @@
         v-for="(item, index) in coverList"
         :key="index"
         class="topic_item_box mr-16 mb-16"
-        @click="$router.push('/reflectBoard')"
+        @click="$router.push('/reflectBoard?activity=' + item.activity)"
       >
         <div class="cover_box as">
-          <el-image class="cover" :src="item.path"></el-image>
+          <el-image class="cover" :src="item.activityPath"></el-image>
         </div>
-        <div class="foot_msg pd-12">Goodbye pal</div>
+        <div class="foot_msg pd-12">{{ item.activity }}</div>
       </div>
     </div>
   </div>
@@ -29,7 +29,7 @@
 
 <script>
 import ProgressStep from '@/components/ProgressStep.vue'
-import { listData } from '@/utils/mock'
+import { getWeek } from '@/apiList/api_v1'
 export default {
   components: {
     ProgressStep
@@ -37,11 +37,18 @@ export default {
   data() {
     return {
       coverList: [],
-      progress: 35
+      progress: 0,
+      progressList: []
     }
   },
   created() {
-    this.coverList = listData(7)
+    getWeek({}).then((res) => {
+      const day = new Date().getDay()
+      this.progress = ((day - 1) / 6) * 100
+      const list = ['一', '二', '三', '四', '五', '六', '七']
+      this.progressList = list.map((e) => res.weekStatus[e] == 1)
+      this.coverList = res.list
+    })
   },
   methods: {}
 }

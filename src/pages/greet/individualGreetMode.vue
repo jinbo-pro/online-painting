@@ -1,48 +1,59 @@
 <template>
   <div>
     <div class="md_title">Select a topic</div>
-    <div class="topic_max ac fw">
-      <div v-for="(item, index) in coverList" :key="index" class="topic_item_box mr-16 mb-16">
-        <div class="cover_box as">
-          <el-image class="cover" :src="item.path"></el-image>
+    <el-radio-group v-model="selectTopic" @change="topicChange">
+      <div class="topic_max ac fw">
+        <div v-for="(item, index) in coverList" :key="index" class="topic_item_box mr-16 mb-16">
+          <el-radio :label="item.topic" class="radio_box">
+            <div class="cover_box as">
+              <el-image class="cover" :src="item.topicPath"></el-image>
+            </div>
+            <div class="foot_msg pd-12">{{ item.topic }}</div>
+          </el-radio>
         </div>
-        <div class="foot_msg pd-12">Goodbye pal</div>
       </div>
-    </div>
-    <div class="lv_max ac fw mt-32">
+    </el-radio-group>
+    <div class="lv2_max ac fw mt-32">
       <div
-        v-for="(item, index) in lvList"
+        v-for="(item, index) in lv2List"
         :key="index"
         class="lv_item_box mr-16 mb-16"
-        @click="linkDrawingBoard(item.id)"
+        @click="linkDrawingBoard(item.activity)"
       >
         <div class="cover_box as">
-          <el-image class="cover" :src="item.path"></el-image>
+          <el-image class="cover" :src="item.activityPath"></el-image>
         </div>
-        <p>L2-slslsls</p>
+        <p>{{ item.activity }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
+import { getActivityByTopic, getPromptL1 } from '@/apiList/api_v1'
 export default {
   data() {
     return {
+      selectTopic: '',
       coverList: [],
-      lvList: []
+      lv2List: []
     }
   },
   created() {
-    this.coverList = listData(7)
-    this.lvList = listData(3)
+    getPromptL1({ code: 'greet' }).then((res) => {
+      this.coverList = res
+    })
   },
   methods: {
-    linkDrawingBoard(id) {
+    linkDrawingBoard(activity) {
       this.$router.push({
         path: '/drawingBoard',
-        query: { id }
+        query: { activity }
+      })
+    },
+    topicChange(topic) {
+      getActivityByTopic({ topic }).then((res) => {
+        this.lv2List = res.list
       })
     }
   }
@@ -76,6 +87,15 @@ export default {
   .cover {
     max-width: 100%;
     max-height: 100%;
+  }
+}
+.radio_box {
+  width: 100%;
+  ::v-deep .el-radio__input {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    z-index: 10;
   }
 }
 </style>
