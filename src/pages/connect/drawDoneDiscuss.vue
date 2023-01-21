@@ -6,7 +6,7 @@
           <div>Hey Chelsea, here’s your CONNECT for</div>
           <div class="time_box">jan 2 - 9, 2023</div>
         </div>
-        <div class="user_list_max mt-32">
+        <div class="user_list_max mt-16">
           <div v-for="e in userList" :key="e.id" class="mb-32">
             <PaintingItem :item="e" :showLookRange="true" />
           </div>
@@ -93,7 +93,6 @@ export default {
   font-size: 20px;
   font-weight: bold;
   margin-right: 6px;
-  margin-bottom: 8px;
 }
 .time_box {
   font-size: 12px;

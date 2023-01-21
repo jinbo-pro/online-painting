@@ -74,12 +74,12 @@ export default {
   }
 }
 .paint_title {
-  margin: 12px 0;
+  margin: 8px 0;
   font-size: 20px;
   font-weight: bold;
 }
 .cover_box {
-  height: 130px;
+  height: 120px;
   border-radius: 10px;
   overflow: hidden;
   .cover {
