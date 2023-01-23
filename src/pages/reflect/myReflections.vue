@@ -1,7 +1,7 @@
 <template>
   <div class="container dashboard_container">
     <div class="jsb ac">
-      <div class="md_title">REFLECT Analytics</div>
+      <div class="md_title">Reflect Analytics</div>
       <el-button class="new_greetings" type="success" @click="$router.push('/selectReflectionMode')">
         + New Reflection
       </el-button>
@@ -10,9 +10,8 @@
       <div
         v-for="(item, index) in countList"
         :key="index"
-        class="count_item_box mr-24"
         @click="selectNavType(index)"
-        :style="`background-color: ${item.bgc};`"
+        :class="['count_item_box mr-24', { active: activeIndex == index }]"
       >
         <div class="jsb ac">
           <div>{{ item.title }}</div>
@@ -38,10 +37,10 @@ export default {
       activeIndex: 0,
       coverList: [],
       countList: [
-        { title: 'Mood', count: 33, key: 'know yourself', icon: 'L1Mood', bgc: '#F7F9FB' },
-        { title: 'Challenge', count: 21, key: 'calm and relax', icon: 'L1Challenge', bgc: '#FAFBEE' },
-        { title: 'SafeSpace', count: 21, key: 'connection with people', icon: 'L1SafeSpace', bgc: '#FAFBEE' },
-        { title: 'Unifished', count: 5, key: 'unifished', icon: 'L1Unifished', bgc: '#F7F9FB' }
+        { title: 'Mood', count: 0, key: 'know yourself', icon: 'L1Mood', bgc: '#F7F9FB' },
+        { title: 'Challenge', count: 0, key: 'calm and relax', icon: 'L1Challenge', bgc: '#FAFBEE' },
+        { title: 'SafeSpace', count: 0, key: 'connection with people', icon: 'L1SafeSpace', bgc: '#FAFBEE' },
+        { title: 'Unifished', count: 0, key: 'unifished', icon: 'L1Unifished', bgc: '#F7F9FB' }
       ]
     }
   },
@@ -84,9 +83,14 @@ export default {
     padding: 16px;
     border-radius: 16px;
     box-sizing: border-box;
+    border: 2px solid transparent;
     .count_num {
       font-weight: bold;
     }
+  }
+  .active {
+    background-color: #fafbee;
+    border: 2px solid #d2d97c;
   }
 }
 .new_greetings {

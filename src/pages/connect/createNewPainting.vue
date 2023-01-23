@@ -30,7 +30,7 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { connectSave, connectSubmit, currentConnect } from '@/apiList/api_v1'
 export default {
   components: {
     Draw

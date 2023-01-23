@@ -1,11 +1,16 @@
 @import './baseClass.scss';
 @import './css3-flex.scss';
 
+@font-face {
+  font-family: "MicrosoftSansSerif";
+  src: url('./fonts/MicrosoftSansSerif.ttf') format('truetype');
+}
+
 body {
   height: 100%;
   font-size: 14px;
-  font-family: 'Inter';
   font-style: normal;
+  font-family: 'MicrosoftSansSerif';
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;

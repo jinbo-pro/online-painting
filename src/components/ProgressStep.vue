@@ -3,7 +3,7 @@
     <div class="step_inner_bgc" :style="{ width: stepBgcLang }"></div>
     <div class="bar_max jsb ac">
       <div v-for="(item, index) in stepCount" :key="index" class="bar_box">
-        <div :class="['bar', { active_bar: item }]"></div>
+        <div :class="['bar', { active_bar: item == 1 }, { incomplete: item == 2 }]"></div>
       </div>
     </div>
   </div>
@@ -83,6 +83,9 @@ $bar-size: 40px;
   }
   .active_bar {
     background-color: #7da453;
+  }
+  .incomplete {
+    background-color: red;
   }
 }
 @keyframes barAnimation {

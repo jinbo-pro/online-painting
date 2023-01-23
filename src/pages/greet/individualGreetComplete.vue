@@ -8,7 +8,12 @@
           <div class="time_box">jan 2 - 9, 2023</div>
         </div>
         <div class="user_list_max mt-32">
-          <PaintingItem :item="userList[0]" :showLookRange="true" @handle="$router.push('/detailDrawingPage')" />
+          <PaintingItem
+            style="width: 350px"
+            :item="userList[0]"
+            :showLookRange="true"
+            @handle="$router.push('/detailDrawingPage')"
+          />
         </div>
       </el-col>
       <el-col :span="10" class="right_info_max">

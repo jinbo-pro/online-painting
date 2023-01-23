@@ -43,10 +43,14 @@ export default {
   },
   created() {
     getWeek({}).then((res) => {
-      const day = new Date().getDay()
+      // TODO /reflectView/getWeek 接口数据有问题，目前周几写死
+      // const day = new Date().getDay()
+      const day = 5
       this.progress = ((day - 1) / 6) * 100
       const list = ['一', '二', '三', '四', '五', '六', '七']
-      this.progressList = list.map((e) => res.weekStatus[e] == 1)
+      this.progressList = list.map((e, i) => {
+        return day > i + 1 && res.weekStatus[e] == 0 ? 2 : res.weekStatus[e]
+      })
       this.coverList = res.list
     })
   },

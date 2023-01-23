@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PaintingGroup :list="coverList" @handle="paintHandle" />
+    <PaintingGroup :list="coverList" :columns="4" @handle="paintHandle" />
     <div v-show="!isEnd" :id="loadDomId" class="jac">
       <img src="@/assets/loading.gif" />
     </div>

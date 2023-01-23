@@ -52,7 +52,7 @@ export default {
 
 <style lang="scss" scoped>
 .painting_item_box {
-  width: 350px;
+  width: 100%;
   background-color: #f7f9fb;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 20px;

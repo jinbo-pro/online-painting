@@ -6,7 +6,7 @@
         <div class="count_max jsb ac">
           <div v-for="(item, index) in countList" :key="index" @click="linkCountInfo" class="count_item_box">
             <div class="jsb ac">
-              <div>{{ item.title }}</div>
+              <div class="count_title">{{ item.title }}</div>
               <svg-icon width="30px" height="30px" :icon-class="item.icon"></svg-icon>
             </div>
             <div class="count_num f24">{{ item.count }}</div>
@@ -16,7 +16,7 @@
           <span>Past Connect</span>
           <span class="f16 ml-18 see_more" @click="$router.push('/moreConnect')">See more</span>
         </div>
-        <PaintingGroup :list="coverList" @handle="paintHandle" />
+        <PaintingGroup :list="coverList" :columns="2" @handle="paintHandle" />
       </el-col>
       <el-col :span="8" :offset="2">
         <div class="md_title">Connect Setting</div>
@@ -166,12 +166,15 @@ export default {
 <style lang="scss" scoped>
 .count_max {
   .count_item_box {
-    width: 202px;
+    min-width: 200px;
     height: 112px;
     padding: 16px;
     border-radius: 16px;
     box-sizing: border-box;
     background-color: #f7f9fb;
+    .count_title {
+      margin-right: 50px;
+    }
     .count_num {
       font-weight: bold;
     }

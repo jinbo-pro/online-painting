@@ -7,8 +7,8 @@
       </div>
       <div>
         <el-radio-group v-model="showMode">
-          <el-radio-button label="1">Slideshow</el-radio-button>
           <el-radio-button label="2">Collage View</el-radio-button>
+          <el-radio-button label="1">Slideshow</el-radio-button>
         </el-radio-group>
       </div>
     </div>
@@ -71,7 +71,7 @@ export default {
   },
   data() {
     return {
-      showMode: '1',
+      showMode: '2',
       activeIndex: 0,
       coverList: [],
 

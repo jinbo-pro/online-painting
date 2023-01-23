@@ -7,7 +7,7 @@
           <div class="time_box">jan 2 - 9, 2023</div>
         </div>
         <div class="user_list_max mt-16">
-          <div v-for="e in userList" :key="e.id" class="mb-32">
+          <div v-for="e in userList" :key="e.id" class="paint_item mb-32">
             <PaintingItem :item="e" :showLookRange="true" />
           </div>
         </div>
@@ -127,5 +127,10 @@ export default {
   width: 50%;
   padding: 12px;
   border-radius: 32px;
+}
+.user_list_max {
+  .paint_item {
+    width: 350px;
+  }
 }
 </style>

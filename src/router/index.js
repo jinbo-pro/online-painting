@@ -105,7 +105,7 @@ export const constantRoutes = [
       {
         path: '/greetDashboard',
         component: () => import('@/pages/greet/greetDashboard.vue'),
-        meta: { title: 'dashboard' }
+        meta: { title: 'Dashboard' }
       },
       {
         path: '/receivedBlessing',
@@ -148,23 +148,23 @@ export const constantRoutes = [
   {
     path: '/reflect',
     component: () => import('@/pages/main-layout.vue'),
-    meta: { title: 'greet' },
+    meta: { title: 'Reflect' },
     redirect: '/myReflections',
     children: [
       {
         path: '/myReflections',
         component: () => import('@/pages/reflect/myReflections.vue'),
-        meta: { title: '我的话题' }
+        meta: { title: 'My Reflections' }
       },
       {
         path: '/selectReflectionMode',
         component: () => import('@/pages/reflect/selectReflectionMode.vue'),
-        meta: { title: '选择创建模式' }
+        meta: { title: 'Create New' }
       },
       {
         path: '/createNewReflection',
         component: () => import('@/pages/reflect/createNewReflection.vue'),
-        meta: { title: '新建话题' }
+        meta: { title: 'Create New' }
       },
       {
         path: '/reflectBoard',
@@ -182,13 +182,13 @@ export const constantRoutes = [
   {
     path: '/gallery',
     component: () => import('@/pages/main-layout.vue'),
-    meta: { title: 'gallery' },
+    meta: { title: 'Gallery' },
     redirect: '/allGalleries',
     children: [
       {
         path: '/allGalleries',
         component: () => import('@/pages/gallery/allGalleries.vue'),
-        meta: { title: '画廊一览' }
+        meta: { title: 'All Galleries' }
       }
     ]
   },
