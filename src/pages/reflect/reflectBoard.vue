@@ -13,8 +13,8 @@
         <div class="xs_title">Thinking Guide</div>
         <p>{{ reflectInfo.thinkingGuide }}</p>
         <div class="fdc jac mt-32">
-          <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>
-          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle(2)">
+          <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
+          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
             Submit
           </el-button>
         </div>
@@ -44,8 +44,12 @@ export default {
     })
   },
   methods: {
-    submitHandle(type) {
-      console.log(type, '-->>> type')
+    async saveHandle() {
+      await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
+      // await connectSave({ id: this.connectId })
+      this.$message.success('Saved successfully')
+    },
+    submitHandle() {
       this.$router.push({
         path: '/reflectComplete',
         query: { id: 1 }

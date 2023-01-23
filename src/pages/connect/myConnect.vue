@@ -93,7 +93,7 @@ export default {
     async getInitData() {
       const res = await currentConnect({})
       if (!res) return
-      Object.assign(this.userInfo, res.user)
+      Object.assign(this.userInfo, res.connectUser)
       if (res.prompt) {
         // 编辑已有连接
         this.editType = 'update'

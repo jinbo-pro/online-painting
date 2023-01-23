@@ -29,8 +29,11 @@
               </div>
               <div class="jsb ac">
                 <div class="xs_title">Spiritual Animal</div>
-                <i v-if="item.isStar" class="iconfont icon-aixin1"></i>
-                <i v-else class="iconfont icon-aixin"></i>
+                <div v-if="item.isStar" @click="starDrawHandle(item)">
+                  <i class="iconfont icon-aixin1"></i>
+                  {{ item.starCount | numberFormat }}
+                </div>
+                <i v-else class="iconfont icon-aixin" @click="starDrawHandle(item)"></i>
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">
@@ -65,7 +68,6 @@
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import { getDrawInfo } from '@/apiList/api_work'
 export default {
@@ -82,21 +84,47 @@ export default {
   },
   created() {
     this.drawId = this.$route.query.drawId
-    getDrawInfo({ id: this.drawId })
-    this.drawingList = listData('3-10')
+    getDrawInfo(this.drawId).then((res) => {
+      this.drawingList = [res]
+    })
   },
   methods: {
     swiperChange(e) {
       this.activeIndex = e
     },
     orderASwag() {
-      console.log(1, '-->>> orderASwag')
+      this.$router.push('/shoppingMall')
     },
     share() {
-      console.log(2, '-->>> share')
+      this.$alert('share content', 'title', {
+        confirmButtonText: 'confirm',
+        callback: (action) => {
+          this.$message({
+            type: 'info',
+            message: `share: ${action}`
+          })
+        }
+      })
     },
     download() {
-      console.log(3, '-->>> download')
+      const cur = this.drawingList[this.activeIndex]
+      const elink = document.createElement('a')
+      elink.style.display = 'none'
+      elink.href = cur.path
+      document.body.appendChild(elink)
+      elink.click()
+    },
+    // 点赞/取消点赞
+    async starDrawHandle(item) {
+      // const id = item.id
+      // if (item.isStar !== 0) {
+      //   await galleryStar(id)
+      // } else {
+      //   await galleryCancelStar(id)
+      // }
+      // this.getDrawInfo()
+      const index = this.drawingList.findIndex((e) => e.id == item.id)
+      this.drawingList.splice(index, 1, { ...item, isStar: !item.isStar })
     }
   }
 }
@@ -150,5 +178,8 @@ export default {
       margin-bottom: 8px;
     }
   }
+}
+.icon-aixin1 {
+  color: red;
 }
 </style>

@@ -6,7 +6,7 @@
         <div v-for="(item, index) in coverList" :key="index" class="topic_item_box mr-16 mb-16">
           <el-radio :label="item.topic" class="radio_box">
             <div class="cover_box as">
-              <el-image class="cover" :src="item.topicPath"></el-image>
+              <el-image class="cover" fit="cover" :src="item.topicPath"></el-image>
             </div>
             <div class="foot_msg pd-12">{{ item.topic }}</div>
           </el-radio>
@@ -70,13 +70,14 @@ export default {
   .foot_msg {
     font-weight: bold;
   }
-  .cover_box {
-    height: 155px;
-    border-radius: 10px;
-    .cover {
-      max-width: 100%;
-      max-height: 100%;
-    }
+}
+
+.cover_box {
+  height: 155px;
+  border-radius: 10px;
+  .cover {
+    width: 100%;
+    height: 100%;
   }
 }
 .lv_item_box {
@@ -85,8 +86,7 @@ export default {
   border-radius: 10px;
   overflow: hidden;
   .cover {
-    max-width: 100%;
-    max-height: 100%;
+    border-radius: 10px;
   }
 }
 .radio_box {
@@ -96,6 +96,10 @@ export default {
     top: 8px;
     right: 8px;
     z-index: 10;
+  }
+  ::v-deep .el-radio__label {
+    display: block;
+    padding-left: 0;
   }
 }
 </style>

@@ -30,7 +30,7 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { connectSave, connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { connectSubmit, currentConnect } from '@/apiList/api_v1'
 export default {
   components: {
     Draw
@@ -54,7 +54,7 @@ export default {
   methods: {
     async saveHandle() {
       await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
-      await connectSave({ id: this.connectId })
+      // await connectSave({ id: this.connectId })
       this.$message.success('Saved successfully')
     },
     submitHandle() {

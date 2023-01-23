@@ -8,12 +8,7 @@
           <div class="time_box">jan 2 - 9, 2023</div>
         </div>
         <div class="user_list_max mt-32">
-          <PaintingItem
-            style="width: 350px"
-            :item="userList[0]"
-            :showLookRange="true"
-            @handle="$router.push('/detailDrawingPage')"
-          />
+          <PaintingItem style="width: 350px" :item="userList[0]" :showLookRange="true" />
         </div>
       </el-col>
       <el-col :span="10" class="right_info_max">
@@ -25,13 +20,13 @@
 
         <p class="item_label">Add a personal notes</p>
         <el-input v-model="formData.notes" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
-        <div class="ac mt-24 mb-24 swag_link" @click="$router.push('/shoppingMall')">
-          <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
-          <div class="ml-12 item_label">Add a swag for free!</div>
+        <div class="ac mt-24 mb-24 swag_link" @click="completeSwag">
+          <div class="complete ml-12 item_label">complete without a swag</div>
         </div>
         <div class="jac mt-32">
           <el-button class="start_drawing" type="success" @click="$router.push('/shoppingMall')">
-            Complete Task
+            <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
+            <span class="ml-32">Add a swag for free</span>
           </el-button>
         </div>
       </el-col>
@@ -60,7 +55,13 @@ export default {
   created() {
     this.userList = listData(2)
   },
-  methods: {}
+  methods: {
+    async completeSwag() {
+      await this.$confirm('Complete Swag？', 'Tips', { type: 'warning' })
+      // await connectSave({ id: this.connectId })
+      this.$message.success('Complete successfully')
+    }
+  }
 }
 </script>
 
@@ -100,5 +101,8 @@ export default {
 .item_label {
   font-size: 16px;
   font-weight: bold;
+}
+.complete {
+  text-decoration-line: underline;
 }
 </style>

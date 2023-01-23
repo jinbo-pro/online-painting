@@ -13,7 +13,7 @@
       </div>
     </div>
 
-    <div v-show="showMode == 1">
+    <div v-if="showMode == 1">
       <div class="cover_list_max pd-16">
         <el-carousel
           ref="swiper"
@@ -27,7 +27,13 @@
           <el-carousel-item v-for="(item, index) in coverList" :key="index">
             <el-row>
               <el-col :span="14" class="jac">
-                <el-image class="cover_max" fit="cover" :src="item.path" @click="previewCover(item)"></el-image>
+                <el-image
+                  class="cover_max"
+                  fit="cover"
+                  :src="item.path"
+                  :preview-src-list="previewSrcList"
+                  @click="previewCover(item)"
+                ></el-image>
               </el-col>
               <el-col :span="10" class="right_content fdc jsb pl-24">
                 <div class="xs_title">Spiritual Animal</div>
@@ -51,23 +57,20 @@
 
       <ScrollCoverList :list="coverList" :current.sync="activeIndex" valueKey="path" @change="footCoverChange" />
     </div>
-    <div v-show="showMode == 2" class="gallery_max">
+    <div v-else class="gallery_max">
       <div v-for="(item, index) in coverList" :key="index" class="gallery_item_box">
-        <img class="img_box" :src="item.path" alt="" />
+        <el-image class="img_box" fit="cover" :src="item.path" :preview-src-list="previewSrcList"></el-image>
       </div>
     </div>
-    <PreviewDialog :show.sync="showPreview" :item="selectDraw" />
   </div>
 </template>
 
 <script>
 import { listData } from '@/utils/mock'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
-import PreviewDialog from './components/PreviewDialog.vue'
 export default {
   components: {
-    ScrollCoverList,
-    PreviewDialog
+    ScrollCoverList
   },
   data() {
     return {
@@ -83,6 +86,11 @@ export default {
         content: '',
         createTime: ''
       }
+    }
+  },
+  computed: {
+    previewSrcList() {
+      return this.coverList.map((e) => e.path)
     }
   },
   created() {

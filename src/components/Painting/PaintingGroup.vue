@@ -1,5 +1,8 @@
 <template>
-  <div class="paint_max" :style="`grid-template-columns: repeat(${columns}, minmax(200px, 300px))`">
+  <div
+    class="paint_max"
+    :style="`grid-template-columns: repeat(${columns}, ${coverAuto ? 'auto' : 'minmax(200px, 300px)'})`"
+  >
     <div v-for="(item, index) in list" :key="index" class="mr-16 mb-16">
       <PaintingItem :item="item" :showLookRange="item.showLookRange" @handle="handlePainting" />
     </div>
@@ -18,6 +21,10 @@ export default {
     columns: {
       type: Number,
       default: 2
+    },
+    coverAuto: {
+      type: Boolean,
+      default: false
     }
   },
   components: {

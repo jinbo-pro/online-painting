@@ -3,7 +3,7 @@
     <el-row>
       <el-col :span="14">
         <div class="md_title">Connect Analytics</div>
-        <div class="count_max jsb ac">
+        <div class="count_max pr-16 jsb ac">
           <div v-for="(item, index) in countList" :key="index" @click="linkCountInfo" class="count_item_box">
             <div class="jsb ac">
               <div class="count_title">{{ item.title }}</div>
@@ -16,7 +16,7 @@
           <span>Past Connect</span>
           <span class="f16 ml-18 see_more" @click="$router.push('/moreConnect')">See more</span>
         </div>
-        <PaintingGroup :list="coverList" :columns="2" @handle="paintHandle" />
+        <PaintingGroup :list="coverList" :coverAuto="true" :columns="2" @handle="paintHandle" />
       </el-col>
       <el-col :span="8" :offset="2">
         <div class="md_title">Connect Setting</div>

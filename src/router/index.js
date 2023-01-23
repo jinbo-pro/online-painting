@@ -19,7 +19,7 @@ export const constantRoutes = [
       {
         path: '/shoppingMall',
         component: () => import('@/pages/swag/shoppingMall.vue'),
-        meta: { title: '商城' }
+        meta: { title: 'Swag' }
       }
     ]
   },
@@ -33,7 +33,7 @@ export const constantRoutes = [
       {
         path: '/inbox',
         component: () => import('@/pages/notificationInbox/inbox.vue'),
-        meta: { title: '查看站内信' }
+        meta: { title: 'inbox' }
       }
     ]
   },
@@ -47,12 +47,12 @@ export const constantRoutes = [
       {
         path: '/profileSettings',
         component: () => import('@/pages/profile/profileSettings.vue'),
-        meta: { title: '账户设置' }
+        meta: { title: 'Profile Settings' }
       },
       {
         path: '/myOrders',
         component: () => import('@/pages/profile/myOrders.vue'),
-        meta: { title: '我的订单' }
+        meta: { title: 'My Orders' }
       }
     ]
   },
@@ -109,12 +109,12 @@ export const constantRoutes = [
       },
       {
         path: '/receivedBlessing',
-        component: () => import('@/pages/greet/sendBlessing.vue'),
+        component: () => import('@/pages/greet/receivedBlessing.vue'),
         meta: { title: 'Received' }
       },
       {
         path: '/sendBlessing',
-        component: () => import('@/pages/greet/sendBlessing.vue'),
+        component: () => import('@/pages/greet/receivedBlessing.vue'),
         meta: { title: 'Sent' }
       },
       {
@@ -130,17 +130,17 @@ export const constantRoutes = [
       {
         path: '/individualGreetComplete',
         component: () => import('@/pages/greet/individualGreetComplete.vue'),
-        meta: { title: '新建祝福' }
+        meta: { title: 'New Individual' }
       },
       {
         path: '/individualGreetMode',
         component: () => import('@/pages/greet/individualGreetMode.vue'),
-        meta: { title: '个人祝福' }
+        meta: { title: 'Individual' }
       },
       {
         path: '/drawingBoard',
         component: () => import('@/pages/greet/drawingBoard.vue'),
-        meta: { title: '新建祝福画板' }
+        meta: { title: 'Individual' }
       }
     ]
   },
@@ -169,12 +169,12 @@ export const constantRoutes = [
       {
         path: '/reflectBoard',
         component: () => import('@/pages/reflect/reflectBoard.vue'),
-        meta: { title: '话题创作' }
+        meta: { title: 'Create' }
       },
       {
         path: '/reflectComplete',
         component: () => import('@/pages/reflect/reflectComplete.vue'),
-        meta: { title: '话题创作完成' }
+        meta: { title: 'Complete' }
       }
     ]
   },
@@ -195,12 +195,12 @@ export const constantRoutes = [
   {
     path: '/login',
     component: () => import('@/pages/sys/login.vue'),
-    meta: { title: '登录' }
+    meta: { title: 'Login' }
   },
   {
     path: '/firstLogin',
     component: () => import('@/pages/sys/firstLogin.vue'),
-    meta: { title: '首次登录' }
+    meta: { title: 'First Login' }
   },
   {
     path: '*',
