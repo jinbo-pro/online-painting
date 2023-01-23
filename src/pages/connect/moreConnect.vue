@@ -1,6 +1,6 @@
 <template>
   <div>
-    <PaintingGroup :list="coverList" />
+    <PaintingGroup :list="coverList" @handle="paintHandle" />
     <div v-show="!isEnd" :id="loadDomId" class="jac">
       <img src="@/assets/loading.gif" />
     </div>
@@ -42,6 +42,12 @@ export default {
     observer.observe(loadingDom)
   },
   methods: {
+    paintHandle(e) {
+      this.$router.push({
+        path: '/drawDoneDiscuss',
+        query: { connectId: e.connectId, connectState: e.state }
+      })
+    },
     getList() {
       this.isLoading = true
       getIndexData({

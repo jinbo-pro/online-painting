@@ -13,7 +13,7 @@
         </div>
       </el-col>
       <!-- 时间没到联系 -->
-      <el-col v-if="isDone == 1" :span="10" class="right_info_max">
+      <el-col v-if="pageType == 1" :span="10" class="right_info_max">
         <div class="md_title">Before you finish</div>
         <div class="jsb ac">
           <div>Deadline in</div>
@@ -26,11 +26,11 @@
         </div>
 
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="isDone = 2">Complete Task</el-button>
+          <el-button class="start_drawing" type="success" @click="pageType = 2">Complete Task</el-button>
         </div>
       </el-col>
       <!-- 匹配失败展示 -->
-      <el-col v-if="isDone == 2" :span="10" class="right_info_max">
+      <el-col v-if="pageType == 2" :span="10" class="right_info_max">
         <div class="md_title">Mission failed</div>
         <div class="jsb ac">
           <div>Deadline in</div>
@@ -39,11 +39,13 @@
         <p>Don’t worry! You could start a new trial!</p>
         <div class="chat_max not_point"></div>
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="isDone = 3">Start new CONNECT</el-button>
+          <el-button class="start_drawing" type="success" @click="$router.push('/myConnect')">
+            Start new CONNECT
+          </el-button>
         </div>
       </el-col>
       <!-- 作画完成 -->
-      <el-col v-if="isDone == 3" :span="10" class="right_info_max">
+      <el-col v-if="pageType == 3" :span="10" class="right_info_max">
         <div class="md_title">Mission completed 🌟</div>
         <div class="jsb ac">
           <div>Mission finished</div>
@@ -54,7 +56,7 @@
           <ChatRoom />
         </div>
         <div class="jac mt-32">
-          <el-button class="start_drawing" @click="isDone = 3">Exit</el-button>
+          <el-button class="start_drawing" @click="pageType = 3">Exit</el-button>
         </div>
       </el-col>
     </el-row>
@@ -72,13 +74,14 @@ export default {
   },
   data() {
     return {
-      isDone: 1,
+      pageType: 1,
       radio: 2,
       userList: [],
       grId: ''
     }
   },
   created() {
+    this.pageType = this.$route.query.pageType || 1
     currentConnect({}).then((res) => {
       this.userList = [res.user, res.connectUser]
       this.grId = res.user.grId

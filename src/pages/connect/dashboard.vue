@@ -16,7 +16,7 @@
           <span>Past Connect</span>
           <span class="f16 ml-18 see_more" @click="$router.push('/moreConnect')">See more</span>
         </div>
-        <PaintingGroup :list="coverList" />
+        <PaintingGroup :list="coverList" @handle="paintHandle" />
       </el-col>
       <el-col :span="8" :offset="2">
         <div class="md_title">Connect Setting</div>
@@ -94,6 +94,12 @@ export default {
     this.getInitData()
   },
   methods: {
+    paintHandle(e) {
+      this.$router.push({
+        path: '/drawDoneDiscuss',
+        query: { connectId: e.connectId, connectState: e.state }
+      })
+    },
     async getInitData() {
       getTotail({}).then((res) => {
         this.countList.forEach((item) => {
@@ -104,7 +110,7 @@ export default {
         this.languageList = res
       })
       getIndexData({}).then((res) => {
-        this.coverList = res ? res.list : []
+        this.coverList = res ? res.list.slice(0, 2) : []
       })
       getPromptL1({ code: 'connect' }).then((res) => {
         if (!res) return

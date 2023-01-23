@@ -1,5 +1,5 @@
 <template>
-  <div class="painting_item_box" @click="linkInfo">
+  <div class="painting_item_box">
     <div class="top_info_box jsb ac">
       <div class="ac">
         <el-avatar :size="30" :src="item.photo"></el-avatar>
@@ -8,7 +8,7 @@
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
     </div>
     <div class="paint_title">{{ item.title }}</div>
-    <div class="cover_box jac">
+    <div class="cover_box jac" @click="linkInfo">
       <el-image class="cover" :src="item.path"></el-image>
     </div>
     <div v-if="showLookRange" class="look_range_max mt-16">

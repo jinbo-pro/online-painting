@@ -18,8 +18,8 @@
         <div class="xs_title">Thinking Guide</div>
         <p>{{ updatePrompt.body }}</p>
         <div class="fdc jac mt-32">
-          <el-button class="start_drawing" @click="submitHandle(1)"> Save </el-button>
-          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle(2)">
+          <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
+          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
             Submit
           </el-button>
         </div>
@@ -37,6 +37,7 @@ export default {
   },
   data() {
     return {
+      connectId: '',
       updatePrompt: {
         id: '',
         activity: '',
@@ -45,14 +46,19 @@ export default {
     }
   },
   created() {
+    this.connectId = this.$route.query.connectId
     currentConnect({}).then((res) => {
       Object.assign(this.updatePrompt, res.prompt)
     })
   },
   methods: {
-    submitHandle(type) {
-      connectSubmit({ type }).then((res) => {})
-      console.log(type, '-->>> type')
+    async saveHandle() {
+      await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
+      await connectSave({ id: this.connectId })
+      this.$message.success('Saved successfully')
+    },
+    submitHandle() {
+      connectSubmit({ id: this.connectId }).then((res) => {})
       this.$router.push({
         path: '/drawDoneDiscuss',
         query: { id: 1 }

@@ -60,38 +60,38 @@ export const constantRoutes = [
   {
     path: '/connect',
     component: () => import('@/pages/main-layout.vue'),
-    meta: { title: 'connect' },
+    meta: { title: 'Connect' },
     redirect: '/connectDashboard',
     children: [
       {
         path: '/connectDashboard',
         component: () => import('@/pages/connect/dashboard.vue'),
-        meta: { title: '仪表台' }
+        meta: { title: 'Dashboard' }
       },
       {
         path: '/moreConnect',
         component: () => import('@/pages/connect/moreConnect.vue'),
-        meta: { title: '更多连接' }
+        meta: { title: 'More Connect' }
       },
       {
         path: '/myConnect',
         component: () => import('@/pages/connect/myConnect.vue'),
-        meta: { title: '我的连接' }
+        meta: { title: 'My Connect' }
       },
       {
         path: '/createNewPainting',
         component: () => import('@/pages/connect/createNewPainting.vue'),
-        meta: { title: '新建画作' }
+        meta: { title: 'New Connect' }
       },
       {
         path: '/editDraftPainting',
         component: () => import('@/pages/connect/editDraftPainting.vue'),
-        meta: { title: '编辑草稿' }
+        meta: { title: 'Mission Complete' }
       },
       {
         path: '/drawDoneDiscuss',
         component: () => import('@/pages/connect/drawDoneDiscuss.vue'),
-        meta: { title: '作画完成交流' }
+        meta: { title: 'Mission Complete' }
       }
     ]
   },
@@ -99,28 +99,33 @@ export const constantRoutes = [
   {
     path: '/greet',
     component: () => import('@/pages/main-layout.vue'),
-    meta: { title: 'greet' },
+    meta: { title: 'Greet' },
     redirect: '/greetDashboard',
     children: [
       {
         path: '/greetDashboard',
         component: () => import('@/pages/greet/greetDashboard.vue'),
-        meta: { title: '打招呼首页' }
+        meta: { title: 'dashboard' }
+      },
+      {
+        path: '/receivedBlessing',
+        component: () => import('@/pages/greet/sendBlessing.vue'),
+        meta: { title: 'Received' }
       },
       {
         path: '/sendBlessing',
         component: () => import('@/pages/greet/sendBlessing.vue'),
-        meta: { title: '发送的祝福' }
+        meta: { title: 'Sent' }
       },
       {
         path: '/swagBlessing',
-        component: () => import('@/pages/greet/sendBlessing.vue'),
-        meta: { title: '赠送的祝福' }
+        component: () => import('@/pages/greet/swagBlessing.vue'),
+        meta: { title: 'Swag' }
       },
       {
         path: '/detailDrawingPage',
         component: () => import('@/pages/greet/detailDrawingPage.vue'),
-        meta: { title: '画作详情' }
+        meta: { title: 'Detail Drawing Page' }
       },
       {
         path: '/individualGreetComplete',

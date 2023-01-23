@@ -1,7 +1,7 @@
 <template>
   <div class="container dashboard_container">
     <div class="jsb ac">
-      <div class="md_title">Connect Analytics</div>
+      <div class="md_title">Greet Analytics</div>
       <el-button class="new_greetings" type="success" @click="$router.push('/individualGreetMode')">
         + New Greetings
       </el-button>
@@ -97,17 +97,17 @@ export default {
     handlePainting(e) {
       let url = ''
       if (this.activeIndex == 0) {
-        url = '/detailDrawingPage'
+        url = '/receivedBlessing'
       } else if (this.activeIndex == 1) {
-        url = '/sendBlessing'
+        url = '/detailDrawingPage'
       } else if (this.activeIndex == 2) {
         url = '/swagBlessing'
       } else {
-        url = '/detailDrawingPage'
+        url = '/drawingBoard'
       }
       this.$router.push({
         path: url,
-        query: { greetId: e.greetId }
+        query: { greetId: e.greetId, drawId: e.drawId }
       })
     }
   }

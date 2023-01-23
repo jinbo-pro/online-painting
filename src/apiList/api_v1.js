@@ -45,6 +45,10 @@ export function setPrompt(data) {
 export function connectSubmit(data) {
   return request.postJson('/connect/submit', data)
 }
+/**保存连接 */
+export function connectSave(data) {
+  return request.postJson('/connect/save', data)
+}
 
 /**
  * greet

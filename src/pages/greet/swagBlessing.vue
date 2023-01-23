@@ -1,14 +1,5 @@
 <template>
   <div>
-    <div class="jend">
-      <div>
-        <div class="jsb ac">
-          <div class="mr-16">Make this visible to the company</div>
-          <el-switch v-model="lookRange" active-color="#13ce66"> </el-switch>
-        </div>
-        <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
-      </div>
-    </div>
     <div class="cover_list_max pd-16">
       <el-carousel
         trigger="click"
@@ -29,12 +20,18 @@
               </div>
               <div class="jsb ac">
                 <div class="xs_title">Spiritual Animal</div>
-                <i v-if="item.isStar" class="iconfont icon-aixin1"></i>
-                <i v-else class="iconfont icon-aixin"></i>
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">
-                <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
+                <div class="ac mr-32">
+                  <div class="mr-14">Swag included</div>
+                  <svg-icon width="20px" height="20px" icon-class="SwagIncluded"></svg-icon>
+                </div>
+                <div class="see_order" @click="linkOrderInfo(item)">See order details</div>
+              </div>
+              <div class="ac mt-32">
+                <span>to</span>
+                <el-avatar :size="40" :src="item.path" class="item_head mr-16 ml-12"></el-avatar>
                 <div>
                   <div>{{ item.userName }}</div>
                   <div class="f12 name_msg">{{ item.userName }}</div>
@@ -45,58 +42,27 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="foot_cover_list jsb ac">
-      <div class="left_cover">
-        <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" />
-      </div>
-      <div class="right_btn_box mt-32">
-        <div>
-          <el-button class="start_drawing" type="success" @click="orderASwag"> Order a Swag </el-button>
-        </div>
-        <div>
-          <el-button class="start_drawing" @click="share"> Share </el-button>
-        </div>
-        <div>
-          <el-button class="start_drawing" @click="download"> Download </el-button>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 
 <script>
 import { listData } from '@/utils/mock'
-import ScrollCoverList from '@/components/ScrollCoverList.vue'
-import { getDrawInfo } from '@/apiList/api_work'
 export default {
-  components: {
-    ScrollCoverList
-  },
   data() {
     return {
-      drawId: '',
-      lookRange: false,
       activeIndex: 0,
       drawingList: []
     }
   },
   created() {
-    this.drawId = this.$route.query.drawId
-    getDrawInfo({ id: this.drawId })
     this.drawingList = listData('3-10')
   },
   methods: {
     swiperChange(e) {
       this.activeIndex = e
     },
-    orderASwag() {
-      console.log(1, '-->>> orderASwag')
-    },
-    share() {
-      console.log(2, '-->>> share')
-    },
-    download() {
-      console.log(3, '-->>> download')
+    linkOrderInfo(item) {
+      console.log(item, '-->>> 跳转到订单')
     }
   }
 }
@@ -120,11 +86,11 @@ export default {
       color: #999;
     }
   }
-}
-.start_drawing {
-  width: 80%;
-  padding: 12px;
-  border-radius: 32px;
+  .start_drawing {
+    width: 30%;
+    padding: 12px;
+    border-radius: 32px;
+  }
 }
 .time_box {
   font-size: 12px;
@@ -134,21 +100,7 @@ export default {
   font-weight: normal;
   border: 1px solid #daddb4;
 }
-
-.foot_msg {
-  font-size: 12px;
-  color: #8d8d8d;
-}
-.foot_cover_list {
-  .left_cover {
-    width: 80%;
-  }
-  .right_btn_box {
-    width: 20px;
-    width: 250px;
-    div {
-      margin-bottom: 8px;
-    }
-  }
+.see_order {
+  cursor: pointer;
 }
 </style>

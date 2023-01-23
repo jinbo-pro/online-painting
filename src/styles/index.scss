@@ -4,6 +4,8 @@
 body {
   height: 100%;
   font-size: 14px;
+  font-family: 'Inter';
+  font-style: normal;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -18,7 +20,7 @@ body {
 .container {
   padding: 20px 24px;
   box-sizing: border-box;
-  height: calc(100vh - 112px);
+  // height: calc(100vh - 112px);
   background-color: #fff;
   .title {
     font-size: 24px;
