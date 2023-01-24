@@ -7,7 +7,7 @@
           <div class="time_box ml-14">Jan 2 - 9, 2023</div>
         </div>
         <div class="ac xs_title top_message">
-          <el-avatar :size="20" :src="LogoImg"></el-avatar>
+          <!-- <el-avatar :size="20" :src="LogoImg"></el-avatar> -->
           <div class="ml-12">is expecting your creative piece in</div>
           <div class="time_box ml-14">3 days 5 hours</div>
         </div>
@@ -44,9 +44,7 @@ export default {
     Draw
   },
   data() {
-    return {
-      LogoImg: require('@/assets/logo.png')
-    }
+    return {}
   },
   created() {},
   methods: {

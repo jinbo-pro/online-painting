@@ -56,7 +56,7 @@
             </div>
           </el-popover>
           <el-dropdown>
-            <el-avatar class="hidden-xs-only" :src="LogoImg"></el-avatar>
+            <el-avatar class="hidden-xs-only" :src="userInfo.photo"></el-avatar>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="(e, i) in profileList" :key="i" @click.native="profileHandle(e)">
                 {{ e.title }}
@@ -119,10 +119,14 @@ export default {
         { title: 'Sign out', url: 'Sign out' },
         { title: 'Profile Settings', url: '/profileSettings' },
         { title: 'My Orders', url: '/myOrders' }
-      ]
+      ],
+      userInfo: {
+        photo: ''
+      }
     }
   },
   created() {
+    this.userInfo = local.get('userInfo')
     const path = this.$route.matched[0].path
     const index = this.navList.findIndex((e) => e.url == path)
     this.activeIndex = index > 0 ? index : 0

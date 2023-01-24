@@ -110,7 +110,7 @@ export default {
         this.languageList = res
       })
       getIndexData({}).then((res) => {
-        this.coverList = res ? res.list.slice(0, 2) : []
+        this.coverList = res && res.list ? res.list.slice(0, 2) : []
       })
       getPromptL1({ code: 'connect' }).then((res) => {
         if (!res) return

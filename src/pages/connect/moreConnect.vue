@@ -55,7 +55,10 @@ export default {
         currentPage: this.currentPage
       }).then((res) => {
         this.isLoading = false
-        if (!res || !res.list) return
+        if (!res || !res.list) {
+          this.isEnd = true
+          return
+        }
         const list = res ? res.list : []
         if (!list || !list.length) {
           this.isEnd = true

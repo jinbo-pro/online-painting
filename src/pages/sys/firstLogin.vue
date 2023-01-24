@@ -90,7 +90,6 @@ export default {
       active: 1,
       imageUrl: '',
       invitationCode: guid(),
-      LogoImg: require('@/assets/logo.png'),
 
       inviteCode: '',
       password: '',
