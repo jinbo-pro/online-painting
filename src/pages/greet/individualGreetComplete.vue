@@ -5,7 +5,7 @@
         <div class="md_title">Daily Mood</div>
         <div class="top_message ac">
           <div>Wish a colleage to recover soon created on</div>
-          <div class="time_box">jan 2 - 9, 2023</div>
+          <div class="time_box">Tue Jan 24 2023</div>
         </div>
         <div class="user_list_max mt-32">
           <PaintingItem style="width: 350px" :item="userList[0]" :showLookRange="true" />

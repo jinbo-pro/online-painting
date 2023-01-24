@@ -183,8 +183,13 @@ export const constantRoutes = [
     path: '/gallery',
     component: () => import('@/pages/main-layout.vue'),
     meta: { title: 'Gallery' },
-    redirect: '/allGalleries',
+    redirect: '/galleriesPreview',
     children: [
+      {
+        path: '/galleriesPreview',
+        component: () => import('@/pages/gallery/galleriesPreview.vue'),
+        meta: { title: 'Galleries Preview' }
+      },
       {
         path: '/allGalleries',
         component: () => import('@/pages/gallery/allGalleries.vue'),

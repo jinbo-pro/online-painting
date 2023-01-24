@@ -7,7 +7,17 @@
       </div>
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
     </div>
-    <div class="paint_title">{{ item.title }}</div>
+    <div class="paint_title ac">
+      <span>{{ item.title }}</span>
+      <svg-icon
+        v-if="isEdit"
+        width="20px"
+        height="20px"
+        class="point ml-16"
+        @click="editTitle(item.title)"
+        icon-class="PaintingItemEditTitle"
+      ></svg-icon>
+    </div>
     <div class="cover_box jac" @click="linkInfo">
       <el-image class="cover" :src="item.path"></el-image>
     </div>
@@ -33,6 +43,10 @@ export default {
     showLookRange: {
       type: Boolean,
       default: false
+    },
+    isEdit: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -42,6 +56,9 @@ export default {
   methods: {
     linkInfo() {
       this.$emit('handle', this.item)
+    },
+    editTitle(title) {
+      this.$emit('editTitle', title)
     },
     updateLookSate(e) {
       updateIsView({ id: this.item.greetId, companyIsView: e ? '1' : '0' })

@@ -5,7 +5,13 @@
         <div class="md_title">Daily Mood</div>
         <div class="top_message ac">l2 What’s your mood today? Why do you feel it?</div>
         <div class="user_list_max mt-32">
-          <PaintingItem style="width: 350px" :item="userList[0]" :showLookRange="true" />
+          <PaintingItem
+            style="width: 350px"
+            :isEdit="true"
+            :item="userList[0]"
+            :showLookRange="true"
+            @editTitle="editTitle"
+          />
         </div>
       </el-col>
       <el-col :span="10" class="right_info_max">
@@ -48,7 +54,18 @@ export default {
   created() {
     this.userList = listData(2)
   },
-  methods: {}
+  methods: {
+    async editTitle(title) {
+      const res = await this.$prompt('Please enter a title!', 'Tips', {
+        closeOnClickModal: false,
+        inputValidator: (v) => !!v,
+        inputErrorMessage: 'Please enter a title!'
+      })
+      const row = this.userList[0]
+      row.title = res.value
+      this.userList.splice(0, 1, row)
+    }
+  }
 }
 </script>
 

@@ -109,7 +109,7 @@ export default {
         },
         {
           title: 'Gallery',
-          url: '/allGalleries',
+          url: '/galleriesPreview',
           disabled: false,
           children: [{ title: 'All Galleries', url: '/allGalleries' }]
         },

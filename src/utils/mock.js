@@ -1,6 +1,10 @@
 import Mock from 'mockjs'
 import { identityList } from '@/config/app'
 
+function getImg(index) {
+  return `http://www.ruanyifeng.com/images_pub/pub_${index}.jpg`
+}
+
 /**
  * 模拟数据列表
  * @param {number|string} count
@@ -26,8 +30,26 @@ export function listData(count = '2-5') {
   })
   const list = res.data
   for (let item of list) {
-    item.path = `http://www.ruanyifeng.com/images_pub/pub_${item.path}.jpg`
-    item.userImg = `http://www.ruanyifeng.com/images_pub/pub_${item.userImg}.jpg`
+    item.path = getImg(item.path)
+    item.userImg = getImg(item.userImg)
+  }
+  return list
+}
+
+export function getAllGalleries() {
+  const res = Mock.mock({
+    'data|5-10': [
+      {
+        id: '@guid()',
+        title: '@word()',
+        content: '@sentence()',
+        'coverList|2-3': [{ 'path|+1': 1 }]
+      }
+    ]
+  })
+  const list = res.data
+  for (let item of list) {
+    item.coverList = item.coverList.map((e) => getImg(e.path))
   }
   return list
 }

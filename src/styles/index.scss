@@ -2,7 +2,7 @@
 @import './css3-flex.scss';
 
 @font-face {
-  font-family: "MicrosoftSansSerif";
+  font-family: 'MicrosoftSansSerif';
   src: url('./fonts/MicrosoftSansSerif.ttf') format('truetype');
 }
 
@@ -46,6 +46,9 @@ body {
   .el-radio__label {
     white-space: break-spaces;
   }
+}
+.point {
+  cursor: pointer;
 }
 
 .box_bod {

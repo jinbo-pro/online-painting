@@ -85,6 +85,7 @@ export default {
     currentConnect({}).then((res) => {
       this.userList = [res.user, res.connectUser]
       this.grId = res.user.grId
+      // this.pageType = res.currentStatus == 1 ? 2 : 1
     })
   },
   methods: {}
