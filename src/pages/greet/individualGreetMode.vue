@@ -21,7 +21,7 @@
         @click="linkDrawingBoard(item.activity)"
       >
         <div class="cover_box as">
-          <el-image class="cover" :src="item.activityPath"></el-image>
+          <el-image class="cover" fit="cover" :src="item.activityPath"></el-image>
         </div>
         <p>{{ item.activity }}</p>
       </div>

@@ -67,7 +67,7 @@ export default {
       const ids = this.selectUserIds.map((arr) => arr[arr.length - 1])
       const list = ids.map((e) => findNodeDfs(this.userList, (node) => node.id == e))
       const user = list.filter((e) => e.type == 'user').map((e) => e.id)
-      if (!user.length) return this.$message.error('请选择人员')
+      if (!user.length) return this.$message.error('Please Choose User')
       this.$emit('send', { recipient: user.toString(), message: this.message })
       // reset
       this.message = ''

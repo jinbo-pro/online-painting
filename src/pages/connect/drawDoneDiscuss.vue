@@ -26,7 +26,7 @@
         </div>
 
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="pageType = 2">Complete Task</el-button>
+          <el-button class="start_drawing" type="success" @click="pageType = 3">Complete Task</el-button>
         </div>
       </el-col>
       <!-- 匹配失败展示 -->
@@ -83,7 +83,13 @@ export default {
   created() {
     this.pageType = this.$route.query.pageType || 1
     currentConnect({}).then((res) => {
-      this.userList = [res.user, res.connectUser]
+      const list = [res.user, res.connectUser]
+      this.userList = list.map((e) => {
+        return {
+          ...e,
+          path: e.userDrawPath
+        }
+      })
       this.grId = res.user.grId
       // this.pageType = res.currentStatus == 1 ? 2 : 1
     })

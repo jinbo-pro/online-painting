@@ -37,12 +37,12 @@
             value-key="id"
           ></el-cascader-multi>
           <p>language preference:</p>
-          <el-select style="width: 100%" v-model="connectConfig.language" multiple placeholder="请选择">
+          <el-select style="width: 100%" v-model="connectConfig.language" multiple placeholder="Please Choose">
             <el-option v-for="item in languageList" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
           <p>Topic preference:</p>
-          <el-select style="width: 100%" v-model="connectConfig.topicPreference" multiple placeholder="请选择">
+          <el-select style="width: 100%" v-model="connectConfig.topicPreference" multiple placeholder="Please Choose">
             <el-option v-for="item in topicList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
           </el-select>
         </div>

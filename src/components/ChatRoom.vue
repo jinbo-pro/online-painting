@@ -65,10 +65,11 @@ export default {
     if (this.timr) {
       clearInterval(this.timr)
       this.timr = null
+    } else if (this.grId) {
+      this.timr = setInterval(() => {
+        this.getList()
+      }, 5000)
     }
-    this.timr = setInterval(() => {
-      this.getList()
-    }, 5000)
   },
   destroyed() {
     if (this.timr) {
@@ -78,6 +79,7 @@ export default {
   },
   methods: {
     getList() {
+      if (!this.grId) return
       getChatList({ grId: this.grId }).then((res) => {
         this.list = res
       })

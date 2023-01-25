@@ -38,7 +38,7 @@
               <el-col :span="10" class="right_content fdc jsb pl-24">
                 <div class="xs_title">Spiritual Animal</div>
                 <p class="mb-32">{{ item.content }}</p>
-                <div class="share_box jac">
+                <div class="share_box jac" @click="share">
                   <svg-icon width="16px" height="16px" icon-class="GalleryShare"></svg-icon>
                   <span class="text">Share</span>
                 </div>
@@ -106,6 +106,17 @@ export default {
     previewCover(item) {
       Object.assign(this.selectDraw, item)
       this.showPreview = true
+    },
+    share() {
+      this.$alert('Send to private mail, email, WhatsApp', 'Share', {
+        confirmButtonText: 'confirm',
+        callback: (action) => {
+          this.$message({
+            type: 'info',
+            message: `share: ${action}`
+          })
+        }
+      })
     }
   }
 }
