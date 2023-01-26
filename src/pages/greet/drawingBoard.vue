@@ -39,7 +39,11 @@ export default {
     }
   },
   created() {
-    const activity = this.$route.query.activity
+    // const activity = this.$route.query.activity
+    /**
+     * todo 这里暂时使用固定值
+     */
+    const activity = 'small things in my life'
     getPromptByActivity({ activity }).then((res) => {
       Object.assign(this.promptInfo, res)
     })

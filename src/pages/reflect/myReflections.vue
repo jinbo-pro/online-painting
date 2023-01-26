@@ -21,7 +21,7 @@
       </div>
     </div>
     <div class="md_title"></div>
-    <PaintingGroup :list="coverList" @handle="$router.push('/detailDrawingPage')" />
+    <PaintingGroup :list="coverList" @handle="linkPageInfo" />
   </div>
 </template>
 
@@ -66,6 +66,12 @@ export default {
             path: e.userDrawPath
           }
         })
+      })
+    },
+    linkPageInfo(e) {
+      this.$router.push({
+        path: '/detailDrawingPage',
+        query: { drawId: e.drawId }
       })
     }
   }

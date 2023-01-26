@@ -21,7 +21,7 @@
         <el-carousel-item v-for="(item, index) in drawingList" :key="index">
           <el-row>
             <el-col :span="14" class="jac">
-              <el-image class="cover_max" fit="cover" :src="item.path" @click="previewCover(item)"></el-image>
+              <el-image class="cover_max" fit="contain" :src="item.path" @click="previewCover(item)"></el-image>
             </el-col>
             <el-col :span="10" class="right_content fdc jsb pl-24">
               <div class="jsb">
