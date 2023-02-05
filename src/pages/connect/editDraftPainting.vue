@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="inner_content">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="ac xs_title top_message">
           <div>Hey Chelsea, come to meet your CONNECT for</div>
           <div class="time_box ml-14">Jan 2 - 9, 2023</div>
@@ -15,7 +15,7 @@
           <Draw />
         </div>
       </el-col>
-      <el-col :span="10" class="right_info_max">
+      <el-col :span="8" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
         <div class="md_title">Stories and memories</div>
         <div class="xs_title">Best travel experience I’ve had recently</div>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="inner_content">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="ac xs_title top_message">
           <div class="time_box mr-14">3 days 5 hours 30 mins</div>
           CONNECT with
@@ -11,7 +11,7 @@
           <Draw />
         </div>
       </el-col>
-      <el-col :span="10" class="right_info_max">
+      <el-col :span="8" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
         <div class="md_title">Stories and memories</div>
         <div class="xs_title">{{ updatePrompt.activity }}</div>

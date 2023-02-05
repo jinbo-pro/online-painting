@@ -1,6 +1,6 @@
 <template>
   <el-row class="inner_content">
-    <el-col :span="14">
+    <el-col :span="16">
       <div class="top_message ac">
         <div>Hey Chelsea, come to meet your CONNECT for</div>
         <div class="time_box">jan 2 - 9, 2023</div>
@@ -22,7 +22,7 @@
         </div>
       </div>
     </el-col>
-    <el-col v-if="editType == 'create'" :span="10" class="right_info_max">
+    <el-col v-if="editType == 'create'" :span="8" class="right_info_max">
       <div class="md_title">Ready to go?</div>
       <div class="jsb ac">
         <div>Deadline in</div>
@@ -45,7 +45,7 @@
         <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
     </el-col>
-    <el-col v-else :span="10" class="right_info_max">
+    <el-col v-else :span="8" class="right_info_max">
       <div class="mt-24">Your Mission:</div>
       <div class="md_title">{{ updatePrompt.activity }}</div>
       <p>{{ updatePrompt.body }}</p>

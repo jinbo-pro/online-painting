@@ -1,12 +1,12 @@
 <template>
   <div>
     <el-row class="inner_content">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="pd-16">
           <Draw />
         </div>
       </el-col>
-      <el-col :span="10" class="right_info_max">
+      <el-col :span="8" class="right_info_max">
         <div class="mt-24">Your topic:</div>
         <div class="md_title">Daily Mood</div>
         <div class="xs_title">{{ reflectInfo.activity }}</div>

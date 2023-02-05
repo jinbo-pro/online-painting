@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="inner_content">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="md_title">Daily Mood</div>
         <div class="top_message ac">l2 What’s your mood today? Why do you feel it?</div>
         <div class="user_list_max mt-32">
@@ -14,7 +14,7 @@
           />
         </div>
       </el-col>
-      <el-col :span="10" class="right_info_max">
+      <el-col :span="8" class="right_info_max">
         <div class="md_title">Before you finish</div>
 
         <p class="item_label">How you feel</p>

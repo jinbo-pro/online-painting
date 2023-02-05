@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row class="inner_content">
-      <el-col :span="14">
+      <el-col :span="16">
         <div class="md_title">Daily Mood</div>
         <p>l2 What’s your mood today? Why do you feel it?</p>
         <div class="top_message ac">
@@ -12,7 +12,7 @@
           <PaintingItem style="width: 350px" :item="userList[0]" :showLookRange="true" />
         </div>
       </el-col>
-      <el-col :span="10" class="right_info_max">
+      <el-col :span="8" class="right_info_max">
         <div class="md_title">Before you finish</div>
         <p>How you feel</p>
         <el-input v-model="formData.emoji" placeholder="Search for emoji"></el-input>
