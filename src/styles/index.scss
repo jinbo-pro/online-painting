@@ -25,7 +25,7 @@ body {
 .container {
   padding: 20px 24px;
   box-sizing: border-box;
-  // height: calc(100vh - 112px);
+  height: calc(100vh - 62px);
   background-color: #fff;
   .title {
     font-size: 24px;
@@ -46,6 +46,14 @@ body {
   .el-radio__label {
     white-space: break-spaces;
   }
+}
+.mid_container {
+  height: calc(100% - 50px);
+  box-sizing: border-box;
+}
+.max_h {
+  height: 100%;
+  box-sizing: border-box;
 }
 .point {
   cursor: pointer;

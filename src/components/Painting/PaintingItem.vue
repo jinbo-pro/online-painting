@@ -19,7 +19,7 @@
       ></svg-icon>
     </div>
     <div class="cover_box jac" @click="linkInfo">
-      <el-image class="cover" :src="item.path"></el-image>
+      <el-image fit="cover" class="cover" :src="item.path"></el-image>
     </div>
     <div v-if="showLookRange" class="look_range_max mt-16">
       <div class="jsb ac">
@@ -70,6 +70,7 @@ export default {
 <style lang="scss" scoped>
 .painting_item_box {
   width: 100%;
+  height: 250px;
   background-color: #f7f9fb;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -96,7 +97,8 @@ export default {
   font-weight: bold;
 }
 .cover_box {
-  height: 120px;
+  width: 100%;
+  height: 56.25%;
   border-radius: 10px;
   overflow: hidden;
   .cover {

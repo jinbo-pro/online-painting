@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="mid_container">
     <el-row class="inner_content">
-      <el-col :span="16">
+      <el-col :span="16" class="max_h">
         <div class="ac xs_title top_message">
           <div>Hey Chelsea, come to meet your CONNECT for</div>
           <div class="time_box ml-14">Jan 2 - 9, 2023</div>
@@ -11,7 +11,7 @@
           <div class="ml-12">is expecting your creative piece in</div>
           <div class="time_box ml-14">3 days 5 hours</div>
         </div>
-        <div class="pd-16">
+        <div class="max_h pd-16">
           <Draw />
         </div>
       </el-col>

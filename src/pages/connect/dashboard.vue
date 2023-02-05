@@ -1,5 +1,5 @@
 <template>
-  <div class="container dashboard_container">
+  <div class="dashboard_container">
     <el-row>
       <el-col :span="14">
         <div class="md_title">Connect Analytics</div>
@@ -24,8 +24,7 @@
           <div class="xs_title">Pause for next connect</div>
           <el-switch v-model="connectConfig.isWeek" active-color="#13ce66"></el-switch>
         </div>
-        <div class="pause_tips mb-24">You will not be matched with connects</div>
-
+        <div class="pause_tips">You will not be matched with connects</div>
         <div class="xs_title">Connect preference:</div>
         <div>
           <p>Departments:</p>

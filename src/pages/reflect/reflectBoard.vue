@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="mid_container">
     <el-row class="inner_content">
-      <el-col :span="16">
-        <div class="pd-16">
+      <el-col :span="16" class="max_h">
+        <div class="max_h pd-16">
           <Draw />
         </div>
       </el-col>

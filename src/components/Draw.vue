@@ -23,8 +23,7 @@ export default {
 <style lang="scss" scoped>
 .draw_container {
   width: 100%;
-  height: 400px;
-  min-width: 600px;
+  height: 100%;
   box-sizing: border-box;
   overflow: hidden;
   border: 2px dashed #8d8d8d;

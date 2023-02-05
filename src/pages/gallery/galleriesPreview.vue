@@ -30,23 +30,23 @@
                 <el-image
                   class="cover_max"
                   fit="cover"
-                  :src="item.path"
+                  :src="item.coverPath"
                   :preview-src-list="previewSrcList"
                   @click="previewCover(item)"
                 ></el-image>
               </el-col>
               <el-col :span="10" class="right_content fdc jsb pl-24">
-                <div class="xs_title">Spiritual Animal</div>
+                <div class="xs_title">{{ item.name }}</div>
                 <p class="mb-32">{{ item.content }}</p>
                 <div class="share_box jac" @click="share">
                   <svg-icon width="16px" height="16px" icon-class="GalleryShare"></svg-icon>
                   <span class="text">Share</span>
                 </div>
                 <div class="ac">
-                  <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
+                  <el-avatar :size="40" :src="item.coverPath" class="item_head mr-16"></el-avatar>
                   <div>
-                    <div>{{ item.userName }}</div>
-                    <div class="f12 name_msg">{{ item.userName }}</div>
+                    <div>{{ item.description }}</div>
+                    <div class="f12 name_msg">{{ item.team }}</div>
                   </div>
                 </div>
               </el-col>
@@ -59,15 +59,15 @@
     </div>
     <div v-else class="gallery_max">
       <div v-for="(item, index) in coverList" :key="index" class="gallery_item_box">
-        <el-image class="img_box" fit="cover" :src="item.path" :preview-src-list="previewSrcList"></el-image>
+        <el-image class="img_box" fit="cover" :src="item.coverPath" :preview-src-list="previewSrcList"></el-image>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { listData } from '@/utils/mock'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
+import { getGalleryList } from '@/apiList/api_work'
 export default {
   components: {
     ScrollCoverList
@@ -94,9 +94,14 @@ export default {
     }
   },
   created() {
-    this.coverList = listData('10-30')
+    this.getList()
   },
   methods: {
+    getList() {
+      getGalleryList({}).then((res) => {
+        this.coverList = res
+      })
+    },
     swiperChange(e) {
       this.activeIndex = e
     },

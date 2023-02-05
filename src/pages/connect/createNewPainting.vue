@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div class="mid_container">
     <el-row class="inner_content">
-      <el-col :span="16">
+      <el-col :span="16" class="max_h">
         <div class="ac xs_title top_message">
           <div class="time_box mr-14">3 days 5 hours 30 mins</div>
           CONNECT with
           <div class="user_name ml-14">Ben Green</div>
         </div>
-        <div class="pd-16">
+        <div class="max_h pd-16">
           <Draw />
         </div>
       </el-col>
