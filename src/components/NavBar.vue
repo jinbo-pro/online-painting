@@ -3,7 +3,7 @@
     <el-row class="jsb ac">
       <el-col :xs="0" :span="4" class="jac">
         <router-link to="/">
-          <svg-icon width="40px" height="40px" icon-class="Logo"></svg-icon>
+          <svg-icon width="2.92vw" height="2.92vw" icon-class="Logo"></svg-icon>
         </router-link>
       </el-col>
       <el-col :xs="20" :span="14">
@@ -51,7 +51,7 @@
             </div>
             <div slot="reference">
               <div class="mr-16">
-                <svg-icon width="20px" height="20px" icon-class="TopNotice"></svg-icon>
+                <svg-icon width="1.46vw" height="1.46vw" icon-class="TopNotice"></svg-icon>
               </div>
             </div>
           </el-popover>

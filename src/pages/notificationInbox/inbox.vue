@@ -1,5 +1,5 @@
 <template>
-  <div class="jac box">
+  <div class="as">
     <div :span="4" class="left_nav box pd-16">
       <div
         v-for="(item, index) in noticeTypeList"
@@ -80,7 +80,7 @@ export default {
     read() {
       msg_markRead(this.current.id).then((res) => {
         this.dialogVisible = false
-        this.$message.success('操作成功')
+        this.$message.success('completed')
         this.getList()
       })
     },
@@ -89,9 +89,9 @@ export default {
       this.dialogVisible = true
     },
     async deleteNotice() {
-      await this.$confirm('您确认删除该条信息吗？', '提示', { type: 'warning' })
+      await this.$confirm('Are you sure to delete?', 'Tips', { type: 'warning' })
       await msg_del(this.current.id)
-      this.$message.success('操作成功')
+      this.$message.success('completed')
       this.getList()
       this.dialogVisible = false
     }
@@ -136,6 +136,5 @@ export default {
 .box {
   height: 100%;
   box-sizing: border-box;
-  box-shadow: 2px 0px 4px rgba(125, 164, 83, 0.1);
 }
 </style>

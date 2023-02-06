@@ -11,7 +11,7 @@
       </div>
       <div class="jac">
         <div class="left_max jac">
-          <el-avatar :size="220" :src="userInfo.photo"></el-avatar>
+          <el-avatar style="width: 16.1vw; height: 16.1vw" :src="userInfo.photo"></el-avatar>
           <div class="message_box ml-24">
             <div class="mb-12">Hey, I am</div>
             <div class="user_name">{{ userInfo.name }}</div>
@@ -41,7 +41,7 @@
       </el-radio-group>
       <div class="md_title">Thinking Guide</div>
       <p>{{ selectThinkingGuide }}</p>
-      <div class="jac mt-32">
+      <div class="jac mt-32 pb-32">
         <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
     </el-col>
@@ -52,7 +52,7 @@
       <div class="cover_box jac">
         <el-image class="cover" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg" lazy></el-image>
       </div>
-      <div class="jac mt-32">
+      <div class="jac mt-32 pb-32">
         <el-button class="start_drawing" type="success" @click="linkPage">Edit my draft</el-button>
       </div>
     </el-col>

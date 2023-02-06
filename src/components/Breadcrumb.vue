@@ -32,5 +32,6 @@ export default {
 <style lang="scss" scoped>
 .breadcrumb_max {
   padding: 18px 0;
+  padding-bottom: 12px;
 }
 </style>

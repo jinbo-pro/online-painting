@@ -12,7 +12,7 @@
     <div class="cover_list_max pd-16">
       <el-carousel
         trigger="click"
-        height="320px"
+        height="23.42vw"
         :interval="8000"
         :initial-index="activeIndex"
         indicator-position="outside"

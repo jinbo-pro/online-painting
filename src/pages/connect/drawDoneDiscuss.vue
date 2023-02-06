@@ -138,6 +138,9 @@ export default {
 .user_list_max {
   .paint_item {
     width: 350px;
+    ::v-deep .cover_box {
+      height: 120px;
+    }
   }
 }
 </style>

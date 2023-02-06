@@ -9,10 +9,10 @@
         >
           <div v-if="item.sendUserId == userInfo.id" class="jend mb-14">
             <div class="user_name">{{ item.recipientUserName }}</div>
-            <el-avatar :size="24" :src="item.path"></el-avatar>
+            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.path"></el-avatar>
           </div>
           <div v-else class="ac mb-14">
-            <el-avatar :size="24" :src="item.path"></el-avatar>
+            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.path"></el-avatar>
             <div class="user_name">{{ item.recipientUserName }}</div>
           </div>
           <div class="message_box">{{ item.content }}</div>
@@ -20,7 +20,7 @@
       </div>
       <div class="send_box jsb ac pd-14">
         <el-input class="content_box mr-12" v-model="content" placeholder="Leave a message"></el-input>
-        <svg-icon class="send_btn" width="20px" height="20px" icon-class="ChatRoomSend" @click="send"></svg-icon>
+        <svg-icon class="send_btn" width="1.46vw" height="1.46vw" icon-class="ChatRoomSend" @click="send"></svg-icon>
       </div>
     </div>
   </div>

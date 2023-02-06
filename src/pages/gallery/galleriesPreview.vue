@@ -18,7 +18,7 @@
         <el-carousel
           ref="swiper"
           trigger="click"
-          height="320px"
+          height="23.42vw"
           :interval="8000"
           :initial-index="activeIndex"
           indicator-position="outside"
@@ -39,11 +39,15 @@
                 <div class="xs_title">{{ item.name }}</div>
                 <p class="mb-32">{{ item.content }}</p>
                 <div class="share_box jac" @click="share">
-                  <svg-icon width="16px" height="16px" icon-class="GalleryShare"></svg-icon>
+                  <svg-icon width="1.17vw" height="1.17vw" icon-class="GalleryShare"></svg-icon>
                   <span class="text">Share</span>
                 </div>
                 <div class="ac">
-                  <el-avatar :size="40" :src="item.coverPath" class="item_head mr-16"></el-avatar>
+                  <el-avatar
+                    style="width: 2.928vw; height: 2.928vw"
+                    :src="item.coverPath"
+                    class="item_head mr-16"
+                  ></el-avatar>
                   <div>
                     <div>{{ item.description }}</div>
                     <div class="f12 name_msg">{{ item.team }}</div>
@@ -55,7 +59,7 @@
         </el-carousel>
       </div>
 
-      <ScrollCoverList :list="coverList" :current.sync="activeIndex" valueKey="path" @change="footCoverChange" />
+      <ScrollCoverList :list="coverList" :current.sync="activeIndex" valueKey="coverPath" @change="footCoverChange" />
     </div>
     <div v-else class="gallery_max">
       <div v-for="(item, index) in coverList" :key="index" class="gallery_item_box">
@@ -90,7 +94,7 @@ export default {
   },
   computed: {
     previewSrcList() {
-      return this.coverList.map((e) => e.path)
+      return this.coverList.map((e) => e.coverPath)
     }
   },
   created() {

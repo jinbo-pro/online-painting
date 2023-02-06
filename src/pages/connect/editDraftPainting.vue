@@ -6,12 +6,11 @@
           <div>Hey Chelsea, come to meet your CONNECT for</div>
           <div class="time_box ml-14">Jan 2 - 9, 2023</div>
         </div>
-        <div class="ac xs_title top_message">
-          <!-- <el-avatar :size="20" :src="LogoImg"></el-avatar> -->
+        <div class="ac xs_title top_message" style="padding-top: 0">
           <div class="ml-12">is expecting your creative piece in</div>
           <div class="time_box ml-14">3 days 5 hours</div>
         </div>
-        <div class="max_h pd-16">
+        <div class="draw_h pd-16">
           <Draw />
         </div>
       </el-col>
@@ -64,6 +63,9 @@ export default {
 <style lang="scss" scoped>
 .inner_content {
   height: 100%;
+}
+.draw_h {
+  height: calc(100% - 120px);
 }
 .top_message {
   .time_box {

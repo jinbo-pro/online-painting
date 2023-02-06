@@ -2,7 +2,7 @@
   <div class="painting_item_box">
     <div class="top_info_box jsb ac">
       <div class="ac">
-        <el-avatar :size="30" :src="item.photo"></el-avatar>
+        <el-avatar style="width: 2.19vw; height: 2.19vw" :src="item.photo"></el-avatar>
         <div class="user_name ml-16">{{ item.officeName }}</div>
       </div>
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
@@ -11,8 +11,8 @@
       <span>{{ item.title }}</span>
       <svg-icon
         v-if="isEdit"
-        width="20px"
-        height="20px"
+        width="2.19vw"
+        height="2.19vw"
         class="point ml-16"
         @click="editTitle(item.title)"
         icon-class="PaintingItemEditTitle"
@@ -69,8 +69,7 @@ export default {
 
 <style lang="scss" scoped>
 .painting_item_box {
-  width: 100%;
-  height: 250px;
+  width: 360px;
   background-color: #f7f9fb;
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
   border-radius: 20px;
@@ -97,8 +96,8 @@ export default {
   font-weight: bold;
 }
 .cover_box {
-  width: 100%;
-  height: 56.25%;
+  width: 320px;
+  height: 180px;
   border-radius: 10px;
   overflow: hidden;
   .cover {

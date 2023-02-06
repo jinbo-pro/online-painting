@@ -47,8 +47,18 @@ body {
     white-space: break-spaces;
   }
 }
+// 去除导航条高度的容器
 .mid_container {
   height: calc(100% - 50px);
+  box-sizing: border-box;
+}
+// 去除面包屑高度的容器
+.del_bre_container {
+  height: calc(100% - 45px);
+  box-sizing: border-box;
+}
+.max_w {
+  width: 100%;
   box-sizing: border-box;
 }
 .max_h {

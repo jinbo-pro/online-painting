@@ -15,7 +15,7 @@
       >
         <div class="jsb ac">
           <div>{{ item.title }}</div>
-          <svg-icon width="20px" height="20px" :icon-class="item.icon"></svg-icon>
+          <svg-icon width="1.46vw" height="1.46vw" :icon-class="item.icon"></svg-icon>
         </div>
         <div class="count_num f24">{{ item.count }}</div>
       </div>

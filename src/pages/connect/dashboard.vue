@@ -7,7 +7,7 @@
           <div v-for="(item, index) in countList" :key="index" @click="linkCountInfo" class="count_item_box">
             <div class="jsb ac">
               <div class="count_title">{{ item.title }}</div>
-              <svg-icon width="30px" height="30px" :icon-class="item.icon"></svg-icon>
+              <svg-icon width="2.19vw" height="2.19vw" :icon-class="item.icon"></svg-icon>
             </div>
             <div class="count_num f24">{{ item.count }}</div>
           </div>

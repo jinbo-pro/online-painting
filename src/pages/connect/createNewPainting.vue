@@ -7,7 +7,7 @@
           CONNECT with
           <div class="user_name ml-14">Ben Green</div>
         </div>
-        <div class="max_h pd-16">
+        <div class="draw_h pd-16">
           <Draw />
         </div>
       </el-col>
@@ -71,6 +71,9 @@ export default {
 <style lang="scss" scoped>
 .inner_content {
   height: 100%;
+}
+.draw_h {
+  height: calc(100% - 78px);
 }
 .top_message {
   .time_box {
