@@ -1,5 +1,5 @@
 <template>
-  <div class="container dashboard_container">
+  <div class="container">
     <div class="jsb ac">
       <div class="md_title">Reflect Analytics</div>
       <el-button class="new_greetings" type="success" @click="$router.push('/selectReflectionMode')">
@@ -79,9 +79,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.dashboard_container {
-  overflow: hidden;
-}
 .count_max {
   .count_item_box {
     width: 202px;
