@@ -97,7 +97,7 @@ export default {
 }
 .cover_box {
   width: 320px;
-  height: 240px;
+  height: 180px;
   border-radius: 10px;
   overflow: hidden;
   .cover {
