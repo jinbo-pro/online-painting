@@ -120,6 +120,7 @@ export default {
 .right_info_max {
   height: 100%;
   padding: 0 16px;
+  padding-bottom: 32px;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.05);
 }
 
@@ -134,13 +135,5 @@ export default {
   width: 50%;
   padding: 12px;
   border-radius: 32px;
-}
-.user_list_max {
-  .paint_item {
-    width: 350px;
-    ::v-deep .cover_box {
-      height: 120px;
-    }
-  }
 }
 </style>

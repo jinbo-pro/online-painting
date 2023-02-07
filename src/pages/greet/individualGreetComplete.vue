@@ -8,7 +8,7 @@
           <div class="time_box">Tue Jan 24 2023</div>
         </div>
         <div class="user_list_max mt-32">
-          <PaintingItem style="width: 350px" :item="userList[0]" :showLookRange="true" />
+          <PaintingItem :item="userList[0]" :showLookRange="true" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
