@@ -35,7 +35,6 @@
 
 <script>
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
-import { listData } from '@/utils/mock'
 export default {
   components: {
     PaintingItem
@@ -52,7 +51,12 @@ export default {
     }
   },
   created() {
-    this.userList = listData(2)
+    this.userList = [
+      {
+        title: 'calm and relax',
+        path: 'http://114.115.209.57:8090/drawClient/download/fa0d701083794b6780fc9875b5b49417/Thanks for your contribution in the past.png'
+      }
+    ]
   },
   methods: {
     async editTitle(title) {

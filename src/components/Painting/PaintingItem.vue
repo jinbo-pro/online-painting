@@ -7,7 +7,7 @@
       </div>
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
     </div>
-    <div class="paint_title ac">
+    <div class="paint_title jsb ac">
       <span>{{ item.title }}</span>
       <svg-icon
         v-if="isEdit"

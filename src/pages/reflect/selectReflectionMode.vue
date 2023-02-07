@@ -2,7 +2,10 @@
   <div>
     <div class="md_title">Topic of the week (ongoing)</div>
     <div class="ac">
-      <el-image class="left_cover" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg"></el-image>
+      <el-image
+        class="left_cover"
+        src="http://114.115.209.57:8090/drawClient/download/fa0d701083794b6780fc9875b5b49417/A calming place.png"
+      ></el-image>
       <div class="ml-16">
         <div class="xs_title mb-16">Weekly progress</div>
         <div class="progress_max pl-24">
