@@ -1,19 +1,23 @@
 <template>
   <div class="draw_container">
     <iframe
+      :id="drawingBoardId"
       class="draw_content"
-      src="http://ec2-35-88-251-74.us-west-2.compute.amazonaws.com:8080"
+      src="http://localhost:8080/?whiteboardid=b8797bcc-5d3c-42ee-a4d5-6cbfb1c98346"
       title="viva drawing board"
     ></iframe>
   </div>
 </template>
 
 <script>
+import { drawingBoardId } from '@/utils/constants';
 // 对接 外部作画
 export default {
   name: 'Draw',
   data() {
-    return {}
+    return {
+      drawingBoardId
+    }
   },
   created() {},
   methods: {}
