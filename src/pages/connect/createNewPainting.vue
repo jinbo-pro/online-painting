@@ -31,6 +31,8 @@
 <script>
 import Draw from '@/components/Draw.vue'
 import { connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { useGetDrawingSubmitData, useGetDrawingDraftData } from '@/hooks/drawingData'
+
 export default {
   components: {
     Draw
@@ -53,18 +55,33 @@ export default {
   },
   methods: {
     async saveHandle() {
-      await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
-      // await connectSave({ id: this.connectId })
-      this.$message.success('Saved successfully')
+      try {
+        const draftData = await useGetDrawingDraftData()
+        console.log('Drawing draft data', draftData);
+
+        // await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
+        // // await connectSave({ id: this.connectId })
+        // this.$message.success('Saved successfully')
+      } catch (e) {
+        console.error(e)
+      }
     },
-    submitHandle() {
-      connectSubmit({ id: this.connectId }).then((res) => {})
-      this.$router.push({
-        path: '/drawDoneDiscuss',
-        query: { id: 1 }
-      })
+    async submitHandle() {
+      try {
+        const submitData = await useGetDrawingSubmitData()
+        console.log('Drawing Submit data', submitData);
+
+        // connectSubmit({ id: this.connectId }).then((res) => {})
+        // this.$router.push({
+        //   path: '/drawDoneDiscuss',
+        //   query: { id: 1 }
+        // })
+      } catch (e) {
+        console.error(e)
+      }
     }
-  }
+  },
+
 }
 </script>
 
@@ -72,9 +89,11 @@ export default {
 .inner_content {
   height: 100%;
 }
+
 .draw_h {
   height: calc(100% - 78px);
 }
+
 .top_message {
   .time_box {
     font-size: 12px;
@@ -84,6 +103,7 @@ export default {
     font-weight: normal;
     border: 1px solid #daddb4;
   }
+
   .user_name {
     color: #7da453;
     font-size: 24px;
@@ -91,11 +111,13 @@ export default {
     margin-bottom: 8px;
   }
 }
+
 .right_info_max {
   height: 100%;
   padding: 0 16px;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.05);
 }
+
 .start_drawing {
   width: 50%;
   padding: 12px;
