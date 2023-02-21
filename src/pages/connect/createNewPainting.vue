@@ -33,8 +33,9 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { currentConnect } from '@/apiList/api_v1'
 import { useGetDrawingSubmitData, useGetDrawingDraftData } from '@/hooks/drawingData'
+import { local } from '@/utils/storage'
 
 export default {
   components: {

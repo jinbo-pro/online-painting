@@ -1,5 +1,5 @@
 import { connectToChild } from 'penpal'
-import { drawingBoardValidUrl, drawingBoardId } from '@/utils/constants'
+import { drawingBoardValidUrl, drawingBoardId } from '@/config/constants'
 
 const POST_MESSAGE = 'getDrawingData'
 
