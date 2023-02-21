@@ -3,20 +3,21 @@
     <iframe
       :id="drawingBoardId"
       class="draw_content"
-      src="http://localhost:8080/?whiteboardid=b8797bcc-5d3c-42ee-a4d5-6cbfb1c98346"
+      :src="drawingBoardValidUrl"
       title="viva drawing board"
     ></iframe>
   </div>
 </template>
 
 <script>
-import { drawingBoardId } from '@/utils/constants';
+import { drawingBoardId, drawingBoardValidUrl } from '@/utils/constants';
 // 对接 外部作画
 export default {
   name: 'Draw',
   data() {
     return {
-      drawingBoardId
+      drawingBoardId,
+      drawingBoardValidUrl
     }
   },
   created() {},
