@@ -61,6 +61,14 @@ export function getStatistics(data) {
 export function getListByType(data) {
   return request.postJson('/greet/getListByType', data)
 }
+/**创建greet */
+export function greetSubmit(data) {
+  return request.postJson('/greet/submit', data)
+}
+/**通过id获取greet详情 */
+export function greetGetById(data) {
+  return request.postJson('/greet/getGreetById', data)
+}
 /**修改单位状态是否可见 */
 export function updateIsView(data) {
   return request.postJson('/draw/updateIsView', data)

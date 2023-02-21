@@ -19,7 +19,7 @@
                 <div class="time_box">Jan 2 - 9, 2023</div>
               </div>
               <div class="jsb ac">
-                <div class="xs_title">Spiritual Animal</div>
+                <div class="xs_title">{{ item.title }}</div>
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">

@@ -114,7 +114,7 @@ class StorageBase {
   }
 }
 
-const prefix = 'painting_'
+const prefix = 'painting_web'
 const local = new StorageBase({ prefix, storage: localStorage })
 const session = new StorageBase({ prefix, storage: sessionStorage })
 export { local, session, StorageBase }

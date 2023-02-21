@@ -2,13 +2,13 @@
   <div>
     <el-row class="inner_content">
       <el-col :span="16">
-        <div class="md_title">Daily Mood</div>
+        <div class="md_title">{{ prompt.topic }}</div>
         <div class="top_message ac">
-          <div>Wish a colleage to recover soon created on</div>
-          <div class="time_box">Tue Jan 24 2023</div>
+          <div>{{ prompt.activity }}</div>
+          <div class="time_box">{{ paintingInfo.createDate | enDate }}</div>
         </div>
         <div class="user_list_max mt-32">
-          <PaintingItem :item="userList[0]" :showLookRange="true" />
+          <PaintingItem :item="paintingInfo" :showLookRange="true" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
@@ -36,7 +36,8 @@
 
 <script>
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
-import { listData } from '@/utils/mock'
+import { local } from '@/utils/storage'
+import { greetGetById } from '@/apiList/api_v1'
 export default {
   components: {
     PaintingItem
@@ -45,15 +46,36 @@ export default {
     return {
       isDone: 1,
       radio: 2,
-      userList: [],
       formData: {
         emoji: '',
         notes: ''
+      },
+      paintingInfo: {
+        name: '',
+        createDate: '',
+        photo: '',
+        path: '',
+        title: '',
+        lookRange: false
+      },
+      prompt: {
+        topic: '',
+        activity: '',
+        body: '',
+        drawingGuide: '',
       }
     }
   },
   created() {
-    this.userList = listData(2)
+    const u = local.get('userInfo')
+    this.paintingInfo.name = u.name
+    this.paintingInfo.photo = u.photo
+    greetGetById({ id: this.$route.query.id }).then((res) => {
+      Object.assign(this.prompt, res.prompt)
+      this.paintingInfo.path = res.userDrawPath
+      this.paintingInfo.title = res.prompt.activity
+      this.paintingInfo.createDate = res.createDate
+    })
   },
   methods: {
     async completeSwag() {
