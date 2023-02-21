@@ -8,8 +8,12 @@
       </el-col>
       <el-col :span="8" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
-        <div class="md_title">{{ promptInfo.body }}</div>
+        <div class="md_title">{{ promptInfo.topic }}</div>
+        <div class="xs_title">{{ promptInfo.activity }}</div>
+        <div class="line_x"></div>
         <div class="xs_title">Thinking Guide</div>
+        <p>{{ promptInfo.body }}</p>
+        <div class="xs_title">Drawing Guide</div>
         <p>{{ promptInfo.drawingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
@@ -24,7 +28,7 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { getPromptByActivity } from '@/apiList/api_v1'
+import { getPromptByActivity, greetSubmit } from '@/apiList/api_v1'
 export default {
   components: {
     Draw
@@ -50,10 +54,11 @@ export default {
       // await connectSave({ id: this.connectId })
       this.$message.success('Saved successfully')
     },
-    submitHandle() {
+    async submitHandle() {
+      const res = await greetSubmit({ code: 'greet', promptId: this.promptInfo.id })
       this.$router.push({
         path: '/individualGreetComplete',
-        query: { id: 1 }
+        query: { id: res.id }
       })
     }
   }

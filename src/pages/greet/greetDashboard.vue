@@ -78,8 +78,7 @@ export default {
             ...e,
             showLookRange: true,
             lookRange: e.companyIsView == 1,
-            path: e.userDrawPath,
-            title: e.name
+            path: e.userDrawPath
           }
         })
       })

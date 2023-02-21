@@ -2,27 +2,27 @@
   <el-row class="inner_content">
     <el-col :span="16">
       <div class="top_message ac">
-        <div>Hey Chelsea, come to meet your CONNECT for</div>
+        <div>Hey {{ userInfo.name }}, come to meet your CONNECT for</div>
         <div class="time_box">jan 2 - 9, 2023</div>
       </div>
       <div class="top_message ac">
-        <div>Ben Green is expecting your creative piece in</div>
+        <div>{{ cpUserInfo.name }} is expecting your creative piece in</div>
         <div class="time_box">3 day 5 hours</div>
       </div>
       <div class="jac">
         <div class="left_max jac">
-          <el-avatar style="width: 16.1vw; height: 16.1vw" :src="userInfo.photo"></el-avatar>
+          <el-avatar style="width: 16.1vw; height: 16.1vw" :src="cpUserInfo.photo"></el-avatar>
           <div class="message_box ml-24">
             <div class="mb-12">Hey, I am</div>
-            <div class="user_name">{{ userInfo.name }}</div>
-            <p class="about_title">{{ userInfo.officeName }}</p>
-            <div class="about_info">{{ userInfo.remarks }}</div>
-            <div v-if="editType == 'create'" class="foot_btn jac mt-24">Switch</div>
+            <div class="user_name">{{ cpUserInfo.name }}</div>
+            <p class="about_title">{{ cpUserInfo.officeName }}</p>
+            <div class="about_info">{{ cpUserInfo.remarks }}</div>
+            <div v-if="currentStatus == 2" class="foot_btn jac mt-24">Switch</div>
           </div>
         </div>
       </div>
     </el-col>
-    <el-col v-if="editType == 'create'" :span="8" class="right_info_max">
+    <el-col v-if="currentStatus == 2" :span="8" class="right_info_max">
       <div class="md_title">Ready to go?</div>
       <div class="jsb ac">
         <div>Deadline in</div>
@@ -30,10 +30,10 @@
       </div>
       <div class="jsb ac mt-12">
         <div>CONNECT with</div>
-        <div class="user_name">{{ userInfo.name }}</div>
+        <div class="user_name">{{ cpUserInfo.name }}</div>
       </div>
       <div class="mt-24">Your Mission:</div>
-      <div class="md_title">Stories and memories</div>
+      <div class="md_title">{{ updatePrompt.activity }}</div>
       <el-radio-group v-model="promptIndex">
         <div v-for="(item, index) in discoverDrawList" :key="index" class="item_select_discover">
           <el-radio :label="item.id">{{ item.body }}</el-radio>
@@ -45,12 +45,12 @@
         <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
     </el-col>
-    <el-col v-else :span="8" class="right_info_max">
+    <el-col v-if="currentStatus == 3" :span="8" class="right_info_max">
       <div class="mt-24">Your Mission:</div>
       <div class="md_title">{{ updatePrompt.activity }}</div>
       <p>{{ updatePrompt.body }}</p>
       <div class="cover_box jac">
-        <el-image class="cover" src="http://www.ruanyifeng.com/images_pub/pub_1.jpg" lazy></el-image>
+        <el-image class="cover" :src="cpUserInfo.userDrawPath" lazy></el-image>
       </div>
       <div class="jac mt-32 pb-32">
         <el-button class="start_drawing" type="success" @click="linkPage">Edit my draft</el-button>
@@ -73,11 +73,19 @@ export default {
         officeName: '',
         remarks: ''
       },
+      // 匹配的人
+      cpUserInfo: {
+        photo: '',
+        name: '',
+        officeName: '',
+        remarks: ''
+      },
       updatePrompt: {
         id: '',
         activity: '',
         body: ''
-      }
+      },
+      currentStatus: 2
     }
   },
   computed: {
@@ -93,14 +101,20 @@ export default {
     async getInitData() {
       const res = await currentConnect({})
       if (!res) return
-      Object.assign(this.userInfo, res.connectUser)
-      if (res.prompt) {
+      Object.assign(this.userInfo, res.user)
+      Object.assign(this.cpUserInfo, res.connectUser)
+      // this.currentStatus = res.currentStatus
+      // if (res.currentStatus > 3) {
+      //   this.$router.push('/drawDoneDiscuss')
+      //   return
+      // }
+      if (res.currentStatus == 3) {
         // 编辑已有连接
-        this.editType = 'update'
         Object.assign(this.updatePrompt, res.prompt)
       } else {
         // 配置新连接
-        const promp = await getPromptByTopic({ topic: 'relax&fun' })
+        const promp = await getPromptByTopic({ topic: res.prompt.topic })
+        Object.assign(this.updatePrompt, res.prompt)
         this.discoverDrawList = promp.list
       }
     },
