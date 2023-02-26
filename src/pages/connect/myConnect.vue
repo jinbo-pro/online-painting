@@ -3,11 +3,11 @@
     <el-col :span="16">
       <div class="top_message ac">
         <div>Hey {{ userInfo.name }}, come to meet your CONNECT for</div>
-        <div class="time_box">jan 2 - 9, 2023</div>
+        <div class="time_box">{{ userInfo.intendedDate | enDate }}</div>
       </div>
       <div class="top_message ac">
         <div>{{ cpUserInfo.name }} is expecting your creative piece in</div>
-        <div class="time_box">3 day 5 hours</div>
+        <div class="time_box">{{ timeDistanceStr }}</div>
       </div>
       <div class="jac">
         <div class="left_max jac">
@@ -33,14 +33,14 @@
         <div class="user_name">{{ cpUserInfo.name }}</div>
       </div>
       <div class="mt-24">Your Mission:</div>
-      <div class="md_title">{{ updatePrompt.activity }}</div>
+      <div class="md_title">{{ selectMission.activity }}</div>
       <el-radio-group v-model="promptIndex">
         <div v-for="(item, index) in discoverDrawList" :key="index" class="item_select_discover">
           <el-radio :label="item.id">{{ item.body }}</el-radio>
         </div>
       </el-radio-group>
       <div class="md_title">Thinking Guide</div>
-      <p>{{ selectThinkingGuide }}</p>
+      <p>{{ selectMission.thinkingGuide }}</p>
       <div class="jac mt-32 pb-32">
         <el-button class="start_drawing" type="success" @click="setPromptHandle"> Start Drawing </el-button>
       </div>
@@ -61,11 +61,12 @@
 
 <script>
 import { currentConnect, getPromptByTopic, setPrompt } from '@/apiList/api_v1'
+import { timeDistance } from '@/utils/jcore'
 export default {
   data() {
     return {
       editType: 'create',
-      promptIndex: '10',
+      promptIndex: '',
       discoverDrawList: [],
       userInfo: {
         photo: '',
@@ -86,13 +87,14 @@ export default {
         activity: '',
         body: ''
       },
+      timeDistanceStr: '',
       currentStatus: 2 // 2新建绘画 3编辑草稿绘画
     }
   },
   computed: {
-    selectThinkingGuide() {
+    selectMission() {
       const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
-      return cur ? cur.thinkingGuide : ''
+      return cur ? cur : { activity: '', thinkingGuide: '' }
     }
   },
   created() {
@@ -107,21 +109,31 @@ export default {
       if (res.user.draft) {
         this.currentStatus = 3
       }
-      // if (res.currentStatus > 3) {
-      //   this.$router.push('/drawDoneDiscuss')
-      //   return
-      // }
+      // currentStatus [6 7 8] 跳转到
+      if (res.currentStatus > 3) {
+        this.$router.push({
+          path: '/drawDoneDiscuss',
+          query: {
+            connectId: this.userInfo.connectId
+          }
+        })
+        return
+      }
       if (res.currentStatus == 3) {
         // 编辑已有连接
         Object.assign(this.updatePrompt, res.prompt)
       } else {
         // 配置新连接
-        const promp = await getPromptByTopic({ topic: res.prompt.topic })
+        const promp = await getPromptByTopic({ topic: res.topic })
         Object.assign(this.updatePrompt, res.prompt)
         this.discoverDrawList = promp.list
+        this.promptIndex = promp.list[0].id
       }
+      const user = res.user
+      this.timeDistanceStr = timeDistance(user.createDate, user.createTime, user.intendedDate, user.intendedTime)
     },
     async setPromptHandle() {
+      if (!this.promptIndex) return this.$message.error('please select mission')
       const cur = this.discoverDrawList.find((x) => x.id == this.promptIndex)
       await setPrompt({ promptId: cur.id, connectId: this.userInfo.connectId })
       this.linkPage()

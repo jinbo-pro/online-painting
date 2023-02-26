@@ -3,7 +3,7 @@
     <el-row class="inner_content">
       <el-col :span="16" class="max_h">
         <div class="ac xs_title top_message">
-          <div class="time_box mr-14">3 days 5 hours 30 mins</div>
+          <div class="time_box mr-14">{{ timeDistanceStr }}</div>
           CONNECT with
           <div class="user_name ml-14">{{ cpUserInfo.name }}</div>
         </div>
@@ -20,7 +20,7 @@
         <p>{{ updatePrompt.thinkingGuide }}</p>
         <div class="xs_title">Drawing Guide</div>
         <p>{{ updatePrompt.drawingGuide }}</p>
-        <div class="fdc jac mt-32">
+        <div class="fdc jac mt-32" v-loading="submitLoading">
           <!-- <el-button class="start_drawing" @click="loadDone"> test load draft </el-button> -->
           <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
@@ -36,6 +36,7 @@
 import Draw from '@/components/Draw.vue'
 import { connectSave, connectSubmit, currentConnect } from '@/apiList/api_v1'
 import { useGetDrawingSubmitData, useGetDrawingDraftData, useLoadDraftDrawing } from '@/hooks/drawingData'
+import { timeDistance } from '@/utils/jcore'
 
 export default {
   components: {
@@ -53,7 +54,10 @@ export default {
       cpUserInfo: {
         name: ''
       },
-      draftImageData: ''
+      draftImageData: '',
+      timeDistanceStr: '',
+
+      submitLoading: false
     }
   },
   created() {
@@ -77,28 +81,45 @@ export default {
         Object.assign(this.updatePrompt, res.prompt)
         Object.assign(this.cpUserInfo, res.connectUser)
         this.draftImageData = res.user.draft
+
+        const user = res.user
+        this.timeDistanceStr = timeDistance(user.createDate, user.createTime, user.intendedDate, user.intendedTime)
       })
     },
     async saveHandle() {
       try {
         await this.$confirm('Draft save?', 'Tips', { type: 'warning' })
+        this.submitLoading = true
+        
         const draftData = await useGetDrawingDraftData()
         console.log('Drawing draft data', draftData)
 
         // save 返回的格式应该是 object 这里暂时测试用
         const data = typeof draftData == 'string' ? { draft: draftData } : draftData
 
+        if (!draftData || !draftData.draft) {
+          return this.getDrawingError()
+        }
+
         await connectSave({ drawId: this.drawId, connectId: this.connectId, ...data })
         this.$message.success('Saved successfully')
+        this.submitLoading = false
       } catch (e) {
         console.error(e)
+        this.getDrawingError()
       }
     },
     async submitHandle() {
       try {
         await this.$confirm('Draft submit?', 'Tips', { type: 'warning' })
+        this.submitLoading = true
+
         const draftData = await useGetDrawingSubmitData()
         console.log('Drawing Submit data', draftData)
+
+        if (!draftData || !draftData.draft) {
+          return this.getDrawingError()
+        }
 
         await connectSubmit({ drawId: this.drawId, connectId: this.connectId, ...draftData })
         this.$router.push({
@@ -108,9 +129,15 @@ export default {
             connectId: this.connectId
           }
         })
+        this.submitLoading = false
       } catch (e) {
         console.error(e)
+        this.getDrawingError()
       }
+    },
+    getDrawingError() {
+      this.submitLoading = false
+      this.$message.error('drawing data error')
     }
   }
 }

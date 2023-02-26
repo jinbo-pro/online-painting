@@ -18,6 +18,11 @@ export default {
   mounted() {
     const iframe = document.getElementById(drawingBoardId)
     iframe.addEventListener('load', () => this.$emit('loadDone', iframe), true)
+
+    // const drawingReady = (event) => {
+    //   console.log(event, '-->>> event')
+    // }
+    // window.addEventListener('message', drawingReady, false)
   },
   methods: {}
 }

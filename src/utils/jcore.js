@@ -75,3 +75,66 @@ export function parseTime(time, cFormat) {
   })
   return time_str
 }
+
+/**
+ * 获取时间距离[做倒计时很好用]
+ * @param {(Object|string|number)} timeStart
+ * @param {(Object|string|number)} timeEnd
+ * @param {string} cFormat
+ * @returns {string}
+ */
+export function getTimeDistance(timeStart, timeEnd, cFormat = '{d}:{h}:{m}:{s}') {
+  const format = cFormat
+  var s = new Date(parseTime(timeStart))
+  var e = new Date(timeEnd)
+  var usedTime = Math.abs(s - e)
+  var leavel = usedTime % (24 * 3600 * 1000)
+  var leavel2 = leavel % (3600 * 1000)
+  var leavel3 = leavel2 % (60 * 1000)
+  const formatObj = {
+    d: Math.floor(usedTime / (24 * 3600 * 1000)),
+    h: Math.floor(leavel / (3600 * 1000)),
+    m: Math.floor(leavel2 / (60 * 1000)),
+    s: Math.floor(leavel3 / 1000)
+  }
+  const time_str = format.replace(/{(d|h|m|s)+}/g, (result, key) => {
+    let value = formatObj[key]
+    if (result.length > 0 && value < 10) {
+      value = '0' + value
+    }
+    return value || 0
+  })
+  return time_str
+}
+/**
+ * 转换时间格式
+ * @param {number} date 日期
+ * @param {number} time 时间
+ * @returns {string}
+ */
+export function timeNumberFormat(date, time) {
+  if (!date) return ''
+  date = String(date)
+  if (date.length == 11) {
+    return parseTime(date)
+  }
+  date = String(date).replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3')
+  if (!time) return date
+  let result = []
+  let list = [1000, 100, 100, 100]
+  for (let item of list) {
+    let t = parseInt(time % item)
+    result.push(t < 10 ? '0' + t : '' + t)
+    time /= item
+  }
+  time = result.reverse().slice(0, -1).join(':')
+  return date + ' ' + time
+}
+/**倒计时 */
+export function timeDistance(sD, sT, eD, eT, f = '{d} day {h} hours {m} mins') {
+  if (!sD || !eD) return ''
+  const s = timeNumberFormat(sD, sT)
+  const e = timeNumberFormat(eD, eT)
+  const result = getTimeDistance(s, e, f)
+  return result.split(' 00')[0]
+}

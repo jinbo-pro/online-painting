@@ -9,10 +9,10 @@
         >
           <div v-if="item.sendUserId == userInfo.id" class="jend mb-14">
             <div class="user_name">{{ item.recipientUserName }}</div>
-            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.path"></el-avatar>
+            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.photo"></el-avatar>
           </div>
           <div v-else class="ac mb-14">
-            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.path"></el-avatar>
+            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.photo"></el-avatar>
             <div class="user_name">{{ item.recipientUserName }}</div>
           </div>
           <div class="message_box">{{ item.content }}</div>

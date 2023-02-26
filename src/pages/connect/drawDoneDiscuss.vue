@@ -4,7 +4,7 @@
       <el-col :span="16">
         <div class="top_message ac">
           <div>Hey {{ userInfo.name }}, here’s your CONNECT for</div>
-          <div class="time_box">jan 2 - 9, 2023</div>
+          <div class="time_box">{{ userInfo.createDate | enDate }} ~ {{ userInfo.intendedDate | enDate }}</div>
         </div>
         <div class="user_list_max mt-16">
           <div v-for="e in userList" :key="e.id" class="paint_item mb-32">
@@ -17,7 +17,7 @@
         <div class="md_title">Before you finish</div>
         <div class="jsb ac">
           <div>Deadline in</div>
-          <div class="time_box">3 days 5 hours 30 mins</div>
+          <div class="time_box">{{ timeDistanceStr }}</div>
         </div>
         <p>Maybe you want to discuss and guess each other’s drawing. Start a quick chat with</p>
 
@@ -34,7 +34,7 @@
         <div class="md_title">Mission failed</div>
         <div class="jsb ac">
           <div>Deadline in</div>
-          <div class="time_box">0 days 0 hours 0 mins</div>
+          <div class="time_box">{{ timeDistanceStr }}</div>
         </div>
         <p>Don’t worry! You could start a new trial!</p>
         <div class="chat_max not_point"></div>
@@ -49,7 +49,7 @@
         <div class="md_title">Mission completed 🌟</div>
         <div class="jsb ac">
           <div>Mission finished</div>
-          <div class="time_box">0 days 0 hours 0 mins</div>
+          <div class="time_box">{{ timeDistanceStr }}</div>
         </div>
         <div class="pb-32"></div>
         <div class="chat_max">
@@ -68,6 +68,7 @@ import ChatRoom from '@/components/ChatRoom.vue'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import { currentConnect } from '@/apiList/api_v1'
 import { local } from '@/utils/storage'
+import { timeDistance } from '@/utils/jcore'
 export default {
   components: {
     ChatRoom,
@@ -78,13 +79,23 @@ export default {
       radio: 2,
       userList: [],
       grId: '',
-      currentStatus: 6
+      userInfo: {
+        photo: '',
+        name: '',
+        draft: '',
+        officeName: '',
+        remarks: ''
+      },
+      currentStatus: 6,
+      timeDistanceStr: ''
     }
   },
   created() {
-    this.userInfo = local.get('userInfo')
     currentConnect({}).then((res) => {
       const list = [res.user, res.connectUser]
+      const user = res.user
+       Object.assign(this.userInfo, user)
+      this.timeDistanceStr = timeDistance(user.createDate, user.createTime, user.intendedDate, user.intendedTime)
       this.userList = list.map((e) => {
         return {
           ...e,

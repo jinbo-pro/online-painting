@@ -8,7 +8,7 @@
             <el-form-item style="margin-left: 0px" prop="username">
               <el-input
                 type="text"
-                placeholder="账号"
+                placeholder="username"
                 prefix-icon="el-icon-user"
                 v-model="loginForm.username"
                 clearable
@@ -19,7 +19,7 @@
             <el-form-item style="margin-left: 0px" prop="password">
               <el-input
                 type="password"
-                placeholder="密码"
+                placeholder="password"
                 prefix-icon="el-icon-lock"
                 v-model="loginForm.password"
                 autocomplete="off"
@@ -30,7 +30,7 @@
             </el-form-item>
             <el-form-item style="margin: 40px 0px 0">
               <el-button type="primary" class="login-submit" @click="handleLogin" :loading="isSubmit">
-                <span>登录</span>
+                <span>Login</span>
               </el-button>
             </el-form-item>
           </el-form>
@@ -47,14 +47,14 @@ export default {
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!value) {
-        callback(new Error('请输入正确的用户名'))
+        callback(new Error('Please enter user'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
       if (value.length < 1) {
-        callback(new Error('密码不能为空'))
+        callback(new Error('Please input a password'))
       } else {
         callback()
       }

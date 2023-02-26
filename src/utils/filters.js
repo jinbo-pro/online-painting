@@ -1,4 +1,4 @@
-import { parseTime } from './jcore'
+import { getTimeDistance, timeNumberFormat } from './jcore'
 
 /**
  * 数字格式化
@@ -20,30 +20,16 @@ export function numberFormat(val, dec = 1) {
  * @returns
  */
 export function enDate(val) {
-  const d = parseTimeFnumber(val)
+  if (!val) return ''
+  const d = timeNumberFormat(val)
   return new Date(d).toDateString()
 }
 /**
- * 转换时间格式
+ * 转换数字时间格式
  * @param {number} date 日期
  * @param {number} time 时间
  * @returns {string}
  */
 export function parseTimeFnumber(date, time) {
-  if (!date) return ''
-  date = String(date)
-  if (date.length == 11) {
-    return parseTime(date)
-  }
-  date = String(date).replace(/(\d{4})(\d{2})(\d{2})/, '$1/$2/$3')
-  if (!time) return date
-  let result = []
-  let list = [1000, 100, 100, 100]
-  for (let item of list) {
-    let t = parseInt(time % item)
-    result.push(t < 10 ? '0' + t : '' + t)
-    time /= item
-  }
-  time = result.reverse().slice(0, -1).join(':')
-  return date + ' ' + time
+  return timeNumberFormat(date, time)
 }
