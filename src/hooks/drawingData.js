@@ -42,3 +42,12 @@ export async function useGetDrawingDraftData() {
     console.error(e)
   }
 }
+
+/**
+ * Pass draft image to iframe to be uploaded to canvas
+ * @param {string} draftImageData - base64 image data of draft
+ */
+export function useLoadDraftDrawing(draftImageData) {
+  const iframe = document.getElementById(drawingBoardId)
+  iframe.contentWindow.postMessage({ draft: draftImageData }, drawingBoardValidUrl)
+}
