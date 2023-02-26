@@ -15,6 +15,10 @@ export default {
     }
   },
   created() {},
+  mounted() {
+    const iframe = document.getElementById(drawingBoardId)
+    iframe.addEventListener('load', () => this.$emit('loadDone', iframe), true)
+  },
   methods: {}
 }
 </script>

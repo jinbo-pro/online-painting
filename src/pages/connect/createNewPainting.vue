@@ -8,7 +8,7 @@
           <div class="user_name ml-14">{{ cpUserInfo.name }}</div>
         </div>
         <div class="draw_h pd-16">
-          <Draw />
+          <Draw @loadDone="loadDone" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
@@ -21,6 +21,7 @@
         <div class="xs_title">Drawing Guide</div>
         <p>{{ updatePrompt.drawingGuide }}</p>
         <div class="fdc jac mt-32">
+          <!-- <el-button class="start_drawing" @click="loadDone"> test load draft </el-button> -->
           <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
             Submit
@@ -33,9 +34,8 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { currentConnect } from '@/apiList/api_v1'
-import { useGetDrawingSubmitData, useGetDrawingDraftData } from '@/hooks/drawingData'
-import { local } from '@/utils/storage'
+import { connectSave, connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { useGetDrawingSubmitData, useGetDrawingDraftData, useLoadDraftDrawing } from '@/hooks/drawingData'
 
 export default {
   components: {
@@ -43,6 +43,7 @@ export default {
   },
   data() {
     return {
+      drawId: '',
       connectId: '',
       updatePrompt: {
         id: '',
@@ -51,45 +52,67 @@ export default {
       },
       cpUserInfo: {
         name: ''
-      }
+      },
+      draftImageData: ''
     }
   },
   created() {
-    this.userInfo = local.get('userInfo')
-    currentConnect({}).then((res) => {
-      Object.assign(this.updatePrompt, res.prompt)
-      Object.assign(this.cpUserInfo, res.connectUser)
-    })
+    this.getInitConnectData()
   },
   methods: {
+    loadDone() {
+      if (this.draftImageData) {
+        // 画板渲染完成 加载画作
+        console.log('load draft')
+        setTimeout(() => {
+          // TODO 此处应该在画板准备就绪之后调用，目前写成延迟简单处理一下
+          useLoadDraftDrawing(this.draftImageData)
+        }, 800)
+      }
+    },
+    getInitConnectData() {
+      currentConnect({}).then((res) => {
+        this.drawId = res.user.drawId
+        this.connectId = res.user.connectId
+        Object.assign(this.updatePrompt, res.prompt)
+        Object.assign(this.cpUserInfo, res.connectUser)
+        this.draftImageData = res.user.draft
+      })
+    },
     async saveHandle() {
       try {
+        await this.$confirm('Draft save?', 'Tips', { type: 'warning' })
         const draftData = await useGetDrawingDraftData()
-        console.log('Drawing draft data', draftData);
+        console.log('Drawing draft data', draftData)
 
-        // await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
-        // // await connectSave({ id: this.connectId })
-        // this.$message.success('Saved successfully')
+        // save 返回的格式应该是 object 这里暂时测试用
+        const data = typeof draftData == 'string' ? { draft: draftData } : draftData
+
+        await connectSave({ drawId: this.drawId, connectId: this.connectId, ...data })
+        this.$message.success('Saved successfully')
       } catch (e) {
         console.error(e)
       }
     },
     async submitHandle() {
       try {
-        const submitData = await useGetDrawingSubmitData()
-        console.log('Drawing Submit data', submitData);
+        await this.$confirm('Draft submit?', 'Tips', { type: 'warning' })
+        const draftData = await useGetDrawingSubmitData()
+        console.log('Drawing Submit data', draftData)
 
-        // connectSubmit({ id: this.connectId }).then((res) => {})
-        // this.$router.push({
-        //   path: '/drawDoneDiscuss',
-        //   query: { id: 1 }
-        // })
+        await connectSubmit({ drawId: this.drawId, connectId: this.connectId, ...draftData })
+        this.$router.push({
+          path: '/drawDoneDiscuss',
+          query: {
+            drawId: this.drawId,
+            connectId: this.connectId
+          }
+        })
       } catch (e) {
         console.error(e)
       }
     }
-  },
-
+  }
 }
 </script>
 

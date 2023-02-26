@@ -50,7 +50,7 @@
       <div class="md_title">{{ updatePrompt.activity }}</div>
       <p>{{ updatePrompt.body }}</p>
       <div class="cover_box jac">
-        <el-image class="cover" :src="cpUserInfo.userDrawPath" lazy></el-image>
+        <el-image class="cover" :src="userInfo.draft" lazy></el-image>
       </div>
       <div class="jac mt-32 pb-32">
         <el-button class="start_drawing" type="success" @click="linkPage">Edit my draft</el-button>
@@ -70,6 +70,7 @@ export default {
       userInfo: {
         photo: '',
         name: '',
+        draft: '',
         officeName: '',
         remarks: ''
       },
@@ -85,7 +86,7 @@ export default {
         activity: '',
         body: ''
       },
-      currentStatus: 2
+      currentStatus: 2 // 2新建绘画 3编辑草稿绘画
     }
   },
   computed: {
@@ -103,7 +104,9 @@ export default {
       if (!res) return
       Object.assign(this.userInfo, res.user)
       Object.assign(this.cpUserInfo, res.connectUser)
-      // this.currentStatus = res.currentStatus
+      if (res.user.draft) {
+        this.currentStatus = 3
+      }
       // if (res.currentStatus > 3) {
       //   this.$router.push('/drawDoneDiscuss')
       //   return
