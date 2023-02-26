@@ -73,13 +73,13 @@ export default {
   methods: {
     getList() {
       getListByType({ type: this.countList[this.activeIndex].key }).then((res) => {
+        if (!res || !Array.isArray(res.list)) return
         this.coverList = res.list.map((e) => {
           return {
             ...e,
             showLookRange: true,
             lookRange: e.companyIsView == 1,
-            path: e.userDrawPath,
-            title: e.name
+            path: e.userDrawPath
           }
         })
       })

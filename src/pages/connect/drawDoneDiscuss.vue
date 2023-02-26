@@ -3,7 +3,7 @@
     <el-row class="inner_content">
       <el-col :span="16">
         <div class="top_message ac">
-          <div>Hey Chelsea, here’s your CONNECT for</div>
+          <div>Hey {{ userInfo.name }}, here’s your CONNECT for</div>
           <div class="time_box">jan 2 - 9, 2023</div>
         </div>
         <div class="user_list_max mt-16">
@@ -13,7 +13,7 @@
         </div>
       </el-col>
       <!-- 时间没到联系 -->
-      <el-col v-if="pageType == 1" :span="8" class="right_info_max">
+      <el-col v-if="currentStatus == 6" :span="8" class="right_info_max">
         <div class="md_title">Before you finish</div>
         <div class="jsb ac">
           <div>Deadline in</div>
@@ -26,11 +26,11 @@
         </div>
 
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="pageType = 3">Complete Task</el-button>
+          <el-button class="start_drawing" type="success" @click="currentStatus = 8">Complete Task</el-button>
         </div>
       </el-col>
       <!-- 匹配失败展示 -->
-      <el-col v-if="pageType == 2" :span="8" class="right_info_max">
+      <el-col v-if="currentStatus == 7" :span="8" class="right_info_max">
         <div class="md_title">Mission failed</div>
         <div class="jsb ac">
           <div>Deadline in</div>
@@ -45,7 +45,7 @@
         </div>
       </el-col>
       <!-- 作画完成 -->
-      <el-col v-if="pageType == 3" :span="8" class="right_info_max">
+      <el-col v-if="currentStatus == 8" :span="8" class="right_info_max">
         <div class="md_title">Mission completed 🌟</div>
         <div class="jsb ac">
           <div>Mission finished</div>
@@ -56,7 +56,7 @@
           <ChatRoom />
         </div>
         <div class="jac mt-32">
-          <el-button class="start_drawing" @click="pageType = 3">Exit</el-button>
+          <el-button class="start_drawing" @click="$router.push('/connectDashboard')">Exit</el-button>
         </div>
       </el-col>
     </el-row>
@@ -67,6 +67,7 @@
 import ChatRoom from '@/components/ChatRoom.vue'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import { currentConnect } from '@/apiList/api_v1'
+import { local } from '@/utils/storage'
 export default {
   components: {
     ChatRoom,
@@ -74,14 +75,14 @@ export default {
   },
   data() {
     return {
-      pageType: 1,
       radio: 2,
       userList: [],
-      grId: ''
+      grId: '',
+      currentStatus: 6
     }
   },
   created() {
-    this.pageType = this.$route.query.pageType || 1
+    this.userInfo = local.get('userInfo')
     currentConnect({}).then((res) => {
       const list = [res.user, res.connectUser]
       this.userList = list.map((e) => {
@@ -91,7 +92,7 @@ export default {
         }
       })
       this.grId = res.user.grId
-      // this.pageType = res.currentStatus == 1 ? 2 : 1
+      // this.currentStatus = res.currentStatus
     })
   },
   methods: {}

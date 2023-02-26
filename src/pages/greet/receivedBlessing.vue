@@ -19,7 +19,7 @@
                 <div class="time_box">Jan 2 - 9, 2023</div>
               </div>
               <div class="jsb ac">
-                <div class="xs_title">Spiritual Animal</div>
+                <div class="xs_title">{{ item.title }}</div>
                 <div v-if="item.isStar" @click="starDrawHandle(item)">
                   <i class="iconfont icon-aixin1"></i>
                   {{ item.starCount | numberFormat }}

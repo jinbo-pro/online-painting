@@ -5,7 +5,7 @@
         <div class="ac xs_title top_message">
           <div class="time_box mr-14">3 days 5 hours 30 mins</div>
           CONNECT with
-          <div class="user_name ml-14">Ben Green</div>
+          <div class="user_name ml-14">{{ cpUserInfo.name }}</div>
         </div>
         <div class="draw_h pd-16">
           <Draw />
@@ -13,10 +13,13 @@
       </el-col>
       <el-col :span="8" class="right_info_max">
         <div class="mt-24">Your Mission:</div>
-        <div class="md_title">Stories and memories</div>
-        <div class="xs_title">{{ updatePrompt.activity }}</div>
+        <div class="md_title">{{ updatePrompt.activity }}</div>
+        <div class="xs_title">{{ updatePrompt.body }}</div>
+        <div class="line_x"></div>
         <div class="xs_title">Thinking Guide</div>
-        <p>{{ updatePrompt.body }}</p>
+        <p>{{ updatePrompt.thinkingGuide }}</p>
+        <div class="xs_title">Drawing Guide</div>
+        <p>{{ updatePrompt.drawingGuide }}</p>
         <div class="fdc jac mt-32">
           <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
@@ -30,8 +33,9 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { connectSubmit, currentConnect } from '@/apiList/api_v1'
+import { currentConnect } from '@/apiList/api_v1'
 import { useGetDrawingSubmitData, useGetDrawingDraftData } from '@/hooks/drawingData'
+import { local } from '@/utils/storage'
 
 export default {
   components: {
@@ -44,13 +48,17 @@ export default {
         id: '',
         activity: '',
         body: ''
+      },
+      cpUserInfo: {
+        name: ''
       }
     }
   },
   created() {
-    this.connectId = this.$route.query.connectId
+    this.userInfo = local.get('userInfo')
     currentConnect({}).then((res) => {
       Object.assign(this.updatePrompt, res.prompt)
+      Object.assign(this.cpUserInfo, res.connectUser)
     })
   },
   methods: {

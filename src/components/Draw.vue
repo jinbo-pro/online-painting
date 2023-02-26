@@ -1,17 +1,11 @@
 <template>
   <div class="draw_container">
-    <iframe
-      :id="drawingBoardId"
-      class="draw_content"
-      :src="drawingBoardValidUrl"
-      title="viva drawing board"
-    ></iframe>
+    <iframe :id="drawingBoardId" class="draw_content" :src="drawingBoardValidUrl" title="viva drawing board"></iframe>
   </div>
 </template>
 
 <script>
-import { drawingBoardId, drawingBoardValidUrl } from '@/utils/constants';
-// 对接 外部作画
+import { drawingBoardId, drawingBoardValidUrl } from '@/config/constants'
 export default {
   name: 'Draw',
   data() {
