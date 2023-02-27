@@ -16,13 +16,20 @@ export default {
   },
   created() {},
   mounted() {
+    // load 监听 iframe 渲染完成
     const iframe = document.getElementById(drawingBoardId)
     iframe.addEventListener('load', () => this.$emit('loadDone', iframe), true)
-
-    // const drawingReady = (event) => {
-    //   console.log(event, '-->>> event')
-    // }
-    // window.addEventListener('message', drawingReady, false)
+    // drawingReady 监听画板准备就绪
+    window.addEventListener(
+      'message',
+      (event) => {
+        console.log(event.data, 'drawing ready')
+        if (event.data === 'ready') {
+          this.$emit('drawingReady', event.data)
+        }
+      },
+      false
+    )
   },
   methods: {}
 }

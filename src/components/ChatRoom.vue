@@ -9,10 +9,10 @@
         >
           <div v-if="item.sendUserId == userInfo.id" class="jend mb-14">
             <div class="user_name">{{ item.recipientUserName }}</div>
-            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.photo"></el-avatar>
+            <HeadPhoto :cover="item.recipientPhoto" :size="25" />
           </div>
           <div v-else class="ac mb-14">
-            <el-avatar style="width: 1.75vw; height: 1.75vw" :src="item.photo"></el-avatar>
+            <HeadPhoto :cover="item.sendPhoto" :size="25" />
             <div class="user_name">{{ item.recipientUserName }}</div>
           </div>
           <div class="message_box">{{ item.content }}</div>
@@ -28,10 +28,14 @@
 
 <script>
 import { local } from '@/utils/storage'
+import HeadPhoto from '@/components/HeadPhoto.vue'
 import { getChatList, sendChatMessage } from '@/apiList/api_v1'
 /**聊天室 */
 export default {
   name: 'ChatRoom',
+  components: {
+    HeadPhoto
+  },
   props: {
     grId: {
       type: String,

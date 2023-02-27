@@ -8,7 +8,7 @@
           <div class="user_name ml-14">{{ cpUserInfo.name }}</div>
         </div>
         <div class="draw_h pd-16">
-          <Draw @loadDone="loadDone" />
+          <Draw @drawingReady="drawingReady" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
@@ -21,7 +21,6 @@
         <div class="xs_title">Drawing Guide</div>
         <p>{{ updatePrompt.drawingGuide }}</p>
         <div class="fdc jac mt-32" v-loading="submitLoading">
-          <!-- <el-button class="start_drawing" @click="loadDone"> test load draft </el-button> -->
           <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
           <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
             Submit
@@ -64,7 +63,7 @@ export default {
     this.getInitConnectData()
   },
   methods: {
-    loadDone() {
+    drawingReady() {
       if (this.draftImageData) {
         // 画板渲染完成 加载画作
         console.log('load draft')

@@ -138,3 +138,7 @@ export function timeDistance(sD, sT, eD, eT, f = '{d} day {h} hours {m} mins') {
   const result = getTimeDistance(s, e, f)
   return result.split(' 00')[0]
 }
+/**px转vw */
+export function pxToView(px) {
+  return (px / 13.66).toFixed(3) + 'vw'
+}

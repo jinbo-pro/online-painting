@@ -2,7 +2,7 @@
   <div class="painting_item_box">
     <div class="top_info_box jsb ac">
       <div class="ac">
-        <el-avatar style="width: 2.19vw; height: 2.19vw" :src="item.photo"></el-avatar>
+        <HeadPhoto :cover="item.photo" :size="30" />
         <div class="user_name ml-16">{{ item.officeName }}</div>
       </div>
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
@@ -32,9 +32,13 @@
 </template>
 
 <script>
+import HeadPhoto from '@/components/HeadPhoto.vue'
 import { updateIsView } from '@/apiList/api_v1'
 export default {
   name: 'PaintingItem',
+  components: {
+    HeadPhoto
+  },
   props: {
     item: {
       type: Object,

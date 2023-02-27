@@ -49,6 +49,10 @@ export function connectSubmit(data) {
 export function connectSave(data) {
   return request.postJson('/connect/save', data)
 }
+/**获取连接状态 */
+export function getConnectState(data) {
+  return request.postJson('/connect/getCurrentStatus', data)
+}
 
 /**
  * greet

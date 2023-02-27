@@ -11,7 +11,7 @@
       </div>
       <div class="jac">
         <div class="left_max jac">
-          <el-avatar style="width: 16.1vw; height: 16.1vw" :src="cpUserInfo.photo"></el-avatar>
+          <HeadPhoto :cover="cpUserInfo.photo" :size="220" />
           <div class="message_box ml-24">
             <div class="mb-12">Hey, I am</div>
             <div class="user_name">{{ cpUserInfo.name }}</div>
@@ -60,9 +60,13 @@
 </template>
 
 <script>
+import HeadPhoto from '@/components/HeadPhoto.vue'
 import { currentConnect, getPromptByTopic, setPrompt } from '@/apiList/api_v1'
 import { timeDistance } from '@/utils/jcore'
 export default {
+  components: {
+    HeadPhoto
+  },
   data() {
     return {
       editType: 'create',

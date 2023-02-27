@@ -43,7 +43,7 @@
             </el-col>
             <el-col :span="12" class="right_content fdc jsb pl-24">
               <div class="ac">
-                <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
+                <HeadPhoto :cover="item.path" :size="40" />
                 <span>{{ item.userName }}</span>
               </div>
               <p>{{ item.content }}</p>
@@ -67,10 +67,12 @@ import { listData } from '@/utils/mock'
 import PageNavigator from '@/components/PageNavigator.vue'
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import PreviewDialog from './components/PreviewDialog.vue'
+import HeadPhoto from '@/components/HeadPhoto.vue'
 import ShareDrawingDialog from './components/ShareDrawingDialog.vue'
 import { galleryCancelStar, galleryStar, getGalleryById } from '@/apiList/api_work'
 export default {
   components: {
+    HeadPhoto,
     PageNavigator,
     ScrollCoverList,
     PreviewDialog,

@@ -67,7 +67,6 @@
 import ChatRoom from '@/components/ChatRoom.vue'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import { currentConnect } from '@/apiList/api_v1'
-import { local } from '@/utils/storage'
 import { timeDistance } from '@/utils/jcore'
 export default {
   components: {

@@ -56,7 +56,7 @@
             </div>
           </el-popover>
           <el-dropdown>
-            <el-avatar class="hidden-xs-only" :src="userInfo.photo"></el-avatar>
+            <HeadPhoto :cover="userInfo.photo" :size="40" />
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item v-for="(e, i) in profileList" :key="i" @click.native="profileHandle(e)">
                 {{ e.title }}
@@ -72,8 +72,13 @@
 <script>
 import { getIrecipientList, userLogout } from '@/apiList/api_work'
 import { local } from '@/utils/storage'
+import { getConnectState } from '@/apiList/api_v1'
+import HeadPhoto from '@/components/HeadPhoto.vue'
 export default {
   name: 'NavBar',
+  components: {
+    HeadPhoto
+  },
   data() {
     return {
       noticeList: [],
@@ -155,8 +160,16 @@ export default {
       this.activeIndex = index
       this.linkPage(item.url)
     },
-    dropLinkPage(url, index) {
+    async dropLinkPage(url, index) {
       this.activeIndex = index
+      // 跳转到我的连接时判断当前连接状态
+      if (url == '/myConnect') {
+        const res = await getConnectState({})
+        if (res.currentStatus > 3) {
+          this.$router.push('/drawDoneDiscuss')
+          return
+        }
+      }
       this.linkPage(url)
     },
     linkPage(url) {

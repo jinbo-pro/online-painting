@@ -1,4 +1,4 @@
-import { getTimeDistance, timeNumberFormat } from './jcore'
+import { timeNumberFormat } from './jcore'
 
 /**
  * 数字格式化
