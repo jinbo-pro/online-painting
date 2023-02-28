@@ -24,7 +24,14 @@
     <div v-if="showLookRange" class="look_range_max mt-16">
       <div class="jsb ac">
         <div>Make this visible to the company</div>
-        <el-switch v-model="item.lookRange" active-color="#13ce66" @change="updateLookSate"> </el-switch>
+        <el-switch
+          v-model="item.companyIsView"
+          :active-value="1"
+          :inactive-value="0"
+          active-color="#13ce66"
+          @change="updateLookSate"
+        >
+        </el-switch>
       </div>
       <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
     </div>

@@ -56,7 +56,7 @@ export default {
         photo: '',
         path: '',
         title: '',
-        lookRange: false
+        companyIsView: 0
       },
       prompt: {
         topic: '',

@@ -2,17 +2,17 @@
   <div class="mid_container">
     <el-row class="inner_content">
       <el-col :span="16" class="max_h">
-        <div class="ac xs_title top_message">
+        <div class="ac top_message">
           <div class="time_box mr-14">{{ timeDistanceStr }}</div>
           CONNECT with
           <div class="user_name ml-14">{{ cpUserInfo.name }}</div>
         </div>
-        <div class="draw_h pd-16">
+        <div class="draw_h draw_inner_box">
           <Draw @drawingReady="drawingReady" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
-        <div class="mt-24">Your Mission:</div>
+        <div class="mt-10">Your Mission:</div>
         <div class="md_title">{{ updatePrompt.activity }}</div>
         <div class="xs_title">{{ updatePrompt.body }}</div>
         <div class="line_x"></div>
@@ -89,10 +89,10 @@ export default {
       try {
         await this.$confirm('Draft save?', 'Tips', { type: 'warning' })
         this.submitLoading = true
-        
+
         const draftData = await useGetDrawingDraftData()
         console.log('Drawing draft data', draftData)
-        
+
         if (!draftData || !draftData.draft) {
           return this.getDrawingError()
         }
@@ -145,10 +145,15 @@ export default {
 }
 
 .draw_h {
-  height: calc(100% - 78px);
+  height: calc(100% - 10px);
 }
-
+.draw_inner_box {
+  padding: 0 10px;
+}
 .top_message {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 6px;
   .time_box {
     font-size: 12px;
     padding: 4px 6px;
@@ -169,6 +174,7 @@ export default {
 .right_info_max {
   height: 100%;
   padding: 0 16px;
+  box-sizing: border-box;
   box-shadow: -2px 0px 4px rgba(0, 0, 0, 0.05);
 }
 
