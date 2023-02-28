@@ -25,9 +25,10 @@
       <div class="jsb ac">
         <div>Make this visible to the company</div>
         <el-switch
+          :disabled="item.userId != userId"
           v-model="item.companyIsView"
-          :active-value="1"
-          :inactive-value="0"
+          active-value="1"
+          inactive-value="0"
           active-color="#13ce66"
           @change="updateLookSate"
         >
@@ -41,6 +42,7 @@
 <script>
 import HeadPhoto from '@/components/HeadPhoto.vue'
 import { updateIsView } from '@/apiList/api_v1'
+import { local } from '@/utils/storage'
 const emptyCover = require('@/assets/connect/create.jpg')
 export default {
   name: 'PaintingItem',
@@ -63,10 +65,14 @@ export default {
   },
   data() {
     return {
-      emptyCover
+      emptyCover,
+      userId: ''
     }
   },
-  created() {},
+  created() {
+    const u = local.get('userInfo')
+    this.userId = u.id
+  },
   methods: {
     linkInfo() {
       this.$emit('handle', this.item)
@@ -75,7 +81,7 @@ export default {
       this.$emit('editTitle', title)
     },
     updateLookSate(e) {
-      updateIsView({ id: this.item.drawId, companyIsView: e ? '1' : '0' })
+      updateIsView({ id: this.item.drawId, companyIsView: e })
     }
   }
 }

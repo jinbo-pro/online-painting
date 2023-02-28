@@ -46,6 +46,7 @@ export default {
     return {
       list: [],
       content: '',
+      errCount: 0,
       userInfo: {
         id: '',
         name: ''
@@ -66,27 +67,35 @@ export default {
     this.getList()
   },
   mounted() {
-    if (this.timr) {
-      clearInterval(this.timr)
-      this.timr = null
-    } else if (this.grId) {
+    this.clearTime()
+    if (this.grId) {
       this.timr = setInterval(() => {
         this.getList()
       }, 5000)
     }
   },
   destroyed() {
-    if (this.timr) {
-      clearInterval(this.timr)
-      this.timr = null
-    }
+    this.clearTime()
   },
   methods: {
+    clearTime() {
+      if (this.timr) {
+        clearInterval(this.timr)
+        this.timr = null
+      }
+    },
     getList() {
       if (!this.grId) return
-      getChatList({ grId: this.grId }).then((res) => {
-        this.list = res
-      })
+      getChatList({ grId: this.grId })
+        .then((res) => {
+          this.list = res
+        })
+        .catch(() => {
+          this.errCount++
+          if (this.errCount > 3) {
+            this.clearTime()
+          }
+        })
     },
     send() {
       if (!this.content) return this.$message.error('消息不能为空')
