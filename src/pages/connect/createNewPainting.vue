@@ -92,15 +92,12 @@ export default {
         
         const draftData = await useGetDrawingDraftData()
         console.log('Drawing draft data', draftData)
-
-        // save 返回的格式应该是 object 这里暂时测试用
-        const data = typeof draftData == 'string' ? { draft: draftData } : draftData
-
+        
         if (!draftData || !draftData.draft) {
           return this.getDrawingError()
         }
 
-        await connectSave({ drawId: this.drawId, connectId: this.connectId, ...data })
+        await connectSave({ drawId: this.drawId, connectId: this.connectId, ...draftData })
         this.$message.success('Saved successfully')
         this.submitLoading = false
       } catch (e) {

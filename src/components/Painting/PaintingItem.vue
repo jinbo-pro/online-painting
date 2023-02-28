@@ -3,7 +3,7 @@
     <div class="top_info_box jsb ac">
       <div class="ac">
         <HeadPhoto :cover="item.photo" :size="30" />
-        <div class="user_name ml-16">{{ item.officeName }}</div>
+        <div class="user_name ml-16">{{ item.name }} {{ item.officeName }}</div>
       </div>
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
     </div>
@@ -19,7 +19,7 @@
       ></svg-icon>
     </div>
     <div class="cover_box jac" @click="linkInfo">
-      <el-image fit="cover" class="cover" :src="item.path"></el-image>
+      <el-image fit="cover" class="cover" :src="item.path || emptyCover"></el-image>
     </div>
     <div v-if="showLookRange" class="look_range_max mt-16">
       <div class="jsb ac">
@@ -34,6 +34,7 @@
 <script>
 import HeadPhoto from '@/components/HeadPhoto.vue'
 import { updateIsView } from '@/apiList/api_v1'
+const emptyCover = require('@/assets/connect/create.jpg')
 export default {
   name: 'PaintingItem',
   components: {
@@ -54,7 +55,9 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      emptyCover
+    }
   },
   created() {},
   methods: {
@@ -65,7 +68,7 @@ export default {
       this.$emit('editTitle', title)
     },
     updateLookSate(e) {
-      updateIsView({ id: this.item.greetId, companyIsView: e ? '1' : '0' })
+      updateIsView({ id: this.item.drawId, companyIsView: e ? '1' : '0' })
     }
   }
 }
