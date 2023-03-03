@@ -5,7 +5,7 @@
         <HeadPhoto :cover="item.photo" :size="30" />
         <div class="user_name ml-16">{{ item.name }} {{ item.officeName }}</div>
       </div>
-      <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDate }}</div>
+      <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDateNotYear }}</div>
     </div>
     <div class="paint_title jsb ac">
       <span>{{ item.title }}</span>

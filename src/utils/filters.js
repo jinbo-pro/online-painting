@@ -25,6 +25,18 @@ export function enDate(val) {
   return new Date(d).toDateString()
 }
 /**
+ * 英文时间-不显示年
+ * @param {number} val
+ * @returns
+ */
+export function enDateNotYear(val) {
+  if (!val) return ''
+  const d = timeNumberFormat(val)
+  const date = new Date(d)
+  const str = date.toDateString()
+  return str.replace(` ${date.getFullYear()}`, '')
+}
+/**
  * 转换数字时间格式
  * @param {number} date 日期
  * @param {number} time 时间

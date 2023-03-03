@@ -4,7 +4,7 @@
       <el-col :span="16">
         <div class="top_message ac">
           <div>Hey {{ userInfo.name }}, here’s your CONNECT for</div>
-          <div class="time_box">{{ userInfo.createDate | enDate }} ~ {{ userInfo.intendedDate | enDate }}</div>
+          <div class="time_box">{{ userInfo.createDate | enDate }} - {{ userInfo.intendedDate | enDate }}</div>
         </div>
         <div class="user_list_max mt-16">
           <div v-for="e in userList" :key="e.id" class="paint_item mb-32">
