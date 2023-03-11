@@ -21,8 +21,8 @@
         <div class="xs_title">Drawing Guide</div>
         <p>{{ updatePrompt.drawingGuide }}</p>
         <div class="fdc jac mt-32" v-loading="submitLoading">
-          <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
-          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
+          <el-button class="start_drawing" @click="btnHandle('save')"> Save </el-button>
+          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="btnHandle('submit')">
             Submit
           </el-button>
         </div>
@@ -85,55 +85,46 @@ export default {
         this.timeDistanceStr = timeDistance(user.createDate, user.createTime, user.intendedDate, user.intendedTime)
       })
     },
-    async saveHandle() {
+    async btnHandle(type) {
+      await this.$confirm(`Draft ${type}?`, 'Tips', { type: 'warning' })
+      this.submitLoading = true
       try {
-        await this.$confirm('Draft save?', 'Tips', { type: 'warning' })
-        this.submitLoading = true
-
-        const draftData = await useGetDrawingDraftData()
-        console.log('Drawing draft data', draftData)
-
-        if (!draftData || !draftData.draft) {
-          return this.getDrawingError()
-        }
-
-        await connectSave({ drawId: this.drawId, connectId: this.connectId, ...draftData })
-        this.$message.success('Saved successfully')
+        type == 'save' ? await this.saveHandle() : await this.submitHandle()
+      } catch (error) {
+        console.error(error)
+      } finally {
         this.submitLoading = false
-      } catch (e) {
-        console.error(e)
-        this.getDrawingError()
       }
+    },
+    async saveHandle() {
+      const draftData = await useGetDrawingDraftData()
+      console.log('Drawing draft data', draftData)
+
+      if (!draftData || !draftData.draft) {
+        this.$message.error('useGetDrawingDraftData result empty')
+        return
+      }
+
+      await connectSave({ drawId: this.drawId, connectId: this.connectId, ...draftData })
+      this.$message.success('Saved successfully')
     },
     async submitHandle() {
-      try {
-        await this.$confirm('Draft submit?', 'Tips', { type: 'warning' })
-        this.submitLoading = true
+      const draftData = await useGetDrawingSubmitData()
+      console.log('Drawing Submit data', draftData)
 
-        const draftData = await useGetDrawingSubmitData()
-        console.log('Drawing Submit data', draftData)
-
-        if (!draftData || !draftData.draft) {
-          return this.getDrawingError()
-        }
-
-        await connectSubmit({ drawId: this.drawId, connectId: this.connectId, ...draftData })
-        this.$router.push({
-          path: '/drawDoneDiscuss',
-          query: {
-            drawId: this.drawId,
-            connectId: this.connectId
-          }
-        })
-        this.submitLoading = false
-      } catch (e) {
-        console.error(e)
-        this.getDrawingError()
+      if (!draftData || !draftData.draft) {
+        this.$message.error('useGetDrawingSubmitData result empty')
+        return
       }
-    },
-    getDrawingError() {
-      this.submitLoading = false
-      this.$message.error('drawing data error')
+
+      await connectSubmit({ drawId: this.drawId, connectId: this.connectId, ...draftData })
+      this.$router.push({
+        path: '/drawDoneDiscuss',
+        query: {
+          drawId: this.drawId,
+          connectId: this.connectId
+        }
+      })
     }
   }
 }
