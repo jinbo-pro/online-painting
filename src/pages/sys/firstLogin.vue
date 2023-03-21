@@ -28,11 +28,7 @@
 
       <div v-if="active == 3" class="content user_info_max">
         <div class="jac">
-          <el-upload
-            action="https://jsonplaceholder.typicode.com/posts/"
-            :show-file-list="false"
-            :on-success="handleAvatarSuccess"
-          >
+          <el-upload action="*" :show-file-list="false" :on-success="handleAvatarSuccess">
             <el-avatar v-if="imageUrl" :size="100" :src="imageUrl"></el-avatar>
             <svg-icon v-else width="100px" height="100px" icon-class="firstLoginUploadHead"></svg-icon>
           </el-upload>
@@ -81,6 +77,7 @@
 <script>
 import { guid } from '@/utils/jcore'
 import PasswordInput from '@/components/PasswordInput.vue'
+import { initUser, initUserAndGroup } from '@/apiList/api_v1'
 export default {
   components: {
     PasswordInput
@@ -110,8 +107,31 @@ export default {
   },
   created() {},
   methods: {
-    nextHandle() {
+    async nextHandle() {
       if (this.active == 4) return
+      // 输入邀请码
+      if (this.active == 1) {
+        console.log(this.inviteCode)
+      } else if (this.active == 2) {
+        // 修改密码
+        if (!this.password) return this.$message.error('Please input a password')
+        if (!this.confirmPassword) return this.$message.error('Please confirm the password')
+        await initUser({ inviteCode: this.inviteCode, password: this.password })
+      } else if (this.active == 3) {
+        const userInfo = this.userInfo.reduce((p, c) => {
+          p[c.key] = c.value
+          return p
+        }, {})
+        // 修改用户信息
+        if (!userInfo.lastName) return this.$message.error('Please input a lastName')
+        await initUserAndGroup({
+          inviteCode: this.inviteCode,
+          password: this.password,
+          firstName: userInfo.firstName,
+          lastName: userInfo.firstName,
+          photo: ''
+        })
+      }
       this.active++
     },
     handleAvatarSuccess(file) {

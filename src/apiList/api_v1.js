@@ -65,9 +65,21 @@ export function getStatistics(data) {
 export function getListByType(data) {
   return request.postJson('/greet/getListByType', data)
 }
-/**创建greet */
+/**保存greet */
+export function greetSave(data) {
+  return request.postJson('/greet/save', data)
+}
+/**提交greet */
 export function greetSubmit(data) {
   return request.postJson('/greet/submit', data)
+}
+/**赠送 */
+export function greetUpdateNotes(data) {
+  return request.postJson('/greet/updateNotes', data)
+}
+/**获取商城配置 */
+export function getShopSetting(data) {
+  return request.postJson('/greet/getShopSetting', data)
 }
 /**通过id获取greet详情 */
 export function greetGetById(data) {
@@ -120,4 +132,20 @@ export function getChatList(data) {
 /**发送聊天消息 */
 export function sendChatMessage(data) {
   return request.postJson('/connectMessage/sendMessage', data)
+}
+
+/**
+ * 首次登录
+ */
+/**根据邀请码获取用户信息 */
+export function inviteByUser(data) {
+  return request.postJson('/login/inviteByUser', data)
+}
+/**根据邀请码修改密码 */
+export function initUser(data) {
+  return request.postJson('/login/initUser', data)
+}
+/**根据邀请码修改用户信息 */
+export function initUserAndGroup(data) {
+  return request.postJson('/login/initUserAndGroup', data)
 }

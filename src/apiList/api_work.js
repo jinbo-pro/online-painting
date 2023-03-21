@@ -10,14 +10,6 @@ export function userLogin(data) {
 export function userLogout(data) {
   return request.postJson('/login/logout', data)
 }
-/**根据邀请码获取用户信息 */
-export function inviteByUser(inviteCode) {
-  return request.postJson('/login/inviteByUser', { inviteCode })
-}
-/**根据邀请码修改密码 */
-export function initUser(data) {
-  return request.postJson('/login/initUser', data)
-}
 
 /**获取主题 */
 export function getTheme(data) {

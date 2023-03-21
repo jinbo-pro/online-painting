@@ -2,8 +2,8 @@
   <div class="mid_container">
     <el-row class="inner_content">
       <el-col :span="16" class="max_h">
-        <div class="max_h pd-16">
-          <Draw />
+        <div class="draw_h draw_inner_box">
+          <Draw @drawingReady="drawingReady" />
         </div>
       </el-col>
       <el-col :span="8" class="right_info_max">
@@ -15,9 +15,9 @@
         <p>{{ promptInfo.body }}</p>
         <div class="xs_title">Drawing Guide</div>
         <p>{{ promptInfo.drawingGuide }}</p>
-        <div class="fdc jac mt-32">
-          <el-button class="start_drawing" @click="saveHandle"> Save </el-button>
-          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="submitHandle">
+        <div class="fdc jac mt-32" v-loading="submitLoading">
+          <el-button class="start_drawing" @click="btnHandle('save')"> Save </el-button>
+          <el-button class="start_drawing" type="success" style="margin-left: 0" @click="btnHandle('submit')">
             Submit
           </el-button>
         </div>
@@ -28,37 +28,100 @@
 
 <script>
 import Draw from '@/components/Draw.vue'
-import { getPromptByActivity, greetSubmit } from '@/apiList/api_v1'
+import { greetSave, greetSubmit, getPromptByActivity } from '@/apiList/api_v1'
+import { useGetDrawingDraftData, useGetDrawingSubmitData, useLoadDraftDrawing } from '@/hooks/drawingData'
 export default {
   components: {
     Draw
   },
   data() {
     return {
+      draftImageData: '',
       promptInfo: {
         activity: '',
         body: '',
         drawingGuide: ''
-      }
+      },
+
+      promptId: '',
+      drawId: '',
+      greetId: '',
+
+      submitLoading: false
     }
   },
   created() {
     const activity = this.$route.query.activity
     getPromptByActivity({ activity }).then((res) => {
+      this.promptId = res.id
       Object.assign(this.promptInfo, res)
     })
+    if (this.$route.query.id) {
+      this.drawId = ''
+      this.greetId = ''
+    }
   },
   methods: {
+    drawingReady() {
+      if (this.draftImageData) {
+        // 画板渲染完成 加载画作
+        console.log('load draft')
+        setTimeout(() => {
+          useLoadDraftDrawing(this.draftImageData)
+        }, 300)
+      }
+    },
+    async btnHandle(type) {
+      await this.$confirm(`Draft ${type}?`, 'Tips', { type: 'warning' })
+      this.submitLoading = true
+      try {
+        type == 'save' ? await this.saveHandle() : await this.submitHandle()
+      } catch (error) {
+        console.error(error)
+      } finally {
+        this.submitLoading = false
+      }
+    },
     async saveHandle() {
-      await this.$confirm('Draft save？', 'Tips', { type: 'warning' })
-      // await connectSave({ id: this.connectId })
+      const draftData = await useGetDrawingDraftData()
+      console.log('Drawing draft data', draftData)
+
+      if (!draftData || !draftData.draft) {
+        this.$message.error('useGetDrawingDraftData result empty')
+        return
+      }
+
+      const info = await greetSave({
+        drawId: this.drawId,
+        greetId: this.greetId,
+        promptId: this.promptId,
+        ...draftData
+      })
+      this.drawId = info.drawId
+      this.greetId = info.greetId
       this.$message.success('Saved successfully')
     },
     async submitHandle() {
-      const res = await greetSubmit({ code: 'greet', promptId: this.promptInfo.id })
+      const draftData = await useGetDrawingSubmitData()
+      console.log('Drawing Submit data', draftData)
+
+      if (!draftData || !draftData.draft) {
+        this.$message.error('useGetDrawingSubmitData result empty')
+        return
+      }
+
+      const info = await greetSubmit({
+        drawId: this.drawId,
+        greetId: this.greetId,
+        promptId: this.promptId,
+        ...draftData
+      })
       this.$router.push({
         path: '/individualGreetComplete',
-        query: { id: res.id }
+        query: {
+          drawId: info.drawId,
+          greetId: info.greetId,
+        }
       })
     }
   }
@@ -66,6 +129,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.draw_h {
+  height: calc(100% - 10px);
+}
+.draw_inner_box {
+  padding: 0 10px;
+}
 .inner_content {
   height: 100%;
 }

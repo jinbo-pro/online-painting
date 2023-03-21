@@ -68,9 +68,8 @@ export default {
         // 画板渲染完成 加载画作
         console.log('load draft')
         setTimeout(() => {
-          // TODO 此处应该在画板准备就绪之后调用，目前写成延迟简单处理一下
           useLoadDraftDrawing(this.draftImageData)
-        }, 800)
+        }, 300)
       }
     },
     getInitConnectData() {

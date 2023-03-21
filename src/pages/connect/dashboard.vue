@@ -126,14 +126,18 @@ export default {
       getConnectSetting({}).then((res) => {
         if (!res) return
         const language = res.language.split(',').map((e) => e.split('-')[1])
+        const ids = res.differentOfficeId ? res.differentOfficeId.split(',') : []
+        let differentOffice = []
+        for (let id of ids) {
+          const idPath = treeFindPath(this.differentOfficeList, (node) => node.id == id)
+          if (Array.isArray(idPath) && idPath.length) {
+            differentOffice.push(idPath)
+          }
+        }
         this.connectConfig = {
           language,
           isWeek: res.isWeek == 1,
-          differentOffice: res.differentOfficeId
-            ? res.differentOfficeId
-                .split(',')
-                .map((id) => treeFindPath(this.differentOfficeList, (node) => node.id == id))
-            : [],
+          differentOffice,
           topicPreference: res.topicPreferenceCode ? res.topicPreferenceCode.split(',') : []
         }
       })

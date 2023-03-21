@@ -15,7 +15,7 @@ export function delayNProgressDone(time = 100) {
 }
 
 /**路由白名单 */
-const ignorePath = ['/login']
+const ignorePath = ['/login', '/firstLogin']
 
 router.beforeEach(async (to, from, next) => {
   NProgress.configure({ showSpinner: false })

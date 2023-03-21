@@ -16,15 +16,19 @@
 
         <p>Add a personal note to your colleage!</p>
         <p class="item_label">Send to</p>
-        <el-input v-model="formData.emoji" placeholder="Search for colleage"></el-input>
+        <el-cascader
+          v-model="sendUserIdPath"
+          :options="userTreeList"
+          :props="{ label: 'name', value: 'id' }"
+        ></el-cascader>
 
         <p class="item_label">Add a personal notes</p>
-        <el-input v-model="formData.notes" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
+        <el-input v-model="sendMessage" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
         <div class="ac mt-24 mb-24 swag_link" @click="completeSwag">
           <div class="complete ml-12 item_label">complete without a swag</div>
         </div>
         <div class="jac mt-32">
-          <el-button class="start_drawing" type="success" @click="$router.push('/shoppingMall')">
+          <el-button v-if="shopPage == 1" class="start_drawing" type="success" @click="sendGift">
             <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
             <span class="ml-32">Add a swag for free</span>
           </el-button>
@@ -35,21 +39,22 @@
 </template>
 
 <script>
+import { getShopSetting, greetGetById, greetUpdateNotes } from '@/apiList/api_v1'
 import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import { local } from '@/utils/storage'
-import { greetGetById } from '@/apiList/api_v1'
+import { getUserTreeList } from '@/apiList/api_work'
+import { findNodeDfs } from '@/utils/tree'
 export default {
   components: {
     PaintingItem
   },
   data() {
     return {
+      shopPage: '1',
       isDone: 1,
       radio: 2,
-      formData: {
-        emoji: '',
-        notes: ''
-      },
+      sendUserIdPath: [],
+      sendMessage: '',
       paintingInfo: {
         name: '',
         createDate: '',
@@ -62,22 +67,56 @@ export default {
         topic: '',
         activity: '',
         body: '',
-        drawingGuide: '',
-      }
+        drawingGuide: ''
+      },
+      userTreeList: []
     }
   },
   created() {
     const u = local.get('userInfo')
     this.paintingInfo.name = u.name
     this.paintingInfo.photo = u.photo
+    getShopSetting({}).then((res) => {
+      this.shopPage = res.shopPage
+    })
     greetGetById({ id: this.$route.query.id }).then((res) => {
       Object.assign(this.prompt, res.prompt)
       this.paintingInfo.path = res.userDrawPath
       this.paintingInfo.title = res.prompt.activity
       this.paintingInfo.createDate = res.createDate
     })
+    getUserTreeList({}).then((res) => {
+      const read = (list) => {
+        for (let item of list) {
+          const children = item.children
+          if (children) {
+            if (children.length) {
+              read(children)
+            } else {
+              delete item.children
+            }
+          }
+        }
+      }
+      read(res)
+      this.userTreeList = res
+    })
   },
   methods: {
+    sendGift() {
+      if (!this.sendUserIdPath.length) return this.$message.error('Please select a person')
+      if (!this.sendMessage) return this.$message.error('Please fill in the information')
+      const userId = this.sendUserIdPath.slice(-1)[0]
+      const curUser = findNodeDfs(this.userTreeList, (node) => node.id == userId)
+      greetUpdateNotes({
+        recipientUserId: userId,
+        recipientUserName: curUser.name,
+        notes: this.sendMessage,
+        greetId: this.$route.query.id
+      }).then((res) => {
+        this.$message.success('successfully')
+      })
+    },
     async completeSwag() {
       await this.$confirm('Complete Swag？', 'Tips', { type: 'warning' })
       // await connectSave({ id: this.connectId })
