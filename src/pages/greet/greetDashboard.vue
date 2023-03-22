@@ -44,7 +44,7 @@ export default {
           url: '/receivedBlessing'
         },
         {
-          title: 'Sent',
+          title: 'Created',
           count: '',
           key: 'sent',
           icon: 'greetSent',

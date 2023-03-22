@@ -24,13 +24,21 @@
 
         <p class="item_label">Add a personal notes</p>
         <el-input v-model="sendMessage" type="textarea" :rows="3" placeholder="Search for colleage"></el-input>
-        <div class="ac mt-24 mb-24 swag_link" @click="completeSwag">
+        <div class="ac mt-24 mb-24 swag_link" @click="sendGift">
           <div class="complete ml-12 item_label">complete without a swag</div>
         </div>
         <div class="jac mt-32">
-          <el-button v-if="shopPage == 1" class="start_drawing" type="success" @click="sendGift">
+          <el-button
+            v-if="prompt.topic == 'Free Drawing'"
+            class="start_drawing"
+            type="success"
+            @click="$router.push('/greetDashboard')"
+          >
+            Complete
+          </el-button>
+          <el-button v-else class="start_drawing" type="success" @click="completeSwag">
             <svg-icon width="14px" height="14px" icon-class="greetSwag"></svg-icon>
-            <span class="ml-32">Add a swag for free</span>
+            <span class="ml-16">Add a swag for free</span>
           </el-button>
         </div>
       </el-col>
@@ -118,10 +126,8 @@ export default {
         this.$message.success('successfully')
       })
     },
-    async completeSwag() {
-      await this.$confirm('Complete Swag？', 'Tips', { type: 'warning' })
-      // await connectSave({ id: this.connectId })
-      this.$message.success('Complete successfully')
+    completeSwag() {
+      this.$message.info('Not yet opened')
     }
   }
 }
