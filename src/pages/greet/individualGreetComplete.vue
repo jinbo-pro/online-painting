@@ -79,13 +79,14 @@ export default {
     getShopSetting({}).then((res) => {
       this.shopPage = res.shopPage
     })
-    greetGetById({ id: this.$route.query.id }).then((res) => {
+    greetGetById({ id: this.$route.query.greetId }).then((res) => {
       Object.assign(this.prompt, res.prompt)
       this.paintingInfo.path = res.userDrawPath
       this.paintingInfo.title = res.prompt.activity
       this.paintingInfo.createDate = res.createDate
     })
     getUserTreeList({}).then((res) => {
+      // 去除空的children
       const read = (list) => {
         for (let item of list) {
           const children = item.children
@@ -112,7 +113,7 @@ export default {
         recipientUserId: userId,
         recipientUserName: curUser.name,
         notes: this.sendMessage,
-        greetId: this.$route.query.id
+        greetId: this.$route.query.greetId
       }).then((res) => {
         this.$message.success('successfully')
       })

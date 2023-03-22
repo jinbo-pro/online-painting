@@ -142,3 +142,17 @@ export function timeDistance(sD, sT, eD, eT, f = '{d} day {h} hours {m} mins') {
 export function pxToView(px) {
   return (px / 13.66).toFixed(3) + 'vw'
 }
+/**base64/buffer 解析 */
+export function fileParseToReader(file, type = 'base64') {
+  return new Promise((resolve) => {
+    let fileRead = new FileReader()
+    if (type === 'base64') {
+      fileRead.readAsDataURL(file)
+    } else if (type === 'buffer') {
+      fileRead.readAsArrayBuffer(file)
+    }
+    fileRead.onload = (ev) => {
+      resolve(ev.target.result)
+    }
+  })
+}

@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import { guid } from '@/utils/jcore'
+import { fileParseToReader, guid } from '@/utils/jcore'
 import PasswordInput from '@/components/PasswordInput.vue'
 import { initUser, initUserAndGroup } from '@/apiList/api_v1'
 export default {
@@ -111,6 +111,7 @@ export default {
       if (this.active == 4) return
       // 输入邀请码
       if (this.active == 1) {
+        if (!this.inviteCode) return this.$message.error('Please input a invite code')
         console.log(this.inviteCode)
       } else if (this.active == 2) {
         // 修改密码
@@ -124,18 +125,21 @@ export default {
         }, {})
         // 修改用户信息
         if (!userInfo.lastName) return this.$message.error('Please input a lastName')
+        if (!this.imageUrl) return this.$message.error('Please upload your avatar')
         await initUserAndGroup({
           inviteCode: this.inviteCode,
           password: this.password,
           firstName: userInfo.firstName,
           lastName: userInfo.firstName,
-          photo: ''
+          photo: this.imageUrl
         })
       }
       this.active++
     },
     handleAvatarSuccess(file) {
-      console.log(file, '-->>> 678')
+      fileParseToReader(file.raw).then((res) => {
+        this.imageUrl = res
+      })
     },
     signIn() {
       this.$router.replace('/login')
