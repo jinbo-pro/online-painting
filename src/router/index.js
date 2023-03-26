@@ -7,7 +7,7 @@ export const constantRoutes = [
   {
     path: '/',
     meta: { title: 'main' },
-    redirect: '/connectDashboard'
+    redirect: '/greetDashboard'
   },
   // swag
   {

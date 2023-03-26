@@ -120,7 +120,7 @@ export default {
         path: '/individualGreetComplete',
         query: {
           drawId: info.drawId,
-          greetId: info.greetId,
+          greetId: info.greetId
         }
       })
     }

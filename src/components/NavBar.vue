@@ -14,7 +14,7 @@
             @click="handleSelect(item, index)"
             :class="['nav_item_box jac', { active: activeIndex == index }, { disabled: item.disabled }]"
           >
-            <div v-if="item.children && item.children.length">
+            <div v-if="item.children && item.children.length && !item.disabled">
               <el-dropdown>
                 <span>{{ $t('navBar.' + item.title) }}</span>
                 <el-dropdown-menu slot="dropdown">
@@ -72,7 +72,7 @@
 <script>
 import { getIrecipientList, userLogout } from '@/apiList/api_work'
 import { local } from '@/utils/storage'
-import { getConnectState } from '@/apiList/api_v1'
+import { getConnectState, getModuleSettings } from '@/apiList/api_v1'
 import HeadPhoto from '@/components/HeadPhoto.vue'
 export default {
   name: 'NavBar',
@@ -86,15 +86,6 @@ export default {
       activeIndex: 0,
       navList: [
         {
-          title: 'Connect',
-          url: '/connect',
-          disabled: false,
-          children: [
-            { title: 'My Connect', url: '/myConnect' },
-            { title: 'Dashboard', url: '/connectDashboard' }
-          ]
-        },
-        {
           title: 'Greet',
           url: '/greet',
           disabled: false,
@@ -104,9 +95,18 @@ export default {
           ]
         },
         {
+          title: 'Connect',
+          url: '/connect',
+          disabled: true,
+          children: [
+            { title: 'My Connect', url: '/myConnect' },
+            { title: 'Dashboard', url: '/connectDashboard' }
+          ]
+        },
+        {
           title: 'Reflect',
           url: '/reflect',
-          disabled: false,
+          disabled: true,
           children: [
             { title: 'Create New', url: '/selectReflectionMode' },
             { title: 'My Reflections', url: '/myReflections' }
@@ -115,7 +115,7 @@ export default {
         {
           title: 'Gallery',
           url: '/galleriesPreview',
-          disabled: false,
+          disabled: true,
           children: [{ title: 'All Galleries', url: '/allGalleries' }]
         },
         { title: 'Play', url: '', disabled: true }
@@ -136,6 +136,14 @@ export default {
     const index = this.navList.findIndex((e) => e.url == path)
     this.activeIndex = index > 0 ? index : 0
     this.getNoticeList()
+    // 获取模块的可用
+    getModuleSettings({}).then((res) => {
+      if (!res) return
+      for (let item of this.navList) {
+        const k = item.title.toLocaleLowerCase()
+        item.disabled = res[k] != 1
+      }
+    })
   },
   methods: {
     async profileHandle(e) {

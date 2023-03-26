@@ -149,3 +149,7 @@ export function initUser(data) {
 export function initUserAndGroup(data) {
   return request.postJson('/login/initUserAndGroup', data)
 }
+/**获取可用模块配置 */
+export function getModuleSettings(data) {
+  return request.postJson('/moduleSettings/getSettings', data)
+}
