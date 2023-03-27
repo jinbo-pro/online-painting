@@ -69,11 +69,6 @@ export const constantRoutes = [
         meta: { title: 'Dashboard' }
       },
       {
-        path: '/moreConnect',
-        component: () => import('@/pages/connect/moreConnect.vue'),
-        meta: { title: 'More Connect' }
-      },
-      {
         path: '/myConnect',
         component: () => import('@/pages/connect/myConnect.vue'),
         meta: { title: 'My Connect' }

@@ -12,11 +12,12 @@
             <div class="count_num f24">{{ item.count }}</div>
           </div>
         </div>
-        <div class="md_title ac">
-          <span>Past Connect</span>
-          <span class="f16 ml-18 see_more" @click="$router.push('/moreConnect')">See more</span>
+        <div class="md_title ac"></div>
+        <div class="paint_max">
+          <div v-for="(item, index) in coverList" :key="index" class="mr-16 mb-16">
+            <PaintingItem :item="item" :showLookRange="item.showLookRange" @handle="paintHandle" />
+          </div>
         </div>
-        <PaintingGroup :list="coverList" :coverAuto="true" :columns="2" @handle="paintHandle" />
       </el-col>
       <el-col :span="8" :offset="2">
         <div class="md_title">Connect Setting</div>
@@ -54,7 +55,7 @@
 </template>
 
 <script>
-import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
+import PaintingItem from '@/components/Painting/PaintingItem.vue'
 import {
   getConnectSetting,
   getIndexData,
@@ -67,7 +68,7 @@ import {
 import { findNodeAll, treeFindPath } from '@/utils/tree'
 export default {
   components: {
-    PaintingGroup
+    PaintingItem
   },
   data() {
     return {
@@ -194,5 +195,11 @@ export default {
 .save {
   padding: 12px 36px;
   border-radius: 32px;
+}
+.paint_max {
+  display: grid;
+  grid-row-gap: 16px;
+  grid-column-gap: 16px;
+  grid-template-columns: repeat(2, auto);
 }
 </style>

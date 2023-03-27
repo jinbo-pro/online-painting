@@ -8,7 +8,7 @@
       <div v-if="item.createDate" class="pain_time jac">{{ item.createDate | enDateNotYear }}</div>
     </div>
     <div class="paint_title jsb ac">
-      <span>{{ item.title }}</span>
+      <div class="onerow">{{ item.title }}</div>
       <svg-icon
         v-if="isEdit"
         width="2.19vw"

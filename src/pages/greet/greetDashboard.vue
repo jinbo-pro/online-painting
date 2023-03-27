@@ -22,18 +22,24 @@
     </div>
     <div class="md_title"></div>
     <PaintingGroup :list="coverList" @handle="handlePainting" />
+    <DropDownLoadMore :isLoadEnd="isLoadEnd" :page.sync="currentPage" @getList="getList" />
   </div>
 </template>
 
 <script>
 import PaintingGroup from '@/components/Painting/PaintingGroup.vue'
 import { getStatistics, getListByType } from '@/apiList/api_v1'
+import DropDownLoadMore from '@/components/DropDownLoadMore.vue'
+import { debounce } from '@/utils/common'
 export default {
   components: {
-    PaintingGroup
+    PaintingGroup,
+    DropDownLoadMore
   },
   data() {
     return {
+      isLoadEnd: false,
+      currentPage: 1,
       activeIndex: 0,
       countList: [
         {
@@ -68,13 +74,17 @@ export default {
         item.count = res[item.key + 'Count']
       })
     })
-    this.getList()
   },
   methods: {
-    getList() {
-      getListByType({ type: this.countList[this.activeIndex].key }).then((res) => {
+    getList: debounce(function () {
+      if (this.isLoadEnd) return
+      getListByType({
+        pageSize: 10,
+        currentPage: this.currentPage,
+        type: this.countList[this.activeIndex].key
+      }).then((res) => {
         if (!res || !Array.isArray(res.list)) return
-        this.coverList = res.list.map((e) => {
+        const list = res.list.map((e) => {
           return {
             ...e,
             showLookRange: true,
@@ -82,8 +92,12 @@ export default {
             path: e.userDrawPath
           }
         })
+        this.coverList.push(...list)
+        if (this.coverList.length >= res.total) {
+          this.isLoadEnd = true
+        }
       })
-    },
+    }, 200),
     linkCountInfo(path) {
       this.$router.push({
         path,
@@ -91,6 +105,9 @@ export default {
       })
     },
     selectNavType(index) {
+      this.currentPage = 1
+      this.coverList = []
+      this.isLoadEnd = false
       this.activeIndex = index
       this.getList()
     },

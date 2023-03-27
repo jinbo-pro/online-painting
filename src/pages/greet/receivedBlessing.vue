@@ -12,11 +12,11 @@
         <el-carousel-item v-for="(item, index) in drawingList" :key="index">
           <el-row>
             <el-col :span="14" class="jac">
-              <el-image class="cover_max" fit="cover" :src="item.path" @click="previewCover(item)"></el-image>
+              <el-image class="cover_max" fit="cover" :src="item.userDrawPath" @click="previewCover(item)"></el-image>
             </el-col>
             <el-col :span="10" class="right_content fdc jsb pl-24">
               <div class="jsb">
-                <div class="time_box">Jan 2 - 9, 2023</div>
+                <div class="time_box">{{ item.createDate | enDate }}</div>
               </div>
               <div class="jsb ac">
                 <div class="xs_title">{{ item.title }}</div>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { getDrawInfo } from '@/apiList/api_work'
+import { greetGetById } from '@/apiList/api_v1'
 export default {
   data() {
     return {
@@ -56,7 +56,7 @@ export default {
     }
   },
   created() {
-    this.drawId = this.$route.query.drawId
+    this.greetId = this.$route.query.greetId
     this.getDrawInfo()
   },
   methods: {
@@ -67,7 +67,7 @@ export default {
       this.$router.push('/shoppingMall')
     },
     getDrawInfo() {
-      getDrawInfo(this.drawId).then((res) => {
+      greetGetById({ id: this.greetId }).then((res) => {
         this.drawingList = [res]
       })
     },

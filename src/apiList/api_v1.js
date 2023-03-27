@@ -153,3 +153,7 @@ export function initUserAndGroup(data) {
 export function getModuleSettings(data) {
   return request.postJson('/moduleSettings/getSettings', data)
 }
+/**修改密码 */
+export function updatePSW(data) {
+  return request.postJson('/user/updatePSW', data)
+}

@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="paint_max"
-    :style="`grid-template-columns: repeat(${columns}, ${coverAuto ? 'auto' : 'minmax(26.35vw, 27vw)'})`"
-  >
+  <div class="paint_max">
     <div v-for="(item, index) in list" :key="index" class="mr-16 mb-16">
       <PaintingItem :item="item" :showLookRange="item.showLookRange" @handle="handlePainting" />
     </div>
@@ -44,8 +41,7 @@ export default {
 
 <style lang="scss" scoped>
 .paint_max {
-  display: grid;
-  grid-row-gap: 16px;
-  grid-column-gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
 }
 </style>

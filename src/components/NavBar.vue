@@ -149,7 +149,7 @@ export default {
     async profileHandle(e) {
       const url = e.url
       if (url == 'Sign out') {
-        await this.$confirm('确认退出吗？', '提示', { type: 'warning' })
+        await this.$confirm('Are you sure to exit?', 'Tips', { type: 'warning' })
         await userLogout({})
         local.clear()
         location.reload()

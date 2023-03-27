@@ -21,11 +21,11 @@
         <el-carousel-item v-for="(item, index) in drawingList" :key="index">
           <el-row>
             <el-col :span="14" class="jac">
-              <el-image class="cover_max" fit="contain" :src="item.path" @click="previewCover(item)"></el-image>
+              <el-image class="cover_max" fit="contain" :src="item.userDrawPath" @click="previewCover(item)"></el-image>
             </el-col>
             <el-col :span="10" class="right_content fdc jsb pl-24">
               <div class="jsb">
-                <div class="time_box">Jan 2 - 9, 2023</div>
+                <div class="time_box">{{ item.createDate | enDate }}</div>
               </div>
               <div class="jsb ac">
                 <div class="xs_title">{{ item.title }}</div>
@@ -37,7 +37,7 @@
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">
-                <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
+                <el-avatar :size="40" :src="item.userDrawPath" class="item_head mr-16"></el-avatar>
                 <div>
                   <div>{{ item.userName }}</div>
                   <div class="f12 name_msg">{{ item.userName }}</div>
@@ -69,22 +69,22 @@
 
 <script>
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
-import { getDrawInfo } from '@/apiList/api_work'
+import { greetGetById } from '@/apiList/api_v1'
 export default {
   components: {
     ScrollCoverList
   },
   data() {
     return {
-      drawId: '',
+      greetId: '',
       lookRange: false,
       activeIndex: 0,
       drawingList: []
     }
   },
   created() {
-    this.drawId = this.$route.query.drawId
-    getDrawInfo(this.drawId).then((res) => {
+    this.greetId = this.$route.query.greetId
+    greetGetById({ id: this.greetId }).then((res) => {
       this.drawingList = [res]
     })
   },

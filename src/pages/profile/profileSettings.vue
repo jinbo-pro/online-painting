@@ -10,13 +10,13 @@
     <div class="xs_title">Update Passwords</div>
     <div>
       <div class="item_input">
-        <el-input v-model="formData.currentPassword" placeholder="Current passwords"></el-input>
+        <el-input type="password" v-model="currentPassword" placeholder="Current passwords"></el-input>
       </div>
       <div class="item_input">
-        <el-input v-model="formData.newPasswords" placeholder="New passwords"></el-input>
+        <el-input type="password" v-model="newPasswords" placeholder="New passwords"></el-input>
       </div>
       <div class="item_input">
-        <el-input v-model="formData.confirmNewPasswords" placeholder="Confirm new passwords"></el-input>
+        <el-input type="password" v-model="confirmNewPasswords" placeholder="Confirm new passwords"></el-input>
       </div>
     </div>
     <div class="mt-32">
@@ -27,6 +27,9 @@
 
 <script>
 import SelectLang from '@/components/SelectLang.vue'
+import { local } from '@/utils/storage'
+import { updatePSW } from '@/apiList/api_v1'
+import { userLogout } from '@/apiList/api_work'
 export default {
   components: {
     SelectLang
@@ -34,17 +37,32 @@ export default {
   data() {
     return {
       isPublic: false,
-      formData: {
-        currentPassword: '',
-        newPasswords: '',
-        confirmNewPasswords: ''
-      }
+
+      currentPassword: '',
+      newPasswords: '',
+      confirmNewPasswords: ''
     }
   },
   created() {},
   methods: {
-    saveSettings() {
-      console.log(this.formData, this.isPublic, '-->>> 678')
+    async saveSettings() {
+      const u = local.get('userInfo')
+      if (!this.currentPassword) return this.$message.error('Please enter the original password')
+      if (!this.newPasswords) return this.$message.error('Please enter a new password')
+      if (this.newPasswords != this.confirmNewPasswords) return this.$message.error('The two inputs are inconsistent')
+
+      await updatePSW({
+        userId: u.id,
+        oldPassword: this.currentPassword,
+        newPassword: this.newPasswords
+      })
+      await this.$confirm('Password successfully modified, please log in again', 'Tips', {
+        type: 'warning',
+        showCancelButton: false
+      })
+      await userLogout({})
+      local.clear()
+      location.reload()
     }
   }
 }
