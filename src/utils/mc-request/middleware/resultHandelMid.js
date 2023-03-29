@@ -2,6 +2,8 @@ import { resultSuccess, resultError } from '../utils'
 import { local } from '@/utils/storage'
 import { MessageBox } from 'element-ui'
 
+let showLoginOut = false
+
 /**响应数据处理中间件 */
 export const resultHandelMid = async function (ctx, next) {
   const options = ctx.req.options
@@ -37,7 +39,11 @@ export const resultHandelMid = async function (ctx, next) {
   if (code === 0) {
     return resultSuccess(ctx, res.result || res.data)
   } else if (res.result?.code == 10000) {
+    if (showLoginOut) return resultError(ctx, 'debounce', '已显示登出弹窗')
+    showLoginOut = true
+    
     return MessageBox.alert('登录失效请重新登录').then(() => {
+      showLoginOut = false
       local.clear()
       location.reload()
     })

@@ -133,3 +133,31 @@ export function debounce(func, wait, immediate) {
     return result
   }
 }
+function getBase64Name(base64) {
+  const [n] = base64.split(';')
+  return n.replace(/:/, '_').replace(/\//, '.')
+}
+function downFileByUrl(imgUrl, fileName) {
+  const a = document.createElement('a')
+  a.href = imgUrl
+  // 默认截取 url 末尾为文件名
+  a.download = fileName || imgUrl.split('/').slice(-1)[0]
+  a.click()
+}
+/**
+ * base64 图片下载
+ * @param {string} base64
+ */
+export function base64FileDown(base64) {
+  let arr = base64.split(','),
+    mime = arr[0].match(/:(.*?);/)[1],
+    bstr = atob(arr[1]),
+    n = bstr.length,
+    u8arr = new Uint8Array(n)
+  while (n--) {
+    u8arr[n] = bstr.charCodeAt(n)
+  }
+  const blob = new Blob([u8arr], { type: mime })
+  const fileUrl = URL.createObjectURL(blob)
+  downFileByUrl(fileUrl, getBase64Name(base64))
+}

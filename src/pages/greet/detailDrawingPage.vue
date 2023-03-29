@@ -21,7 +21,7 @@
         <el-carousel-item v-for="(item, index) in drawingList" :key="index">
           <el-row>
             <el-col :span="14" class="jac">
-              <el-image class="cover_max" fit="contain" :src="item.userDrawPath" @click="previewCover(item)"></el-image>
+              <el-image class="cover_max" fit="contain" :src="item.draft" @click="previewCover(item)"></el-image>
             </el-col>
             <el-col :span="10" class="right_content fdc jsb pl-24">
               <div class="jsb">
@@ -40,7 +40,7 @@
                 <el-avatar :size="40" :src="item.userDrawPath" class="item_head mr-16"></el-avatar>
                 <div>
                   <div>{{ item.userName }}</div>
-                  <div class="f12 name_msg">{{ item.userName }}</div>
+                  <div class="f12 name_msg">{{ item.name }}</div>
                 </div>
               </div>
             </el-col>
@@ -53,9 +53,9 @@
         <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" />
       </div>
       <div class="right_btn_box mt-32">
-        <div>
+        <!-- <div>
           <el-button class="start_drawing" type="success" @click="orderASwag"> Order a Swag </el-button>
-        </div>
+        </div> -->
         <div>
           <el-button class="start_drawing" @click="share"> Share </el-button>
         </div>
@@ -70,6 +70,7 @@
 <script>
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
 import { greetGetById } from '@/apiList/api_v1'
+import { base64FileDown } from '@/utils/common'
 export default {
   components: {
     ScrollCoverList
@@ -108,11 +109,7 @@ export default {
     },
     download() {
       const cur = this.drawingList[this.activeIndex]
-      const elink = document.createElement('a')
-      elink.style.display = 'none'
-      elink.href = cur.path
-      document.body.appendChild(elink)
-      elink.click()
+      base64FileDown(cur.draft)
     },
     // 点赞/取消点赞
     async starDrawHandle(item) {

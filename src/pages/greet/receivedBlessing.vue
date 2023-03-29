@@ -20,24 +20,24 @@
               </div>
               <div class="jsb ac">
                 <div class="xs_title">{{ item.title }}</div>
-                <div v-if="item.isStar" @click="starDrawHandle(item)">
+                <!-- <div v-if="item.isStar" @click="starDrawHandle(item)">
                   <i class="iconfont icon-aixin1"></i>
                   {{ item.starCount | numberFormat }}
                 </div>
-                <i v-else class="iconfont icon-aixin" @click="starDrawHandle(item)"></i>
+                <i v-else class="iconfont icon-aixin" @click="starDrawHandle(item)"></i> -->
               </div>
               <p class="mb-32">{{ item.content }}</p>
               <div class="ac">
-                <el-avatar :size="40" :src="item.path" class="item_head mr-16"></el-avatar>
+                <el-avatar :size="40" :src="item.photo" class="item_head mr-16"></el-avatar>
                 <div>
                   <div>{{ item.userName }}</div>
                   <div class="f12 name_msg">{{ item.userName }}</div>
                 </div>
               </div>
-              <div class="jsb ac mt-32">
+              <!-- <div class="jsb ac mt-32">
                 <el-button class="start_drawing" type="success" @click="submitHandle(1)"> Say Thanks </el-button>
                 <el-button class="start_drawing" @click="submitHandle(2)"> Order A Swag </el-button>
-              </div>
+              </div> -->
             </el-col>
           </el-row>
         </el-carousel-item>

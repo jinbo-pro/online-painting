@@ -83,7 +83,10 @@ export default {
         currentPage: this.currentPage,
         type: this.countList[this.activeIndex].key
       }).then((res) => {
-        if (!res || !Array.isArray(res.list)) return
+        if (!res || !Array.isArray(res.list)) {
+          this.isLoadEnd = true
+          return
+        }
         const list = res.list.map((e) => {
           return {
             ...e,
