@@ -4,7 +4,14 @@
       <div>
         <div class="jsb ac">
           <div class="mr-16">Make this visible to the company</div>
-          <el-switch v-model="lookRange" active-color="#13ce66"> </el-switch>
+          <el-switch
+            v-model="companyIsView"
+            active-value="1"
+            inactive-value="0"
+            active-color="#13ce66"
+            @change="updateLookSate"
+          >
+          </el-switch>
         </div>
         <div class="foot_msg">Your creation can be seen Alphabet-wide</div>
       </div>
@@ -50,7 +57,7 @@
     </div>
     <div class="foot_cover_list jsb ac">
       <div class="left_cover">
-        <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="path" />
+        <ScrollCoverList :list="drawingList" :current.sync="activeIndex" valueKey="draft" />
       </div>
       <div class="right_btn_box mt-32">
         <!-- <div>
@@ -69,8 +76,9 @@
 
 <script>
 import ScrollCoverList from '@/components/ScrollCoverList.vue'
-import { greetGetById } from '@/apiList/api_v1'
+import { greetGetById, updateIsView } from '@/apiList/api_v1'
 import { base64FileDown } from '@/utils/common'
+import { galleryCancelStar, galleryStar } from '@/apiList/api_work'
 export default {
   components: {
     ScrollCoverList
@@ -78,18 +86,26 @@ export default {
   data() {
     return {
       greetId: '',
-      lookRange: false,
+      companyIsView: '1',
       activeIndex: 0,
       drawingList: []
     }
   },
   created() {
     this.greetId = this.$route.query.greetId
-    greetGetById({ id: this.greetId }).then((res) => {
-      this.drawingList = [res]
-    })
+    this.getDrawInfo()
   },
   methods: {
+    getDrawInfo() {
+      greetGetById({ id: this.greetId }).then((res) => {
+        this.drawingList = [res]
+        this.drawId = res.drawId
+        this.companyIsView = res.companyIsView
+      })
+    },
+    updateLookSate(e) {
+      updateIsView({ id: this.drawId, companyIsView: e })
+    },
     swiperChange(e) {
       this.activeIndex = e
     },
@@ -113,13 +129,13 @@ export default {
     },
     // 点赞/取消点赞
     async starDrawHandle(item) {
-      // const id = item.id
-      // if (item.isStar !== 0) {
-      //   await galleryStar(id)
-      // } else {
-      //   await galleryCancelStar(id)
-      // }
-      // this.getDrawInfo()
+      const id = item.id
+      if (item.isStar !== 0) {
+        await galleryStar(id)
+      } else {
+        await galleryCancelStar(id)
+      }
+      this.getDrawInfo()
       const index = this.drawingList.findIndex((e) => e.id == item.id)
       this.drawingList.splice(index, 1, { ...item, isStar: !item.isStar })
     }
